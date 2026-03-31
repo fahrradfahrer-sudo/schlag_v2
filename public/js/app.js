@@ -222,70 +222,173 @@ function zoomToField(id) {
 const fileInput = document.getElementById('file-import');
 
 fileInput.onchange = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
+    const files = Array.from(event.target.files);
+    if (files.length === 0) return;
 
-    const extension = file.name.split('.').pop().toLowerCase();
-    const reader = new FileReader();
+    // Group files by base name for SHP (not zip) handling
+    const fileGroups = {};
+    files.forEach(file => {
+        const nameParts = file.name.split('.');
+        const ext = nameParts.pop().toLowerCase();
+        const base = nameParts.join('.');
+        if (!fileGroups[base]) fileGroups[base] = {};
+        fileGroups[base][ext] = file;
+    });
 
-    if (extension === 'kml') {
+    for (const base in fileGroups) {
+        const group = fileGroups[base];
+
+        if (group.kml) {
+            await handleKML(group.kml);
+        } else if (group.zip) {
+            await handleZip(group.zip);
+        } else if (group.shp) {
+            await handleShp(group);
+        } else if (group.xml && base.toUpperCase() === 'TASKDATA') {
+            await handleISOXML(group.xml);
+        }
+    }
+    loadFields();
+    fileInput.value = ''; // Reset input
+};
+
+async function handleKML(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
         reader.onload = async (e) => {
             const kmlText = e.target.result;
             const parser = new DOMParser();
             const kmlDoc = parser.parseFromString(kmlText, 'text/xml');
             const geojson = toGeoJSON.kml(kmlDoc);
+            await saveGeoJSONFeatures(geojson, 'Imported Field');
+            resolve();
+        };
+        reader.readAsText(file);
+    });
+}
 
-            // Process GeoJSON features
-            for (const feature of geojson.features) {
-                if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
+async function handleZip(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                const geojson = await shp(e.target.result);
+                await saveGeoJSONFeatures(geojson, 'Imported Shape');
+            } catch (err) {
+                console.error(err);
+                alert('Error parsing Shapefile Zip.');
+            }
+            resolve();
+        };
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+async function handleShp(group) {
+    try {
+        const shpBuffer = await group.shp.arrayBuffer();
+        const dbfBuffer = group.dbf ? await group.dbf.arrayBuffer() : null;
+
+        const geojson = await shp.combine([
+            shp.parseShp(shpBuffer),
+            dbfBuffer ? shp.parseDbf(dbfBuffer) : null
+        ]);
+        await saveGeoJSONFeatures(geojson, 'Imported Shape');
+    } catch (err) {
+        console.error(err);
+        alert('Error parsing individual Shapefiles.');
+    }
+}
+
+async function handleISOXML(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const xmlText = e.target.result;
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+
+            // ISOXML (ISO 11783-10) TASKDATA.XML parsing
+            // We look for Partfield (PFD) elements which contain polygon data in LineString (LSG)
+            const partFields = xmlDoc.getElementsByTagName('PFD');
+            for (let i = 0; i < partFields.length; i++) {
+                const pfd = partFields[i];
+                const name = pfd.getAttribute('C') || 'ISOXML Field';
+
+                const lineStrings = pfd.getElementsByTagName('LSG');
+                const polygons = [];
+                let currentPolygon = null;
+
+                for (let j = 0; j < lineStrings.length; j++) {
+                    const lsg = lineStrings[j];
+                    const type = lsg.getAttribute('A'); // 1: Polygon Exterior, 2: Polygon Interior
+
+                    if (type === '1' || type === '2') {
+                        const points = lsg.getElementsByTagName('PNT');
+                        const ring = [];
+                        for (let k = 0; k < points.length; k++) {
+                            const lat = parseFloat(points[k].getAttribute('C'));
+                            const lng = parseFloat(points[k].getAttribute('D'));
+                            if (!isNaN(lat) && !isNaN(lng)) {
+                                ring.push([lng, lat]);
+                            }
+                        }
+
+                        if (ring.length > 0) {
+                            // Ensure ring is closed for GeoJSON
+                            if (ring[0][0] !== ring[ring.length-1][0] || ring[0][1] !== ring[ring.length-1][1]) {
+                                ring.push(ring[0]);
+                            }
+
+                            if (type === '1') {
+                                if (currentPolygon) polygons.push(currentPolygon);
+                                currentPolygon = [ring];
+                            } else if (type === '2' && currentPolygon) {
+                                currentPolygon.push(ring);
+                            }
+                        }
+                    }
+                }
+                if (currentPolygon) polygons.push(currentPolygon);
+
+                if (polygons.length > 0) {
+                    const geometry = polygons.length === 1
+                        ? { type: 'Polygon', coordinates: polygons[0] }
+                        : { type: 'MultiPolygon', coordinates: polygons };
+
                     await fetch('api/fields.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            name: feature.properties.name || 'Imported Field',
-                            notes: feature.properties.description || '',
-                            geometry: JSON.stringify(feature.geometry)
+                            name: name,
+                            notes: 'Imported from ISOXML',
+                            geometry: JSON.stringify(geometry)
                         })
                     });
                 }
             }
-            loadFields();
-            alert('KML fields imported successfully!');
+            resolve();
         };
         reader.readAsText(file);
-    } else if (extension === 'zip') {
-        reader.onload = async (e) => {
-            const buffer = e.target.result;
-            try {
-                const geojson = await shp(buffer);
-                // shpjs may return a single GeoJSON or an array if there are multiple layers
-                const features = Array.isArray(geojson) ? geojson.flatMap(g => g.features) : geojson.features;
+    });
+}
 
-                for (const feature of features) {
-                    if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
-                        await fetch('api/fields.php', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                name: feature.properties.name || 'Imported Shape',
-                                notes: '',
-                                geometry: JSON.stringify(feature.geometry)
-                            })
-                        });
-                    }
-                }
-                loadFields();
-                alert('Shapefile fields imported successfully!');
-            } catch (err) {
-                console.error(err);
-                alert('Error parsing Shapefile. Ensure it is a valid zip containing .shp, .dbf, etc.');
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    } else {
-        alert('Unsupported file format. Please use .kml or .zip (for SHP).');
+async function saveGeoJSONFeatures(geojson, defaultName) {
+    const features = Array.isArray(geojson) ? geojson.flatMap(g => g.features) : geojson.features;
+    for (const feature of features) {
+        if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
+            await fetch('api/fields.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: feature.properties.name || feature.properties.NAM || defaultName,
+                    notes: feature.properties.description || '',
+                    geometry: JSON.stringify(feature.geometry)
+                })
+            });
+        }
     }
-};
+}
 
 // Initial Load
 loadFields();
