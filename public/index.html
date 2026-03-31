@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Management System</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet Draw CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>AgriField Manager</h1>
+        <div id="user-info">Farmer Overview</div>
+    </header>
+    <div id="container">
+        <aside id="sidebar">
+            <div class="import-section">
+                <h3>Import Fields</h3>
+                <p>Support for KML, SHP (Zip)</p>
+                <input type="file" id="file-import" accept=".kml,.zip" style="display: none;">
+                <button class="btn-success" onclick="document.getElementById('file-import').click()">Upload File</button>
+            </div>
+            <div id="field-list-container">
+                <h3>My Fields</h3>
+                <div id="field-list">
+                    <!-- Fields will be listed here -->
+                </div>
+            </div>
+        </aside>
+        <main id="map"></main>
+    </div>
+
+    <!-- Modals -->
+    <div id="field-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Field Details</h3>
+            <input type="hidden" id="field-id">
+            <div style="margin-bottom: 10px;">
+                <label>Name:</label><br>
+                <input type="text" id="field-name" style="width: 100%;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label>Notes:</label><br>
+                <textarea id="field-notes" style="width: 100%;"></textarea>
+            </div>
+            <button class="btn-primary" id="save-field-btn">Save</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <!-- togeojson for KML -->
+    <script src="https://unpkg.com/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
+    <!-- shpjs for Shapefiles -->
+    <script src="https://unpkg.com/shpjs@4.0.4/dist/shp.js"></script>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
