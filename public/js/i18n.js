@@ -94,10 +94,6 @@ function setLanguage(lang) {
 function applyTranslations() {
     const t = translations[currentLang];
 
-    // Update elements with text content matching translation keys
-    // For simplicity, we'll manually update key elements or use data attributes
-
-    // Manual mapping for now
     const map = {
         'header-title': t['header-title'],
         'farmer-overview-text': t['farmer-overview'],
@@ -129,7 +125,6 @@ function applyTranslations() {
         if (el) el.textContent = map[id];
     }
 
-    // Update placeholders
     const cropInput = document.getElementById('field-crop');
     if (cropInput) cropInput.placeholder = t['placeholder-crop'];
 
@@ -145,13 +140,6 @@ function applyTranslations() {
     const yearLabel = document.getElementById('label-year');
     if (yearLabel) yearLabel.textContent = t['mgmt-year'];
 
-    // Update total area if it exists
-    const areaDisplay = document.getElementById('total-area-display');
-    if (areaDisplay) {
-        // This will be handled in loadFields but we can set a template
-    }
-
-    // Custom logic for titles/headings that might be different
     const mainHeader = document.querySelector('header h1');
     if (mainHeader) {
         if (window.location.pathname.includes('field.html')) {
@@ -162,7 +150,6 @@ function applyTranslations() {
     }
 }
 
-// Helper to get translated string
 function _t(key, replacements = {}) {
     let str = translations[currentLang][key] || key;
     for (let k in replacements) {

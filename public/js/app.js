@@ -71,6 +71,12 @@ function calculateArea(geometry) {
 async function loadFields(autoZoom = false) {
     const response = await fetch('api/fields.php');
     const fields = await response.json();
+
+    if (!Array.isArray(fields)) {
+        console.error('Expected array of fields, got:', fields);
+        return;
+    }
+
     loadedFields = fields;
 
     drawnItems.clearLayers();
@@ -79,10 +85,12 @@ async function loadFields(autoZoom = false) {
 
     let totalArea = 0;
 
-    fields.forEach(field => {
+    for (const field of fields) {
         const geojson = JSON.parse(field.geometry);
         const area = calculateArea(geojson);
         totalArea += parseFloat(area);
+
+        const crop = field.crop || '';
 
         L.geoJSON(geojson, {
             onEachFeature: (feature, layer) => {
@@ -93,10 +101,10 @@ async function loadFields(autoZoom = false) {
                 b.textContent = field.name + " (" + area + " ha)";
                 popupContent.appendChild(b);
                 popupContent.appendChild(document.createElement('br'));
-                if (field.crop) {
+                if (crop) {
                     const cropP = document.createElement('p');
                     cropP.style.margin = "0";
-                    cropP.textContent = "Crop: " + field.crop;
+                    cropP.textContent = (_t('label-crop') || "Crop:") + " " + crop;
                     popupContent.appendChild(cropP);
                 }
                 popupContent.appendChild(document.createTextNode(field.notes || ''));
@@ -114,11 +122,11 @@ async function loadFields(autoZoom = false) {
         title.textContent = `${field.name} (${area} ha)`;
         item.appendChild(title);
 
-        if (field.crop) {
+        if (crop) {
             const cropInfo = document.createElement('div');
             cropInfo.style.fontSize = '0.9em';
             cropInfo.style.marginBottom = '5px';
-            cropInfo.textContent = "Crop: " + field.crop;
+            cropInfo.textContent = (_t('label-crop') || "Crop:") + " " + crop;
             item.appendChild(cropInfo);
         }
 
@@ -146,7 +154,7 @@ async function loadFields(autoZoom = false) {
         item.appendChild(actions);
 
         listElement.appendChild(item);
-    });
+    }
 
     document.getElementById('total-area-display').textContent = _t('total-area', {area: totalArea.toFixed(2)});
 
@@ -179,13 +187,7 @@ map.on(L.Draw.Event.EDITED, function (e) {
                     name: field.name,
                     notes: field.notes,
                     geometry: JSON.stringify(updatedGeometry),
-                    area: calculateArea(updatedGeometry),
-                    crop: field.crop,
-                    seeding: field.seeding,
-                    fertilizing: field.fertilizing,
-                    spraying: field.spraying,
-                    tilling: field.tilling,
-                    harvesting: field.harvesting
+                    area: calculateArea(updatedGeometry)
                 })
             });
         }
@@ -198,12 +200,6 @@ const modalTitle = document.getElementById('modal-title');
 const fieldIdInput = document.getElementById('field-id');
 const fieldNameInput = document.getElementById('field-name');
 const fieldNotesInput = document.getElementById('field-notes');
-const fieldCropInput = document.getElementById('field-crop');
-const fieldSeedingInput = document.getElementById('field-seeding');
-const fieldFertilizingInput = document.getElementById('field-fertilizing');
-const fieldSprayingInput = document.getElementById('field-spraying');
-const fieldTillingInput = document.getElementById('field-tilling');
-const fieldHarvestingInput = document.getElementById('field-harvesting');
 const saveBtn = document.getElementById('save-field-btn');
 
 function openModal(title, fieldData) {
@@ -212,22 +208,10 @@ function openModal(title, fieldData) {
         fieldIdInput.value = fieldData.id;
         fieldNameInput.value = fieldData.name || '';
         fieldNotesInput.value = fieldData.notes || '';
-        fieldCropInput.value = fieldData.crop || '';
-        fieldSeedingInput.value = fieldData.seeding || '';
-        fieldFertilizingInput.value = fieldData.fertilizing || '';
-        fieldSprayingInput.value = fieldData.spraying || '';
-        fieldTillingInput.value = fieldData.tilling || '';
-        fieldHarvestingInput.value = fieldData.harvesting || '';
     } else {
         fieldIdInput.value = '';
         fieldNameInput.value = '';
         fieldNotesInput.value = '';
-        fieldCropInput.value = '';
-        fieldSeedingInput.value = '';
-        fieldFertilizingInput.value = '';
-        fieldSprayingInput.value = '';
-        fieldTillingInput.value = '';
-        fieldHarvestingInput.value = '';
     }
     modal.style.display = 'block';
 }
@@ -242,17 +226,11 @@ saveBtn.onclick = async () => {
     const id = fieldIdInput.value;
     const data = {
         name: fieldNameInput.value,
-        notes: fieldNotesInput.value,
-        crop: fieldCropInput.value,
-        seeding: fieldSeedingInput.value,
-        fertilizing: fieldFertilizingInput.value,
-        spraying: fieldSprayingInput.value,
-        tilling: fieldTillingInput.value,
-        harvesting: fieldHarvestingInput.value
+        notes: fieldNotesInput.value
     };
 
     if (!data.name) {
-        alert("Please enter a name");
+        alert(_t('alert-name'));
         return;
     }
 

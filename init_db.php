@@ -54,10 +54,6 @@ try {
         $currentYear = (int)date('Y');
         $pdo->exec("INSERT OR IGNORE INTO field_records (field_id, year, crop, spraying, fertilizing, tilling, harvesting, seeding, notes)
                     SELECT id, $currentYear, crop, spraying, fertilizing, tilling, harvesting, seeding, notes FROM fields");
-
-        // Optionally drop columns from fields table.
-        // In SQLite this requires creating a new table and copying data.
-        // For simplicity, we just leave them there but they won't be used by the new API.
     }
 
     echo "Database and fields table initialized/updated successfully.\n";

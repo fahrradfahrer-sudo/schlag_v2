@@ -16,13 +16,21 @@ try {
     switch ($method) {
         case 'GET':
             $id = $_GET['id'] ?? null;
+            $year = (int)date('Y');
             if ($id) {
-                $stmt = $pdo->prepare("SELECT id, name, geometry, notes, area, created_at FROM fields WHERE id = ?");
-                $stmt->execute([$id]);
+                $stmt = $pdo->prepare("SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at, r.crop
+                                      FROM fields f
+                                      LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
+                                      WHERE f.id = ?");
+                $stmt->execute([$year, $id]);
                 $field = $stmt->fetch(PDO::FETCH_ASSOC);
                 echo json_encode($field);
             } else {
-                $stmt = $pdo->query("SELECT id, name, geometry, notes, area, created_at FROM fields ORDER BY created_at DESC");
+                $stmt = $pdo->prepare("SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at, r.crop
+                                      FROM fields f
+                                      LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
+                                      ORDER BY f.created_at DESC");
+                $stmt->execute([$year]);
                 $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo json_encode($fields);
             }

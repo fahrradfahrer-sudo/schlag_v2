@@ -14,7 +14,6 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $api_url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-// The PSM-API seems to allow all origins based on previous curl -I check
 $response = curl_exec($ch);
 curl_close($ch);
 
