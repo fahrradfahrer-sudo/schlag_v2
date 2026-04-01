@@ -127,17 +127,17 @@ async function loadFields(autoZoom = false) {
 
         const zoomBtn = document.createElement('button');
         zoomBtn.className = 'btn-primary';
-        zoomBtn.textContent = 'Zoom';
+        zoomBtn.textContent = _t('btn-zoom');
         zoomBtn.onclick = () => zoomToField(field.id);
 
         const editBtn = document.createElement('button');
         editBtn.className = 'btn-success';
-        editBtn.textContent = 'Edit/Info';
-        editBtn.onclick = () => openModal('Field Information', field);
+        editBtn.textContent = _t('btn-edit');
+        editBtn.onclick = () => window.location.href = `field.html?id=${field.id}`;
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn-danger';
-        deleteBtn.textContent = 'Delete';
+        deleteBtn.textContent = _t('btn-delete');
         deleteBtn.onclick = () => deleteField(field.id);
 
         actions.appendChild(zoomBtn);
@@ -148,7 +148,7 @@ async function loadFields(autoZoom = false) {
         listElement.appendChild(item);
     });
 
-    document.getElementById('total-area-display').textContent = `Total Area: ${totalArea.toFixed(2)} ha`;
+    document.getElementById('total-area-display').textContent = _t('total-area', {area: totalArea.toFixed(2)});
 
     if (autoZoom && fields.length > 0) {
         zoomToAllFields();
@@ -287,7 +287,7 @@ saveBtn.onclick = async () => {
 };
 
 async function deleteField(id) {
-    if (confirm('Are you sure you want to delete this field?')) {
+    if (confirm(_t('confirm-delete'))) {
         await fetch(`api/fields.php?id=${id}`, {
             method: 'DELETE'
         });
@@ -311,7 +311,7 @@ function zoomToAllFields() {
 
 function exportISOXML() {
     if (loadedFields.length === 0) {
-        alert("No fields to export.");
+        alert(_t('no-fields-export'));
         return;
     }
 

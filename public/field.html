@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Field Details - AgriField Manager</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        #container { display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
+        header { flex-shrink: 0; }
+        .main-content { padding: 20px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        #field-map-preview { height: 300px; width: 100%; margin-bottom: 20px; border-radius: 8px; }
+        .field-form { background: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .lang-switch { position: absolute; top: 10px; right: 20px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="header-title">Field Details</h1>
+        <div class="lang-switch">
+            <button onclick="setLanguage('en')">EN</button>
+            <button onclick="setLanguage('de')">DE</button>
+        </div>
+        <div id="user-info"><a href="index.html" style="color: white; text-decoration: none;" id="back-link">← Back to Map</a></div>
+    </header>
+    <div id="container">
+        <main class="main-content">
+            <div id="field-map-preview"></div>
+            <div class="field-form">
+                <input type="hidden" id="field-id">
+                <div class="form-group">
+                    <label id="label-name">Field Name:</label>
+                    <input type="text" id="field-name">
+                </div>
+                <div class="form-group">
+                    <label id="label-crop">Crop:</label>
+                    <input type="text" id="field-crop" placeholder="e.g. Wheat, Corn">
+                </div>
+                <div class="form-group">
+                    <label id="label-seeding">Seeding Details:</label>
+                    <textarea id="field-seeding" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label id="label-fertilizing">Fertilizing Details:</label>
+                    <textarea id="field-fertilizing" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label id="label-spraying">Spraying Details:</label>
+                    <textarea id="field-spraying" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label id="label-tilling">Tilling Details:</label>
+                    <textarea id="field-tilling" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label id="label-harvesting">Harvesting Details:</label>
+                    <textarea id="field-harvesting" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label id="label-notes">General Notes:</label>
+                    <textarea id="field-notes" rows="3"></textarea>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-primary" id="save-btn" onclick="saveField()">Save Changes</button>
+                    <button class="btn-danger" id="delete-btn" onclick="deleteField()">Delete Field</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/field.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Field Management System</title>
+    <title id="page-title">Field Management System</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- Leaflet Draw CSS -->
@@ -47,28 +47,32 @@
 </head>
 <body>
     <header>
-        <h1>AgriField Manager</h1>
-        <div id="user-info">Farmer Overview</div>
+        <h1 id="header-title">AgriField Manager</h1>
+        <div class="lang-switch">
+            <button onclick="setLanguage('en')">EN</button>
+            <button onclick="setLanguage('de')">DE</button>
+        </div>
+        <div id="user-info"><span id="farmer-overview-text">Farmer Overview</span></div>
     </header>
     <div id="container">
         <aside id="sidebar">
             <div class="field-overview-header">
-                <h3>Field Overview</h3>
+                <h3 id="field-overview-title">Field Overview</h3>
                 <div class="btn-group">
-                    <button class="btn-primary" onclick="zoomToAllFields()">Zoom All</button>
-                    <button class="btn-success" onclick="exportISOXML()">Export ISOXML</button>
+                    <button class="btn-primary" id="zoom-all-btn" onclick="zoomToAllFields()">Zoom All</button>
+                    <button class="btn-success" id="export-btn" onclick="exportISOXML()">Export ISOXML</button>
                 </div>
                 <div class="total-area" id="total-area-display">Total Area: 0.00 ha</div>
             </div>
 
             <div class="import-section">
-                <h3>Import Fields</h3>
+                <h3 id="import-title">Import Fields</h3>
                 <input type="file" id="file-import" accept=".kml,.zip,.shp,.shx,.dbf,.prj,.xml" multiple style="display: none;">
-                <button class="btn-success" style="width: 100%;" onclick="document.getElementById('file-import').click()">Upload File</button>
+                <button class="btn-success" id="upload-btn" style="width: 100%;" onclick="document.getElementById('file-import').click()">Upload File</button>
             </div>
 
             <div id="field-list-container">
-                <h3>My Fields</h3>
+                <h3 id="my-fields-title">My Fields</h3>
                 <div id="field-list">
                     <!-- Fields will be listed here -->
                 </div>
@@ -84,11 +88,11 @@
             <div class="modal-body">
                 <input type="hidden" id="field-id">
                 <div class="form-group">
-                    <label>Field Name:</label>
+                    <label id="label-name">Field Name:</label>
                     <input type="text" id="field-name">
                 </div>
                 <div class="form-group">
-                    <label>Crop:</label>
+                    <label id="label-crop">Crop:</label>
                     <input type="text" id="field-crop" placeholder="e.g. Wheat, Corn">
                 </div>
                 <div class="form-group">
@@ -118,7 +122,7 @@
             </div>
             <div style="margin-top: 15px;">
                 <button class="btn-primary" id="save-field-btn">Save</button>
-                <button onclick="closeModal()">Cancel</button>
+                <button id="cancel-btn" onclick="closeModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -133,6 +137,7 @@
     <!-- shpjs for Shapefiles -->
     <script src="https://unpkg.com/shpjs@4.0.4/dist/shp.js"></script>
 
+    <script src="js/i18n.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
