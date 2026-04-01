@@ -1,8 +1,8 @@
 // Initialize Map
 const map = L.map('map').setView([51.1657, 10.4515], 6); // Germany center
 
-// Google Satellite Basemap (Leaflet TileLayer)
-const googleSatellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+// Google Hybrid Basemap (Satellite with labels)
+const googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     attribution: '&copy; Google'

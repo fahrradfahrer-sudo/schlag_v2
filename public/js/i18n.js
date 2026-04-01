@@ -33,7 +33,12 @@ const translations = {
         'alert-name': 'Please enter a name',
         'no-fields-export': 'No fields to export.',
         'error-parsing': 'Error parsing file: ',
-        'field-details-title': 'Field Details'
+        'field-details-title': 'Field Details',
+        'psm-search-placeholder': 'Search product...',
+        'psm-choose-option': '-- Choose product --',
+        'btn-psm-search': 'Search',
+        'mgmt-year': 'Management Year:',
+        'export-csv': 'Export CSV'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -69,7 +74,12 @@ const translations = {
         'alert-name': 'Bitte geben Sie einen Namen ein',
         'no-fields-export': 'Keine Felder zum Exportieren vorhanden.',
         'error-parsing': 'Fehler beim Parsen der Datei: ',
-        'field-details-title': 'Felddetails'
+        'field-details-title': 'Felddetails',
+        'psm-search-placeholder': 'Produkt suchen...',
+        'psm-choose-option': '-- Produkt wählen --',
+        'btn-psm-search': 'Suchen',
+        'mgmt-year': 'Wirtschaftsjahr:',
+        'export-csv': 'CSV Export'
     }
 };
 
@@ -111,6 +121,7 @@ function applyTranslations() {
         'back-link': t['back-link'],
         'save-btn': t['btn-save-changes'],
         'delete-btn': t['btn-delete-field'],
+        'export-csv-btn': t['export-csv']
     };
 
     for (let id in map) {
@@ -121,6 +132,18 @@ function applyTranslations() {
     // Update placeholders
     const cropInput = document.getElementById('field-crop');
     if (cropInput) cropInput.placeholder = t['placeholder-crop'];
+
+    const psmSearchInput = document.getElementById('psm-search');
+    if (psmSearchInput) psmSearchInput.placeholder = t['psm-search-placeholder'];
+
+    const psmChooseOption = document.querySelector('#psm-select option[value=""]');
+    if (psmChooseOption) psmChooseOption.textContent = t['psm-choose-option'];
+
+    const psmSearchBtn = document.querySelector('button[onclick="searchPSM()"]');
+    if (psmSearchBtn) psmSearchBtn.textContent = t['btn-psm-search'];
+
+    const yearLabel = document.getElementById('label-year');
+    if (yearLabel) yearLabel.textContent = t['mgmt-year'];
 
     // Update total area if it exists
     const areaDisplay = document.getElementById('total-area-display');

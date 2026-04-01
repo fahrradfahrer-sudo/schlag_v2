@@ -34,6 +34,14 @@
             <div id="field-map-preview"></div>
             <div class="field-form">
                 <input type="hidden" id="field-id">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label id="label-year">Management Year:</label>
+                        <select id="mgmt-year-select" onchange="loadYearlyRecord()"></select>
+                    </div>
+                    <button class="btn-success" id="export-csv-btn" onclick="exportCSV()">Export CSV</button>
+                </div>
+                <hr>
                 <div class="form-group">
                     <label id="label-name">Field Name:</label>
                     <input type="text" id="field-name">
@@ -52,6 +60,13 @@
                 </div>
                 <div class="form-group">
                     <label id="label-spraying">Spraying Details:</label>
+                    <div style="display: flex; gap: 5px; margin-bottom: 5px;">
+                        <input type="text" id="psm-search" placeholder="Search product..." style="flex: 1;">
+                        <button type="button" onclick="searchPSM()">Search</button>
+                    </div>
+                    <select id="psm-select" style="width: 100%; margin-bottom: 5px;" onchange="addPSMToDetails()">
+                        <option value="">-- Choose product --</option>
+                    </select>
                     <textarea id="field-spraying" rows="3"></textarea>
                 </div>
                 <div class="form-group">
