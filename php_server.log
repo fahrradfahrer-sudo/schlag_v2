@@ -1,0 +1,37 @@
+[Wed Apr  1 07:37:30 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Wed Apr  1 07:37:33 2026] [::1]:41476 Accepted
+[Wed Apr  1 07:37:33 2026] [::1]:41476 [200]: GET /
+[Wed Apr  1 07:37:33 2026] [::1]:41476 Closing
+[Wed Apr  1 07:37:33 2026] [::1]:41482 Accepted
+[Wed Apr  1 07:37:33 2026] [::1]:41486 Accepted
+[Wed Apr  1 07:37:33 2026] [::1]:41482 [200]: GET /css/style.css
+[Wed Apr  1 07:37:33 2026] [::1]:41482 Closing
+[Wed Apr  1 07:37:33 2026] [::1]:41486 [200]: GET /js/app.js
+[Wed Apr  1 07:37:33 2026] [::1]:41486 Closing
+[Wed Apr  1 07:37:33 2026] [::1]:41488 Accepted
+[Wed Apr  1 07:37:33 2026] [::1]:41488 [200]: GET /api/fields.php
+[Wed Apr  1 07:37:33 2026] [::1]:41488 Closing
+[Wed Apr  1 07:37:33 2026] [::1]:41500 Accepted
+[Wed Apr  1 07:37:33 2026] [::1]:41500 [200]: DELETE /api/fields.php
+[Wed Apr  1 07:37:33 2026] [::1]:41500 Closing
+[Wed Apr  1 07:37:33 2026] [::1]:41502 Accepted
+[Wed Apr  1 07:37:33 2026] [::1]:41502 [200]: GET /api/fields.php
+[Wed Apr  1 07:37:33 2026] [::1]:41502 Closing
+[Wed Apr  1 07:37:34 2026] [::1]:41508 Accepted
+[Wed Apr  1 07:37:34 2026] [::1]:41508 [200]: POST /api/fields.php
+[Wed Apr  1 07:37:34 2026] [::1]:41508 Closing
+[Wed Apr  1 07:37:34 2026] [::1]:41512 Accepted
+[Wed Apr  1 07:37:34 2026] [::1]:41512 [200]: GET /api/fields.php
+[Wed Apr  1 07:37:34 2026] [::1]:41512 Closing
+[Wed Apr  1 07:37:34 2026] [::1]:41526 Accepted
+[Wed Apr  1 07:37:34 2026] [::1]:41526 [200]: POST /api/fields.php
+[Wed Apr  1 07:37:34 2026] [::1]:41526 Closing
+[Wed Apr  1 07:37:34 2026] [::1]:41532 Accepted
+[Wed Apr  1 07:37:34 2026] [::1]:41532 [200]: GET /api/fields.php
+[Wed Apr  1 07:37:34 2026] [::1]:41532 Closing
+[Wed Apr  1 07:37:34 2026] [::1]:41544 Accepted
+[Wed Apr  1 07:37:34 2026] [::1]:41544 [200]: POST /api/fields.php
+[Wed Apr  1 07:37:34 2026] [::1]:41544 Closing
+[Wed Apr  1 07:37:34 2026] [::1]:41560 Accepted
+[Wed Apr  1 07:37:34 2026] [::1]:41560 [200]: GET /api/fields.php
+[Wed Apr  1 07:37:34 2026] [::1]:41560 Closing

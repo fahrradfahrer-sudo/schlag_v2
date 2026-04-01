@@ -24,8 +24,19 @@ try {
                 echo json_encode(["error" => "Missing name or geometry"]);
                 break;
             }
-            $stmt = $pdo->prepare("INSERT INTO fields (name, geometry, notes) VALUES (?, ?, ?)");
-            $stmt->execute([$data['name'], $data['geometry'], $data['notes'] ?? '']);
+            $stmt = $pdo->prepare("INSERT INTO fields (name, geometry, notes, area, crop, spraying, fertilizing, tilling, harvesting, seeding) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $data['name'],
+                $data['geometry'],
+                $data['notes'] ?? '',
+                $data['area'] ?? 0,
+                $data['crop'] ?? '',
+                $data['spraying'] ?? '',
+                $data['fertilizing'] ?? '',
+                $data['tilling'] ?? '',
+                $data['harvesting'] ?? '',
+                $data['seeding'] ?? ''
+            ]);
             echo json_encode(["id" => $pdo->lastInsertId(), "status" => "success"]);
             break;
 
@@ -37,20 +48,31 @@ try {
                 break;
             }
             $data = json_decode(file_get_contents("php://input"), true);
-            $stmt = $pdo->prepare("UPDATE fields SET name = ?, geometry = ?, notes = ? WHERE id = ?");
-            $stmt->execute([$data['name'], $data['geometry'], $data['notes'] ?? '', $id]);
+            $stmt = $pdo->prepare("UPDATE fields SET name = ?, geometry = ?, notes = ?, area = ?, crop = ?, spraying = ?, fertilizing = ?, tilling = ?, harvesting = ?, seeding = ? WHERE id = ?");
+            $stmt->execute([
+                $data['name'],
+                $data['geometry'],
+                $data['notes'] ?? '',
+                $data['area'] ?? 0,
+                $data['crop'] ?? '',
+                $data['spraying'] ?? '',
+                $data['fertilizing'] ?? '',
+                $data['tilling'] ?? '',
+                $data['harvesting'] ?? '',
+                $data['seeding'] ?? '',
+                $id
+            ]);
             echo json_encode(["status" => "success"]);
             break;
 
         case 'DELETE':
             $id = $_GET['id'] ?? null;
-            if (!$id) {
-                http_response_code(400);
-                echo json_encode(["error" => "Missing ID"]);
-                break;
+            if ($id) {
+                $stmt = $pdo->prepare("DELETE FROM fields WHERE id = ?");
+                $stmt->execute([$id]);
+            } else {
+                $pdo->exec("DELETE FROM fields");
             }
-            $stmt = $pdo->prepare("DELETE FROM fields WHERE id = ?");
-            $stmt->execute([$id]);
             echo json_encode(["status" => "success"]);
             break;
 
