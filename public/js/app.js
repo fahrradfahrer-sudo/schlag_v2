@@ -69,97 +69,116 @@ function calculateArea(geometry) {
 
 // Load Fields from Backend
 async function loadFields(autoZoom = false) {
-    const response = await fetch('api/fields.php');
-    const fields = await response.json();
+    console.log('loadFields called');
+    try {
+        const response = await fetch('api/fields.php');
+        const fields = await response.json();
+        console.log('Fields fetched:', fields);
 
-    if (!Array.isArray(fields)) {
-        console.error('Expected array of fields, got:', fields);
-        return;
-    }
-
-    loadedFields = fields;
-
-    drawnItems.clearLayers();
-    const listElement = document.getElementById('field-list');
-    listElement.innerHTML = '';
-
-    let totalArea = 0;
-
-    for (const field of fields) {
-        const geojson = JSON.parse(field.geometry);
-        const area = calculateArea(geojson);
-        totalArea += parseFloat(area);
-
-        const crop = field.crop || '';
-
-        L.geoJSON(geojson, {
-            onEachFeature: (feature, layer) => {
-                layer.fieldData = field;
-
-                const popupContent = document.createElement('div');
-                const b = document.createElement('b');
-                b.textContent = field.name + " (" + area + " ha)";
-                popupContent.appendChild(b);
-                popupContent.appendChild(document.createElement('br'));
-                if (crop) {
-                    const cropP = document.createElement('p');
-                    cropP.style.margin = "0";
-                    cropP.textContent = (_t('label-crop') || "Crop:") + " " + crop;
-                    popupContent.appendChild(cropP);
-                }
-                popupContent.appendChild(document.createTextNode(field.notes || ''));
-                layer.bindPopup(popupContent);
-
-                layer.addTo(drawnItems);
-            }
-        });
-
-        // Add to Sidebar
-        const item = document.createElement('div');
-        item.className = 'field-item';
-
-        const title = document.createElement('h4');
-        title.textContent = `${field.name} (${area} ha)`;
-        item.appendChild(title);
-
-        if (crop) {
-            const cropInfo = document.createElement('div');
-            cropInfo.style.fontSize = '0.9em';
-            cropInfo.style.marginBottom = '5px';
-            cropInfo.textContent = (_t('label-crop') || "Crop:") + " " + crop;
-            item.appendChild(cropInfo);
+        if (!Array.isArray(fields)) {
+            console.error('Expected array of fields, got:', fields);
+            return;
         }
 
-        const actions = document.createElement('div');
-        actions.className = 'actions';
+        loadedFields = fields;
 
-        const zoomBtn = document.createElement('button');
-        zoomBtn.className = 'btn-primary';
-        zoomBtn.textContent = _t('btn-zoom');
-        zoomBtn.onclick = () => zoomToField(field.id);
+        drawnItems.clearLayers();
+        const listElement = document.getElementById('field-list');
+        listElement.innerHTML = '';
 
-        const editBtn = document.createElement('button');
-        editBtn.className = 'btn-success';
-        editBtn.textContent = _t('btn-edit');
-        editBtn.onclick = () => window.location.href = `field.html?id=${field.id}`;
+        let totalArea = 0;
+        const cropLabel = (typeof _t === 'function') ? _t('label-crop') : "Crop:";
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn-danger';
-        deleteBtn.textContent = _t('btn-delete');
-        deleteBtn.onclick = () => deleteField(field.id);
+        for (const field of fields) {
+            let geojson = JSON.parse(field.geometry);
+            const area = calculateArea(geojson);
+            totalArea += parseFloat(area);
 
-        actions.appendChild(zoomBtn);
-        actions.appendChild(editBtn);
-        actions.appendChild(deleteBtn);
-        item.appendChild(actions);
+            const crop = field.crop || '';
 
-        listElement.appendChild(item);
-    }
+            // Ensure we have a Feature/FeatureCollection for L.geoJSON to properly trigger onEachFeature
+            if (geojson.type !== 'Feature' && geojson.type !== 'FeatureCollection') {
+                geojson = {
+                    type: 'Feature',
+                    geometry: geojson,
+                    properties: {}
+                };
+            }
 
-    document.getElementById('total-area-display').textContent = _t('total-area', {area: totalArea.toFixed(2)});
+            console.log('Adding field to map:', field.name, field.id);
+            L.geoJSON(geojson, {
+                onEachFeature: (feature, layer) => {
+                    layer.fieldData = field;
 
-    if (autoZoom && fields.length > 0) {
-        zoomToAllFields();
+                    const popupContent = document.createElement('div');
+                    const b = document.createElement('b');
+                    b.textContent = field.name + " (" + area + " ha)";
+                    popupContent.appendChild(b);
+                    popupContent.appendChild(document.createElement('br'));
+                    if (crop) {
+                        const cropP = document.createElement('p');
+                        cropP.style.margin = "0";
+                        cropP.textContent = cropLabel + " " + crop;
+                        popupContent.appendChild(cropP);
+                    }
+                    popupContent.appendChild(document.createTextNode(field.notes || ''));
+                    layer.bindPopup(popupContent);
+
+                    // Add to the group
+                    drawnItems.addLayer(layer);
+                }
+            });
+
+            // Add to Sidebar
+            const item = document.createElement('div');
+            item.className = 'field-item';
+
+            const title = document.createElement('h4');
+            title.textContent = `${field.name} (${area} ha)`;
+            item.appendChild(title);
+
+            if (crop) {
+                const cropInfo = document.createElement('div');
+                cropInfo.style.fontSize = '0.9em';
+                cropInfo.style.marginBottom = '5px';
+                cropInfo.textContent = cropLabel + " " + crop;
+                item.appendChild(cropInfo);
+            }
+
+            const actions = document.createElement('div');
+            actions.className = 'actions';
+
+            const zoomBtn = document.createElement('button');
+            zoomBtn.className = 'btn-primary';
+            zoomBtn.textContent = (typeof _t === 'function') ? _t('btn-zoom') : 'Zoom';
+            zoomBtn.onclick = () => zoomToField(field.id);
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'btn-success';
+            editBtn.textContent = (typeof _t === 'function') ? _t('btn-edit') : 'Edit/Info';
+            editBtn.onclick = () => window.location.href = `field.html?id=${field.id}`;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'btn-danger';
+            deleteBtn.textContent = (typeof _t === 'function') ? _t('btn-delete') : 'Delete';
+            deleteBtn.onclick = () => deleteField(field.id);
+
+            actions.appendChild(zoomBtn);
+            actions.appendChild(editBtn);
+            actions.appendChild(deleteBtn);
+            item.appendChild(actions);
+
+            listElement.appendChild(item);
+        }
+
+        const totalAreaText = (typeof _t === 'function') ? _t('total-area', {area: totalArea.toFixed(2)}) : `Total Area: ${totalArea.toFixed(2)} ha`;
+        document.getElementById('total-area-display').textContent = totalAreaText;
+
+        if (autoZoom && fields.length > 0) {
+            zoomToAllFields();
+        }
+    } catch (err) {
+        console.error('Error loading fields:', err);
     }
 }
 
@@ -168,9 +187,10 @@ let currentGeometry = null;
 
 // Event: Field Created
 map.on(L.Draw.Event.CREATED, function (e) {
+    console.log('Leaflet Draw Created event triggered');
     const layer = e.layer;
     currentGeometry = layer.toGeoJSON();
-    openModal('New Field', null);
+    openModal((typeof _t === 'function' ? _t('modal-new-field') : 'New Field'), null);
 });
 
 // Event: Field Edited
@@ -199,18 +219,44 @@ const modal = document.getElementById('field-modal');
 const modalTitle = document.getElementById('modal-title');
 const fieldIdInput = document.getElementById('field-id');
 const fieldNameInput = document.getElementById('field-name');
+const fieldCropInput = document.getElementById('field-crop');
+const fieldSeedingInput = document.getElementById('field-seeding');
+const fieldFertilizingInput = document.getElementById('field-fertilizing');
+const fieldSprayingInput = document.getElementById('field-spraying');
+const fieldTillingInput = document.getElementById('field-tilling');
+const fieldHarvestingInput = document.getElementById('field-harvesting');
 const fieldNotesInput = document.getElementById('field-notes');
 const saveBtn = document.getElementById('save-field-btn');
 
-function openModal(title, fieldData) {
+async function openModal(title, fieldData) {
+    console.log('Opening modal with title:', title);
+    if (!modal) {
+        console.error('Modal element not found!');
+        return;
+    }
     modalTitle.innerText = title;
+
     if (fieldData) {
-        fieldIdInput.value = fieldData.id;
+        // If we only have basic data, try to fetch full data from API if needed
+        // But for now, we assume fieldData comes from the joined GET request
+        fieldIdInput.value = fieldData.id || '';
         fieldNameInput.value = fieldData.name || '';
+        fieldCropInput.value = fieldData.crop || '';
+        fieldSeedingInput.value = fieldData.seeding || '';
+        fieldFertilizingInput.value = fieldData.fertilizing || '';
+        fieldSprayingInput.value = fieldData.spraying || '';
+        fieldTillingInput.value = fieldData.tilling || '';
+        fieldHarvestingInput.value = fieldData.harvesting || '';
         fieldNotesInput.value = fieldData.notes || '';
     } else {
         fieldIdInput.value = '';
         fieldNameInput.value = '';
+        fieldCropInput.value = '';
+        fieldSeedingInput.value = '';
+        fieldFertilizingInput.value = '';
+        fieldSprayingInput.value = '';
+        fieldTillingInput.value = '';
+        fieldHarvestingInput.value = '';
         fieldNotesInput.value = '';
     }
     modal.style.display = 'block';
@@ -226,42 +272,54 @@ saveBtn.onclick = async () => {
     const id = fieldIdInput.value;
     const data = {
         name: fieldNameInput.value,
+        crop: fieldCropInput.value,
+        seeding: fieldSeedingInput.value,
+        fertilizing: fieldFertilizingInput.value,
+        spraying: fieldSprayingInput.value,
+        tilling: fieldTillingInput.value,
+        harvesting: fieldHarvestingInput.value,
         notes: fieldNotesInput.value
     };
 
     if (!data.name) {
-        alert(_t('alert-name'));
+        alert(typeof _t === 'function' ? _t('alert-name') : 'Please enter a name');
         return;
     }
 
-    if (id) {
-        // Update existing
-        let geometry = null;
-        drawnItems.eachLayer(layer => {
-            if (layer.fieldData && layer.fieldData.id == id) {
-                geometry = JSON.stringify(layer.toGeoJSON());
+    try {
+        if (id) {
+            // Update existing
+            let geometry = null;
+            drawnItems.eachLayer(layer => {
+                if (layer.fieldData && layer.fieldData.id == id) {
+                    geometry = JSON.stringify(layer.toGeoJSON());
+                }
+            });
+            if (geometry) {
+                data.geometry = geometry;
+                data.area = calculateArea(JSON.parse(geometry));
             }
-        });
-        data.geometry = geometry;
-        data.area = calculateArea(JSON.parse(geometry));
 
-        await fetch(`api/fields.php?id=${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-    } else if (currentGeometry) {
-        // Create New
-        data.geometry = JSON.stringify(currentGeometry);
-        data.area = calculateArea(currentGeometry);
-        await fetch('api/fields.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+            await fetch(`api/fields.php?id=${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        } else if (currentGeometry) {
+            // Create New
+            data.geometry = JSON.stringify(currentGeometry);
+            data.area = calculateArea(currentGeometry);
+            await fetch('api/fields.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        }
+        closeModal();
+    } catch (err) {
+        console.error('Error saving field:', err);
+        alert('Error saving field');
     }
-
-    closeModal();
 };
 
 async function deleteField(id) {
@@ -465,6 +523,7 @@ async function handleShp(group) {
 }
 
 async function handleISOXML(file) {
+    console.log('Handling ISOXML import');
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = async (e) => {
@@ -507,7 +566,10 @@ async function handleISOXML(file) {
                     }
                 }
                 resolve();
-            } catch (err) { reject(err); }
+            } catch (err) {
+                console.error('Error in handleISOXML:', err);
+                reject(err);
+            }
         };
         reader.onerror = reject;
         reader.readAsText(file);
@@ -524,18 +586,18 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
         features = [geojson];
     }
 
-    for (const feature of features) {
-        if (feature.geometry && (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon')) {
-            const props = feature.properties || {};
-            const geometry = JSON.stringify(feature.geometry);
+    for (const item of features) {
+        let geometry = item.geometry || (item.type === 'Polygon' || item.type === 'MultiPolygon' ? item : null);
+        if (geometry) {
+            const props = item.properties || {};
             await fetch('api/fields.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: props.name || props.NAME || props.Name || props.NAM || props.Designator || defaultName,
                     notes: props.description || props.notes || '',
-                    geometry: geometry,
-                    area: calculateArea(feature.geometry)
+                    geometry: JSON.stringify(geometry),
+                    area: calculateArea(geometry)
                 })
             });
         }

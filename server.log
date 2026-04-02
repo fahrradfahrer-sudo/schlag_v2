@@ -1,0 +1,58 @@
+[Thu Apr  2 07:53:00 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Thu Apr  2 07:53:13 2026] [::1]:54772 Accepted
+[Thu Apr  2 07:53:13 2026] [::1]:54772 [200]: GET /api/fields.php
+[Thu Apr  2 07:53:13 2026] [::1]:54772 Closing
+[Thu Apr  2 07:56:26 2026] [::1]:50794 Accepted
+[Thu Apr  2 07:56:26 2026] [::1]:50794 [200]: POST /api/fields.php
+[Thu Apr  2 07:56:26 2026] [::1]:50794 Closing
+[Thu Apr  2 07:56:26 2026] [::1]:50806 Accepted
+[Thu Apr  2 07:56:26 2026] [::1]:50806 [200]: GET /api/fields.php
+[Thu Apr  2 07:56:26 2026] [::1]:50806 Closing
+[Thu Apr  2 07:59:06 2026] [::1]:36304 Accepted
+[Thu Apr  2 07:59:06 2026] [::1]:36304 [200]: GET /
+[Thu Apr  2 07:59:06 2026] [::1]:36304 Closing
+[Thu Apr  2 07:59:06 2026] [::1]:36318 Accepted
+[Thu Apr  2 07:59:06 2026] [::1]:36326 Accepted
+[Thu Apr  2 07:59:06 2026] [::1]:36328 Accepted
+[Thu Apr  2 07:59:06 2026] [::1]:36318 [200]: GET /css/style.css
+[Thu Apr  2 07:59:06 2026] [::1]:36326 [200]: GET /js/i18n.js
+[Thu Apr  2 07:59:06 2026] [::1]:36328 [200]: GET /js/app.js
+[Thu Apr  2 07:59:06 2026] [::1]:36318 Closing
+[Thu Apr  2 07:59:06 2026] [::1]:36326 Closing
+[Thu Apr  2 07:59:06 2026] [::1]:36328 Closing
+[Thu Apr  2 07:59:07 2026] [::1]:36340 Accepted
+[Thu Apr  2 07:59:07 2026] [::1]:36340 [200]: GET /api/fields.php
+[Thu Apr  2 07:59:07 2026] [::1]:36340 Closing
+[Thu Apr  2 07:59:08 2026] [::1]:36344 Accepted
+[Thu Apr  2 07:59:08 2026] [::1]:36344 [200]: GET /field.html?id=2
+[Thu Apr  2 07:59:08 2026] [::1]:36344 Closing
+[Thu Apr  2 07:59:08 2026] [::1]:36356 Accepted
+[Thu Apr  2 07:59:08 2026] [::1]:36366 Accepted
+[Thu Apr  2 07:59:08 2026] [::1]:36374 Accepted
+[Thu Apr  2 07:59:08 2026] [::1]:36356 [200]: GET /css/style.css
+[Thu Apr  2 07:59:08 2026] [::1]:36366 [200]: GET /js/field.js
+[Thu Apr  2 07:59:08 2026] [::1]:36374 [200]: GET /js/i18n.js
+[Thu Apr  2 07:59:08 2026] [::1]:36356 Closing
+[Thu Apr  2 07:59:08 2026] [::1]:36366 Closing
+[Thu Apr  2 07:59:08 2026] [::1]:36374 Closing
+[Thu Apr  2 07:59:08 2026] [::1]:36382 Accepted
+[Thu Apr  2 07:59:08 2026] [::1]:36382 [200]: GET /api/fields.php?id=2
+[Thu Apr  2 07:59:08 2026] [::1]:36382 Closing
+[Thu Apr  2 07:59:08 2026] [::1]:36390 Accepted
+[Thu Apr  2 07:59:08 2026] [::1]:36390 [200]: GET /api/records.php?field_id=2&year=2026
+[Thu Apr  2 07:59:08 2026] [::1]:36390 Closing
+[Thu Apr  2 07:59:09 2026] [::1]:36406 Accepted
+[Thu Apr  2 07:59:09 2026] [::1]:36406 [200]: GET /index.html
+[Thu Apr  2 07:59:09 2026] [::1]:36406 Closing
+[Thu Apr  2 07:59:09 2026] [::1]:36414 Accepted
+[Thu Apr  2 07:59:09 2026] [::1]:36418 Accepted
+[Thu Apr  2 07:59:09 2026] [::1]:36422 Accepted
+[Thu Apr  2 07:59:09 2026] [::1]:36414 [200]: GET /css/style.css
+[Thu Apr  2 07:59:09 2026] [::1]:36418 [200]: GET /js/i18n.js
+[Thu Apr  2 07:59:09 2026] [::1]:36422 [200]: GET /js/app.js
+[Thu Apr  2 07:59:09 2026] [::1]:36414 Closing
+[Thu Apr  2 07:59:09 2026] [::1]:36418 Closing
+[Thu Apr  2 07:59:09 2026] [::1]:36422 Closing
+[Thu Apr  2 07:59:09 2026] [::1]:36428 Accepted
+[Thu Apr  2 07:59:09 2026] [::1]:36428 [200]: GET /api/fields.php
+[Thu Apr  2 07:59:09 2026] [::1]:36428 Closing
