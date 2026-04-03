@@ -4,6 +4,7 @@ $dbPath = __DIR__ . '/data/fields.db';
 try {
     $pdo = new PDO('sqlite:' . $dbPath);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->exec("PRAGMA foreign_keys = ON;");
 
     // 1. Create fields table if it doesn't exist
     $pdo->exec("CREATE TABLE IF NOT EXISTS fields (

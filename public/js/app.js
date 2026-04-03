@@ -189,6 +189,7 @@ let currentGeometry = null;
 map.on(L.Draw.Event.CREATED, function (e) {
     console.log('Leaflet Draw Created event triggered');
     const layer = e.layer;
+    drawnItems.addLayer(layer); // Immediately show on map
     currentGeometry = layer.toGeoJSON();
     openModal((typeof _t === 'function' ? _t('modal-new-field') : 'New Field'), null);
 });
@@ -444,7 +445,7 @@ async function handleGenericJSON(file) {
         reader.onload = async (e) => {
             try {
                 const geojson = JSON.parse(e.target.result);
-                await saveGeoJSONFeatures(geojson, 'Imported Field');
+                await saveGeoJSONFeatures(geojson, file.name.split('.')[0]);
                 resolve();
             } catch (err) { reject(err); }
         };
@@ -462,7 +463,7 @@ async function handleKML(file) {
                 const parser = new DOMParser();
                 const kmlDoc = parser.parseFromString(kmlText, 'text/xml');
                 const geojson = toGeoJSON.kml(kmlDoc);
-                await saveGeoJSONFeatures(geojson, 'Imported Field');
+                await saveGeoJSONFeatures(geojson, file.name.split('.')[0]);
                 resolve();
             } catch (err) { reject(err); }
         };
@@ -477,7 +478,7 @@ async function handleZip(file) {
         reader.onload = async (e) => {
             try {
                 const geojson = await shp(e.target.result);
-                await saveGeoJSONFeatures(geojson, 'Imported Shape');
+                await saveGeoJSONFeatures(geojson, file.name.split('.')[0]);
                 resolve();
             } catch (err) { reject(err); }
         };
@@ -488,20 +489,24 @@ async function handleZip(file) {
 
 async function handleShp(group) {
     try {
-        const shpBuffer = await group.shp.arrayBuffer();
-        const dbfBuffer = group.dbf ? await group.dbf.arrayBuffer() : null;
-        const prjText = group.prj ? await group.prj.text() : null;
+        const options = {
+            shp: await group.shp.arrayBuffer()
+        };
+        if (group.dbf) options.dbf = await group.dbf.arrayBuffer();
+        if (group.shx) options.shx = await group.shx.arrayBuffer();
 
-        const parsedShp = shp.parseShp(shpBuffer);
-        const parsedDbf = dbfBuffer ? shp.parseDbf(dbfBuffer) : null;
-        let geojson = shp.combine([parsedShp, parsedDbf]);
+        let geojson = await shp(options);
+        const prjText = group.prj ? await group.prj.text() : null;
 
         // Handle reprojection if .prj exists and isn't WGS84
         if (prjText && !prjText.includes('WGS_1984') && !prjText.includes('EPSG","4326"')) {
             try {
                 const sourceProj = prjText;
                 const destProj = 'EPSG:4326';
-                geojson.features.forEach(feature => {
+                const features = Array.isArray(geojson) ? geojson.flatMap(g => g.features || [g]) : (geojson.features || [geojson]);
+
+                features.forEach(feature => {
+                    if (!feature.geometry || !feature.geometry.coordinates) return;
                     const reprojectCoords = (coords) => {
                         if (typeof coords[0] === 'number') {
                             const [lng, lat] = proj4(sourceProj, destProj, coords);
@@ -518,8 +523,11 @@ async function handleShp(group) {
             }
         }
 
-        await saveGeoJSONFeatures(geojson, 'Imported Shape');
-    } catch (err) { alert('Error parsing Shapefiles: ' + err.message); }
+        await saveGeoJSONFeatures(geojson, group.shp.name.split('.')[0]);
+    } catch (err) {
+        console.error('Error parsing Shapefiles:', err);
+        alert('Error parsing Shapefiles: ' + err.message);
+    }
 }
 
 async function handleISOXML(file) {
@@ -535,30 +543,49 @@ async function handleISOXML(file) {
                 for (let i = 0; i < partFields.length; i++) {
                     const pfd = partFields[i];
                     const name = pfd.getAttribute('C') || 'ISOXML Field';
-                    const lineStrings = pfd.getElementsByTagName('LSG');
+
                     const polygons = [];
-                    let currentPolygon = null;
-                    for (let j = 0; j < lineStrings.length; j++) {
-                        const lsg = lineStrings[j];
-                        const type = lsg.getAttribute('A');
-                        if (type === '1' || type === '2') {
-                            const points = lsg.getElementsByTagName('PNT');
-                            const ring = [];
-                            for (let k = 0; k < points.length; k++) {
-                                const lat = parseFloat(points[k].getAttribute('C'));
-                                const lng = parseFloat(points[k].getAttribute('D'));
-                                if (!isNaN(lat) && !isNaN(lng)) ring.push([lng, lat]);
+                    // Check for PLN elements (Polygon) - standard ISOXML structure
+                    const plns = pfd.querySelectorAll(':scope > PLN');
+                    if (plns.length > 0) {
+                        for (let j = 0; j < plns.length; j++) {
+                            const pln = plns[j];
+                            const polygonCoords = [];
+                            const lineStrings = pln.getElementsByTagName('LSG');
+                            for (let k = 0; k < lineStrings.length; k++) {
+                                const lsg = lineStrings[k];
+                                const type = lsg.getAttribute('A');
+                                if (type === '1' || type === '2') {
+                                    const ring = parseLSG(lsg);
+                                    if (ring.length > 0) {
+                                        polygonCoords.push(ring);
+                                    }
+                                }
                             }
-                            if (ring.length > 0) {
-                                if (ring[0][0] !== ring[ring.length-1][0] || ring[0][1] !== ring[ring.length-1][1]) ring.push(ring[0]);
-                                if (type === '1') {
-                                    if (currentPolygon) polygons.push(currentPolygon);
-                                    currentPolygon = [ring];
-                                } else if (type === '2' && currentPolygon) currentPolygon.push(ring);
+                            if (polygonCoords.length > 0) {
+                                polygons.push(polygonCoords);
                             }
                         }
+                    } else {
+                        // Fallback: search for LSG directly under PFD if no PLN exists
+                        const lineStrings = pfd.querySelectorAll(':scope > LSG');
+                        let currentPolygon = null;
+                        for (let j = 0; j < lineStrings.length; j++) {
+                            const lsg = lineStrings[j];
+                            const type = lsg.getAttribute('A');
+                            const ring = parseLSG(lsg);
+                            if (ring.length > 0) {
+                                if (type === '1') { // Exterior
+                                    if (currentPolygon) polygons.push(currentPolygon);
+                                    currentPolygon = [ring];
+                                } else if (type === '2' && currentPolygon) { // Interior
+                                    currentPolygon.push(ring);
+                                }
+                            }
+                        }
+                        if (currentPolygon) polygons.push(currentPolygon);
                     }
-                    if (currentPolygon) polygons.push(currentPolygon);
+
                     if (polygons.length > 0) {
                         const geometry = polygons.length === 1 ? { type: 'Polygon', coordinates: polygons[0] } : { type: 'MultiPolygon', coordinates: polygons };
                         const geojson = { type: 'FeatureCollection', features: [{ type: 'Feature', properties: { name: name }, geometry: geometry }] };
@@ -574,6 +601,23 @@ async function handleISOXML(file) {
         reader.onerror = reject;
         reader.readAsText(file);
     });
+}
+
+function parseLSG(lsg) {
+    const points = lsg.getElementsByTagName('PNT');
+    const ring = [];
+    for (let k = 0; k < points.length; k++) {
+        const lat = parseFloat(points[k].getAttribute('C')); // Latitude
+        const lng = parseFloat(points[k].getAttribute('D')); // Longitude
+        if (!isNaN(lat) && !isNaN(lng)) ring.push([lng, lat]);
+    }
+    if (ring.length > 0) {
+        // Ensure ring is closed
+        if (ring[0][0] !== ring[ring.length - 1][0] || ring[0][1] !== ring[ring.length - 1][1]) {
+            ring.push([ring[0][0], ring[0][1]]);
+        }
+    }
+    return ring;
 }
 
 async function saveGeoJSONFeatures(geojson, defaultName) {

@@ -38,7 +38,12 @@ const translations = {
         'psm-choose-option': '-- Choose product --',
         'btn-psm-search': 'Search',
         'mgmt-year': 'Management Year:',
-        'export-csv': 'Export CSV'
+        'export-csv': 'Export CSV',
+        'psm-product': 'Product',
+        'psm-expiry': 'Approval End',
+        'psm-bee': 'Bee safety',
+        'psm-rates': 'Rates',
+        'psm-add-btn': 'Add to spraying'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -79,7 +84,12 @@ const translations = {
         'psm-choose-option': '-- Produkt wählen --',
         'btn-psm-search': 'Suchen',
         'mgmt-year': 'Wirtschaftsjahr:',
-        'export-csv': 'CSV Export'
+        'export-csv': 'CSV Export',
+        'psm-product': 'Produkt',
+        'psm-expiry': 'Zulassungsende',
+        'psm-bee': 'Bienenschutz',
+        'psm-rates': 'Aufwandmengen',
+        'psm-add-btn': 'Zu Spritzungen hinzufügen'
     }
 };
 
@@ -165,6 +175,9 @@ function applyTranslations() {
 
     const yearLabel = document.getElementById('label-year');
     if (yearLabel) yearLabel.textContent = t['mgmt-year'];
+
+    const psmAddBtn = document.getElementById('psm-add-btn');
+    if (psmAddBtn) psmAddBtn.textContent = t['psm-add-btn'];
 
     const mainHeader = document.querySelector('header h1');
     if (mainHeader) {

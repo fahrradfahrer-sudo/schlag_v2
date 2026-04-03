@@ -62,12 +62,16 @@
                 <div class="form-group">
                     <label id="label-spraying">Spraying Details:</label>
                     <div style="display: flex; gap: 5px; margin-bottom: 5px;">
-                        <input type="text" id="psm-search" placeholder="Search product..." style="flex: 1;">
-                        <button type="button" onclick="searchPSM()">Search</button>
+                        <input type="text" id="psm-search" list="psm-list" placeholder="Search product..." style="flex: 1;" oninput="searchPSM()">
+                        <datalist id="psm-list"></datalist>
                     </div>
-                    <select id="psm-select" style="width: 100%; margin-bottom: 5px;" onchange="addPSMToDetails()">
-                        <option value="">-- Choose product --</option>
-                    </select>
+                    <div id="psm-details" style="background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 5px; display: none; font-size: 0.9em;">
+                        <div id="psm-info-name"></div>
+                        <div id="psm-info-expiry"></div>
+                        <div id="psm-info-bee"></div>
+                        <div id="psm-info-rates"></div>
+                        <button type="button" id="psm-add-btn" class="btn-success" style="margin-top: 5px; padding: 2px 10px;" onclick="addPSMToDetails()">Add to spraying</button>
+                    </div>
                     <textarea id="field-spraying" rows="3"></textarea>
                 </div>
                 <div class="form-group">

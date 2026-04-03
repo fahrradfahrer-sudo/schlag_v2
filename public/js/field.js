@@ -66,34 +66,90 @@ async function loadYearlyRecord() {
     document.getElementById('field-notes').value = record.notes || '';
 }
 
+let psmSearchTimeout = null;
+let psmSearchResults = [];
+
 async function searchPSM() {
     const query = document.getElementById('psm-search').value;
-    if (query.length < 3) return;
+    const datalist = document.getElementById('psm-list');
 
-    const response = await fetch(`api/psm_proxy.php?q=${encodeURIComponent(query)}`);
-    const data = await response.json();
-    const select = document.getElementById('psm-select');
+    // Check if the current value matches a result from our search
+    const matched = psmSearchResults.find(item => `${item.mittelname} (${item.kennr})` === query);
+    if (matched) {
+        onPSMSelected(matched.kennr);
+        return;
+    }
 
-    // Keep first option
-    select.innerHTML = `<option value="">${translations[currentLang]['psm-choose-option']}</option>`;
+    if (query.length < 3) {
+        datalist.innerHTML = '';
+        return;
+    }
 
-    if (data.items) {
-        data.items.forEach(item => {
-            const option = document.createElement('option');
-            option.value = `${item.mittelname} (${item.kennr})`;
-            option.textContent = `${item.mittelname} (${item.kennr})`;
-            select.appendChild(option);
-        });
+    clearTimeout(psmSearchTimeout);
+    psmSearchTimeout = setTimeout(async () => {
+        const response = await fetch(`api/psm_proxy.php?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        datalist.innerHTML = '';
+        psmSearchResults = data.items || [];
+
+        if (data.items) {
+            data.items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = `${item.mittelname} (${item.kennr})`;
+                datalist.appendChild(option);
+            });
+        }
+    }, 400);
+}
+
+let selectedPSM = null;
+
+async function onPSMSelected(kennr) {
+    const detailsDiv = document.getElementById('psm-details');
+
+    if (!kennr) {
+        detailsDiv.style.display = 'none';
+        selectedPSM = null;
+        return;
+    }
+
+    const response = await fetch(`api/psm_proxy.php?kennr=${encodeURIComponent(kennr)}`);
+    selectedPSM = await response.json();
+
+    if (selectedPSM.mittel) {
+        detailsDiv.style.display = 'block';
+        document.getElementById('psm-info-name').textContent = `${_t('psm-product')}: ${selectedPSM.mittel.mittelname} (${selectedPSM.mittel.kennr})`;
+
+        const expiryDate = selectedPSM.mittel.zul_ende ? new Date(selectedPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
+        document.getElementById('psm-info-expiry').textContent = `${_t('psm-expiry')}: ${expiryDate}`;
+
+        document.getElementById('psm-info-bee').textContent = `${_t('psm-bee')}: ${selectedPSM.bee_safety}`;
+
+        let ratesText = `${_t('psm-rates')}: `;
+        if (selectedPSM.rates && selectedPSM.rates.length > 0) {
+            ratesText += selectedPSM.rates.map(r => `${r.amount} ${r.unit}`).join(", ");
+        } else {
+            ratesText += "N/A";
+        }
+        document.getElementById('psm-info-rates').textContent = ratesText;
     }
 }
 
 function addPSMToDetails() {
-    const select = document.getElementById('psm-select');
-    if (!select.value) return;
+    if (!selectedPSM || !selectedPSM.mittel) return;
 
     const textarea = document.getElementById('field-spraying');
     if (textarea.value) textarea.value += "\n";
-    textarea.value += select.value;
+
+    const expiryDate = selectedPSM.mittel.zul_ende ? new Date(selectedPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
+    const rate = (selectedPSM.rates && selectedPSM.rates[0]) ? `${selectedPSM.rates[0].amount} ${selectedPSM.rates[0].unit}` : '';
+
+    let line = `${selectedPSM.mittel.mittelname} (${selectedPSM.mittel.kennr})`;
+    if (rate) line += ` @ ${rate}`;
+    line += ` [${_t('psm-expiry')}: ${expiryDate}, ${_t('psm-bee')}: ${selectedPSM.bee_safety}]`;
+
+    textarea.value += line;
 }
 
 async function saveField() {
