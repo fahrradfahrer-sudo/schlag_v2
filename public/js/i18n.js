@@ -45,7 +45,7 @@ const translations = {
         'header-title': 'AgriField Manager',
         'farmer-overview': 'Landwirte-Übersicht',
         'field-overview': 'Feld-Übersicht',
-        'zoom-all': 'Alle Zoom',
+        'zoom-all': 'Alle anzeigen',
         'export-isoxml': 'ISOXML Export',
         'total-area': 'Gesamtfläche: {area} ha',
         'import-fields': 'Felder importieren',
@@ -84,6 +84,28 @@ const translations = {
 };
 
 let currentLang = localStorage.getItem('language') || 'en';
+let cropList = [];
+
+async function loadCropList() {
+    try {
+        if (cropList.length === 0) {
+            const response = await fetch('data/crops.json');
+            cropList = await response.json();
+        }
+        const datalists = document.querySelectorAll('#crop-list');
+        datalists.forEach(datalist => {
+            datalist.innerHTML = '';
+            cropList.forEach(crop => {
+                const option = document.createElement('option');
+                const displayName = currentLang === 'de' ? crop.name : crop.en;
+                option.value = `${displayName} (${crop.eppo})`;
+                datalist.appendChild(option);
+            });
+        });
+    } catch (e) {
+        console.error("Error loading crop list:", e);
+    }
+}
 
 function setLanguage(lang) {
     currentLang = lang;
@@ -125,8 +147,12 @@ function applyTranslations() {
         if (el) el.textContent = map[id];
     }
 
-    const cropInput = document.getElementById('field-crop');
-    if (cropInput) cropInput.placeholder = t['placeholder-crop'];
+    const cropInputs = document.querySelectorAll('#field-crop');
+    cropInputs.forEach(input => {
+        input.placeholder = t['placeholder-crop'];
+    });
+
+    loadCropList();
 
     const psmSearchInput = document.getElementById('psm-search');
     if (psmSearchInput) psmSearchInput.placeholder = t['psm-search-placeholder'];

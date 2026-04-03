@@ -84,53 +84,16 @@ try {
                 break;
             }
             $data = json_decode(file_get_contents("php://input"), true);
-            $year = (int)date('Y');
 
-            $pdo->beginTransaction();
-            try {
-                $stmt = $pdo->prepare("UPDATE fields SET name = ?, geometry = ?, notes = ?, area = ? WHERE id = ?");
-                $stmt->execute([
-                    $data['name'],
-                    $data['geometry'],
-                    $data['notes'] ?? '',
-                    $data['area'] ?? 0,
-                    $id
-                ]);
-
-                // Update or Insert record for current year
-                $stmtCheck = $pdo->prepare("SELECT id FROM field_records WHERE field_id = ? AND year = ?");
-                $stmtCheck->execute([$id, $year]);
-                if ($stmtCheck->fetch()) {
-                    $stmtUpdate = $pdo->prepare("UPDATE field_records SET crop = ?, seeding = ?, fertilizing = ?, spraying = ?, tilling = ?, harvesting = ?
-                                               WHERE field_id = ? AND year = ?");
-                    $stmtUpdate->execute([
-                        $data['crop'] ?? '',
-                        $data['seeding'] ?? '',
-                        $data['fertilizing'] ?? '',
-                        $data['spraying'] ?? '',
-                        $data['tilling'] ?? '',
-                        $data['harvesting'] ?? '',
-                        $id, $year
-                    ]);
-                } else {
-                    $stmtInsert = $pdo->prepare("INSERT INTO field_records (field_id, year, crop, seeding, fertilizing, spraying, tilling, harvesting)
-                                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmtInsert->execute([
-                        $id, $year,
-                        $data['crop'] ?? '',
-                        $data['seeding'] ?? '',
-                        $data['fertilizing'] ?? '',
-                        $data['spraying'] ?? '',
-                        $data['tilling'] ?? '',
-                        $data['harvesting'] ?? ''
-                    ]);
-                }
-                $pdo->commit();
-                echo json_encode(["status" => "success"]);
-            } catch (Exception $e) {
-                $pdo->rollBack();
-                throw $e;
-            }
+            $stmt = $pdo->prepare("UPDATE fields SET name = ?, geometry = ?, notes = ?, area = ? WHERE id = ?");
+            $stmt->execute([
+                $data['name'],
+                $data['geometry'],
+                $data['notes'] ?? '',
+                $data['area'] ?? 0,
+                $id
+            ]);
+            echo json_encode(["status" => "success"]);
             break;
 
         case 'DELETE':
@@ -138,10 +101,11 @@ try {
             if ($id) {
                 $stmt = $pdo->prepare("DELETE FROM fields WHERE id = ?");
                 $stmt->execute([$id]);
+                echo json_encode(["status" => "success"]);
             } else {
-                $pdo->exec("DELETE FROM fields");
+                http_response_code(400);
+                echo json_encode(["error" => "Missing ID"]);
             }
-            echo json_encode(["status" => "success"]);
             break;
 
         case 'OPTIONS':

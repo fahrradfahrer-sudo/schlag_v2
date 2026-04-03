@@ -170,4 +170,6 @@ async function deleteField() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadField);
+document.addEventListener('DOMContentLoaded', () => {
+    loadField();
+});
