@@ -37,6 +37,8 @@ try {
         year INTEGER NOT NULL,
         crop TEXT,
         spraying TEXT,
+        spraying_employee TEXT,
+        bbch TEXT,
         fertilizing TEXT,
         tilling TEXT,
         harvesting TEXT,
@@ -46,6 +48,17 @@ try {
         FOREIGN KEY (field_id) REFERENCES fields(id) ON DELETE CASCADE,
         UNIQUE(field_id, year)
     )");
+
+    // Add new columns to field_records if they don't exist
+    $recordsColsToAdd = [
+        'spraying_employee' => 'TEXT',
+        'bbch' => 'TEXT'
+    ];
+    foreach ($recordsColsToAdd as $col => $type) {
+        try {
+            $pdo->exec("ALTER TABLE field_records ADD COLUMN $col $type");
+        } catch (PDOException $e) {}
+    }
 
     // 4. Migration: Copy data from fields to field_records if management columns exist in fields
     $res = $pdo->query("PRAGMA table_info(fields)");

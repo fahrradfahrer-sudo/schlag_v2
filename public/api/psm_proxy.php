@@ -62,12 +62,12 @@ if ($kennr) {
 }
 
 if (!$query) {
-    echo json_encode(["items" => []]);
-    exit;
+    // If no query, just fetch the first 50 items
+    $api_url = "https://psm-api.bvl.bund.de/ords/psm/api-v1/mittel/?limit=50";
+} else {
+    // PSM-API supports $instr for substring search
+    $api_url = "https://psm-api.bvl.bund.de/ords/psm/api-v1/mittel/?q=" . urlencode(json_encode(["mittelname" => ["\$instr" => $query]]));
 }
-
-// PSM-API supports $instr for substring search
-$api_url = "https://psm-api.bvl.bund.de/ords/psm/api-v1/mittel/?q=" . urlencode(json_encode(["mittelname" => ["\$instr" => $query]]));
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $api_url);

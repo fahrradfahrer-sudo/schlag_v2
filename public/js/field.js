@@ -61,33 +61,109 @@ async function loadYearlyRecord() {
     document.getElementById('field-seeding').value = record.seeding || '';
     document.getElementById('field-fertilizing').value = record.fertilizing || '';
     document.getElementById('field-spraying').value = record.spraying || '';
+    document.getElementById('field-spraying-employee').value = record.spraying_employee || '';
+    document.getElementById('field-bbch').value = record.bbch || '';
     document.getElementById('field-tilling').value = record.tilling || '';
     document.getElementById('field-harvesting').value = record.harvesting || '';
     document.getElementById('field-notes').value = record.notes || '';
+
+    updateBBCHEstimation();
 }
+
+function updateBBCHEstimation() {
+    const cropValue = document.getElementById('field-crop').value.toLowerCase();
+    const bbchInput = document.getElementById('field-bbch');
+    const explanationText = document.getElementById('bbch-explanation-text');
+
+    if (!cropValue) {
+        explanationText.textContent = '';
+        return;
+    }
+
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+
+    let estimation = "";
+    let bbch = "";
+
+    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
+        // BBCH Potato Estimation based on general German climate (approximate)
+        if (month < 4) {
+            bbch = "00";
+            estimation = currentLang === 'de' ? "Keimruhe / Vorbereitung" : "Dormancy / Preparation";
+        } else if (month === 4) {
+            bbch = "01-09";
+            estimation = currentLang === 'de' ? "Keimentwicklung" : "Sprout development";
+        } else if (month === 5) {
+            if (day < 15) {
+                bbch = "10-19";
+                estimation = currentLang === 'de' ? "Blattentwicklung" : "Leaf development";
+            } else {
+                bbch = "21-29";
+                estimation = currentLang === 'de' ? "Bildung von Seitensprossen" : "Formation of side shoots";
+            }
+        } else if (month === 6) {
+            if (day < 15) {
+                bbch = "31-39";
+                estimation = currentLang === 'de' ? "Längenwachstum der Hauptstängel / Reihenschluss" : "Stem elongation / Crop cover";
+            } else {
+                bbch = "41-48";
+                estimation = currentLang === 'de' ? "Knollenbildung" : "Tuber formation";
+            }
+        } else if (month === 7) {
+            bbch = "51-69";
+            estimation = currentLang === 'de' ? "Blütenknospenentwicklung bis Ende der Blüte" : "Inflorescence emergence to end of flowering";
+        } else if (month === 8) {
+            bbch = "71-89";
+            estimation = currentLang === 'de' ? "Beerenentwicklung bis Reife der Knollen" : "Development of fruit to ripening of tubers";
+        } else {
+            bbch = "91-99";
+            estimation = currentLang === 'de' ? "Absterben der Pflanze / Ernte" : "Senescence / Harvest";
+        }
+    } else if (cropValue.includes('wheat') || cropValue.includes('weizen')) {
+        if (month <= 3) bbch = "21-29";
+        else if (month === 4) bbch = "30-32";
+        else if (month === 5) bbch = "37-51";
+        else if (month === 6) bbch = "61-71";
+        else if (month === 7) bbch = "75-89";
+        else bbch = "00-11";
+        estimation = currentLang === 'de' ? "Schätzung für Winterweizen" : "Estimation for winter wheat";
+    }
+
+    if (bbch && !bbchInput.value) {
+        bbchInput.placeholder = `e.g. ${bbch}`;
+    }
+    explanationText.textContent = estimation ? `${bbch}: ${estimation}` : "";
+}
+
+document.getElementById('field-crop').addEventListener('change', updateBBCHEstimation);
+document.getElementById('field-crop').addEventListener('input', updateBBCHEstimation);
 
 let psmSearchTimeout = null;
 let psmSearchResults = [];
 
-async function searchPSM() {
+async function searchPSM(force = false) {
     const query = document.getElementById('psm-search').value;
     const datalist = document.getElementById('psm-list');
 
     // Check if the current value matches a result from our search
     const matched = psmSearchResults.find(item => `${item.mittelname} (${item.kennr})` === query);
-    if (matched) {
+    if (matched && !force) {
         onPSMSelected(matched.kennr);
         return;
     }
 
-    if (query.length < 3) {
+    if (query.length < 3 && !force) {
         datalist.innerHTML = '';
         return;
     }
 
     clearTimeout(psmSearchTimeout);
     psmSearchTimeout = setTimeout(async () => {
-        const response = await fetch(`api/psm_proxy.php?q=${encodeURIComponent(query)}`);
+        const url = force ? `api/psm_proxy.php?q=` : `api/psm_proxy.php?q=${encodeURIComponent(query)}`;
+        const response = await fetch(url);
         const data = await response.json();
 
         datalist.innerHTML = '';
@@ -100,8 +176,11 @@ async function searchPSM() {
                 datalist.appendChild(option);
             });
         }
-    }, 400);
+    }, force ? 0 : 400);
 }
+
+document.getElementById('psm-search').addEventListener('focus', () => searchPSM(true));
+document.getElementById('psm-search').addEventListener('click', () => searchPSM(true));
 
 let selectedPSM = null;
 
@@ -178,6 +257,8 @@ async function saveField() {
         seeding: document.getElementById('field-seeding').value,
         fertilizing: document.getElementById('field-fertilizing').value,
         spraying: document.getElementById('field-spraying').value,
+        spraying_employee: document.getElementById('field-spraying-employee').value,
+        bbch: document.getElementById('field-bbch').value,
         tilling: document.getElementById('field-tilling').value,
         harvesting: document.getElementById('field-harvesting').value,
         notes: document.getElementById('field-notes').value
@@ -201,9 +282,9 @@ async function exportCSV() {
         return;
     }
 
-    let csv = "Field,Year,Crop,Seeding,Fertilizing,Spraying,Tilling,Harvesting,Notes\n";
+    let csv = "Field,Year,Crop,Seeding,Fertilizing,Spraying,Employee,BBCH,Tilling,Harvesting,Notes\n";
     records.forEach(r => {
-        csv += `"${currentField.name}","${r.year}","${r.crop}","${r.seeding}","${r.fertilizing}","${r.spraying}","${r.tilling}","${r.harvesting}","${r.notes}"\n`;
+        csv += `"${currentField.name}","${r.year}","${r.crop}","${r.seeding}","${r.fertilizing}","${r.spraying}","${r.spraying_employee}","${r.bbch}","${r.tilling}","${r.harvesting}","${r.notes}"\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv' });

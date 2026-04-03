@@ -43,7 +43,10 @@ const translations = {
         'psm-expiry': 'Approval End',
         'psm-bee': 'Bee safety',
         'psm-rates': 'Rates',
-        'psm-add-btn': 'Add to spraying'
+        'psm-add-btn': 'Add to spraying',
+        'label-spraying-employee': 'Spraying Employee:',
+        'label-bbch': 'BBCH Stage:',
+        'bbch-explanation': 'Estimated BBCH explanation:'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -89,7 +92,10 @@ const translations = {
         'psm-expiry': 'Zulassungsende',
         'psm-bee': 'Bienenschutz',
         'psm-rates': 'Aufwandmengen',
-        'psm-add-btn': 'Zu Spritzungen hinzufügen'
+        'psm-add-btn': 'Zu Spritzungen hinzufügen',
+        'label-spraying-employee': 'Ausführende Person:',
+        'label-bbch': 'BBCH-Stadium:',
+        'bbch-explanation': 'Erklärung zum geschätzten BBCH:'
     }
 };
 
@@ -149,7 +155,10 @@ function applyTranslations() {
         'back-link': t['back-link'],
         'save-btn': t['btn-save-changes'],
         'delete-btn': t['btn-delete-field'],
-        'export-csv-btn': t['export-csv']
+        'export-csv-btn': t['export-csv'],
+        'label-spraying-employee': t['label-spraying-employee'],
+        'label-bbch': t['label-bbch'],
+        'label-bbch-explanation': t['bbch-explanation']
     };
 
     for (let id in map) {

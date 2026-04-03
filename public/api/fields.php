@@ -19,7 +19,7 @@ try {
             $year = (int)($_GET['year'] ?? date('Y'));
             if ($id) {
                 $stmt = $pdo->prepare("SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
-                                      r.crop, r.seeding, r.fertilizing, r.spraying, r.tilling, r.harvesting
+                                      r.crop, r.seeding, r.fertilizing, r.spraying, r.spraying_employee, r.bbch, r.tilling, r.harvesting
                                       FROM fields f
                                       LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
                                       WHERE f.id = ?");
@@ -28,7 +28,7 @@ try {
                 echo json_encode($field);
             } else {
                 $stmt = $pdo->prepare("SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
-                                      r.crop, r.seeding, r.fertilizing, r.spraying, r.tilling, r.harvesting
+                                      r.crop, r.seeding, r.fertilizing, r.spraying, r.spraying_employee, r.bbch, r.tilling, r.harvesting
                                       FROM fields f
                                       LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
                                       ORDER BY f.created_at DESC");
@@ -57,14 +57,16 @@ try {
                 $fieldId = $pdo->lastInsertId();
 
                 $year = (int)date('Y');
-                $stmtRecord = $pdo->prepare("INSERT INTO field_records (field_id, year, crop, seeding, fertilizing, spraying, tilling, harvesting)
-                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmtRecord = $pdo->prepare("INSERT INTO field_records (field_id, year, crop, seeding, fertilizing, spraying, spraying_employee, bbch, tilling, harvesting)
+                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmtRecord->execute([
                     $fieldId, $year,
                     $data['crop'] ?? '',
                     $data['seeding'] ?? '',
                     $data['fertilizing'] ?? '',
                     $data['spraying'] ?? '',
+                    $data['spraying_employee'] ?? '',
+                    $data['bbch'] ?? '',
                     $data['tilling'] ?? '',
                     $data['harvesting'] ?? ''
                 ]);
