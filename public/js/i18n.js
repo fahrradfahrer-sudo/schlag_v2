@@ -38,7 +38,7 @@ const translations = {
         'psm-choose-option': '-- Choose product --',
         'btn-psm-search': 'Search',
         'mgmt-year': 'Management Year:',
-        'export-csv': 'Export CSV',
+        'export-csv': 'Export Excel',
         'psm-product': 'Product',
         'psm-expiry': 'Approval End',
         'psm-bee': 'Bee safety',
@@ -46,7 +46,8 @@ const translations = {
         'psm-add-btn': 'Add to spraying',
         'label-spraying-employee': 'Spraying Employee:',
         'label-bbch': 'BBCH Stage:',
-        'bbch-explanation': 'Estimated BBCH explanation:'
+        'bbch-explanation': 'Estimated BBCH explanation:',
+        'export-all-fields': 'Export All Fields'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -87,7 +88,7 @@ const translations = {
         'psm-choose-option': '-- Produkt wählen --',
         'btn-psm-search': 'Suchen',
         'mgmt-year': 'Wirtschaftsjahr:',
-        'export-csv': 'CSV Export',
+        'export-csv': 'Excel Export',
         'psm-product': 'Produkt',
         'psm-expiry': 'Zulassungsende',
         'psm-bee': 'Bienenschutz',
@@ -95,7 +96,8 @@ const translations = {
         'psm-add-btn': 'Zu Spritzungen hinzufügen',
         'label-spraying-employee': 'Ausführende Person:',
         'label-bbch': 'BBCH-Stadium:',
-        'bbch-explanation': 'Erklärung zum geschätzten BBCH:'
+        'bbch-explanation': 'Erklärung zum geschätzten BBCH:',
+        'export-all-fields': 'Alle Felder exportieren'
     }
 };
 
@@ -156,6 +158,7 @@ function applyTranslations() {
         'save-btn': t['btn-save-changes'],
         'delete-btn': t['btn-delete-field'],
         'export-csv-btn': t['export-csv'],
+        'export-all-csv-btn': t['export-all-fields'],
         'label-spraying-employee': t['label-spraying-employee'],
         'label-bbch': t['label-bbch'],
         'label-bbch-explanation': t['bbch-explanation']

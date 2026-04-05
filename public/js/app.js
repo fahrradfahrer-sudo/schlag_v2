@@ -346,6 +346,51 @@ function zoomToAllFields() {
     }
 }
 
+async function exportAllData() {
+    if (loadedFields.length === 0) {
+        alert(typeof _t === 'function' ? _t('no-fields-export') : "No fields to export.");
+        return;
+    }
+
+    const wb = XLSX.utils.book_new();
+
+    for (const field of loadedFields) {
+        const response = await fetch(`api/records.php?field_id=${field.id}`);
+        const records = await response.json();
+
+        if (records.length > 0) {
+            const data = records.map(r => ({
+                "Year": r.year,
+                "Crop": r.crop,
+                "Seeding Date": r.seeding_date,
+                "Seeding": r.seeding,
+                "Fertilizing Date": r.fertilizing_date,
+                "Fertilizing": r.fertilizing,
+                "Spraying Date": r.spraying_date,
+                "Spraying": r.spraying,
+                "Employee": r.spraying_employee,
+                "BBCH": r.bbch,
+                "Tilling Date": r.tilling_date,
+                "Tilling": r.tilling,
+                "Harvesting Date": r.harvesting_date,
+                "Harvesting": r.harvesting,
+                "Notes": r.notes
+            }));
+
+            const ws = XLSX.utils.json_to_sheet(data);
+            // Sheet name max length 31 chars
+            XLSX.utils.book_append_sheet(wb, ws, field.name.substring(0, 31));
+        }
+    }
+
+    if (wb.SheetNames.length === 0) {
+        alert("No records found for any field.");
+        return;
+    }
+
+    XLSX.writeFile(wb, "all_fields_records.xlsx");
+}
+
 function exportISOXML() {
     if (loadedFields.length === 0) {
         alert(_t('no-fields-export'));

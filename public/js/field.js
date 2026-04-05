@@ -52,6 +52,31 @@ function initYearSelector() {
     loadYearlyRecord();
 }
 
+function prefillDates() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+    const dateIds = [
+        'field-seeding-date',
+        'field-fertilizing-date',
+        'field-spraying-date',
+        'field-tilling-date',
+        'field-harvesting-date'
+    ];
+
+    dateIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !el.value) {
+            el.value = currentDateTime;
+        }
+    });
+}
+
 async function loadYearlyRecord() {
     const year = document.getElementById('mgmt-year-select').value;
     const response = await fetch(`api/records.php?field_id=${currentField.id}&year=${year}`);
@@ -59,14 +84,20 @@ async function loadYearlyRecord() {
 
     document.getElementById('field-crop').value = record.crop || '';
     document.getElementById('field-seeding').value = record.seeding || '';
+    document.getElementById('field-seeding-date').value = record.seeding_date || '';
     document.getElementById('field-fertilizing').value = record.fertilizing || '';
+    document.getElementById('field-fertilizing-date').value = record.fertilizing_date || '';
     document.getElementById('field-spraying').value = record.spraying || '';
+    document.getElementById('field-spraying-date').value = record.spraying_date || '';
     document.getElementById('field-spraying-employee').value = record.spraying_employee || '';
     document.getElementById('field-bbch').value = record.bbch || '';
     document.getElementById('field-tilling').value = record.tilling || '';
+    document.getElementById('field-tilling-date').value = record.tilling_date || '';
     document.getElementById('field-harvesting').value = record.harvesting || '';
+    document.getElementById('field-harvesting-date').value = record.harvesting_date || '';
     document.getElementById('field-notes').value = record.notes || '';
 
+    prefillDates();
     updateBBCHEstimation();
 }
 
@@ -255,12 +286,17 @@ async function saveField() {
         year: year,
         crop: document.getElementById('field-crop').value,
         seeding: document.getElementById('field-seeding').value,
+        seeding_date: document.getElementById('field-seeding-date').value,
         fertilizing: document.getElementById('field-fertilizing').value,
+        fertilizing_date: document.getElementById('field-fertilizing-date').value,
         spraying: document.getElementById('field-spraying').value,
+        spraying_date: document.getElementById('field-spraying-date').value,
         spraying_employee: document.getElementById('field-spraying-employee').value,
         bbch: document.getElementById('field-bbch').value,
         tilling: document.getElementById('field-tilling').value,
+        tilling_date: document.getElementById('field-tilling-date').value,
         harvesting: document.getElementById('field-harvesting').value,
+        harvesting_date: document.getElementById('field-harvesting-date').value,
         notes: document.getElementById('field-notes').value
     };
 
@@ -282,20 +318,29 @@ async function exportCSV() {
         return;
     }
 
-    let csv = "Field,Year,Crop,Seeding,Fertilizing,Spraying,Employee,BBCH,Tilling,Harvesting,Notes\n";
-    records.forEach(r => {
-        csv += `"${currentField.name}","${r.year}","${r.crop}","${r.seeding}","${r.fertilizing}","${r.spraying}","${r.spraying_employee}","${r.bbch}","${r.tilling}","${r.harvesting}","${r.notes}"\n`;
-    });
+    const data = records.map(r => ({
+        "Year": r.year,
+        "Crop": r.crop,
+        "Seeding Date": r.seeding_date,
+        "Seeding": r.seeding,
+        "Fertilizing Date": r.fertilizing_date,
+        "Fertilizing": r.fertilizing,
+        "Spraying Date": r.spraying_date,
+        "Spraying": r.spraying,
+        "Employee": r.spraying_employee,
+        "BBCH": r.bbch,
+        "Tilling Date": r.tilling_date,
+        "Tilling": r.tilling,
+        "Harvesting Date": r.harvesting_date,
+        "Harvesting": r.harvesting,
+        "Notes": r.notes
+    }));
 
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', `field_${currentField.id}_records.csv`);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, currentField.name.substring(0, 31));
+
+    XLSX.writeFile(wb, `field_${currentField.id}_records.xlsx`);
 }
 
 async function deleteField() {

@@ -52,7 +52,12 @@ try {
     // Add new columns to field_records if they don't exist
     $recordsColsToAdd = [
         'spraying_employee' => 'TEXT',
-        'bbch' => 'TEXT'
+        'bbch' => 'TEXT',
+        'seeding_date' => 'TEXT',
+        'fertilizing_date' => 'TEXT',
+        'spraying_date' => 'TEXT',
+        'tilling_date' => 'TEXT',
+        'harvesting_date' => 'TEXT'
     ];
     foreach ($recordsColsToAdd as $col => $type) {
         try {
