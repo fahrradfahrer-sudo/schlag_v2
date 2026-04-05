@@ -346,20 +346,33 @@ function zoomToAllFields() {
     }
 }
 
-async function exportAllData() {
+function getCenter(geometry) {
+    let geojson = typeof geometry === 'string' ? JSON.parse(geometry) : geometry;
+    let layer = L.geoJSON(geojson);
+    let bounds = layer.getBounds();
+    let center = bounds.getCenter();
+    return { lat: center.lat.toFixed(6), lng: center.lng.toFixed(6) };
+}
+
+async function exportAllData(format = 'xlsx') {
     if (loadedFields.length === 0) {
         alert(typeof _t === 'function' ? _t('no-fields-export') : "No fields to export.");
         return;
     }
 
     const wb = XLSX.utils.book_new();
+    let allDataForCSV = [];
 
     for (const field of loadedFields) {
         const response = await fetch(`api/records.php?field_id=${field.id}`);
         const records = await response.json();
+        const center = getCenter(field.geometry);
 
         if (records.length > 0) {
             const data = records.map(r => ({
+                "Field Name": field.name,
+                "Latitude": center.lat,
+                "Longitude": center.lng,
                 "Year": r.year,
                 "Crop": r.crop,
                 "Seeding Date": r.seeding_date,
@@ -377,18 +390,37 @@ async function exportAllData() {
                 "Notes": r.notes
             }));
 
-            const ws = XLSX.utils.json_to_sheet(data);
-            // Sheet name max length 31 chars
-            XLSX.utils.book_append_sheet(wb, ws, field.name.substring(0, 31));
+            if (format === 'xlsx') {
+                const ws = XLSX.utils.json_to_sheet(data);
+                // Sheet name max length 31 chars
+                XLSX.utils.book_append_sheet(wb, ws, field.name.substring(0, 31));
+            } else {
+                allDataForCSV = allDataForCSV.concat(data);
+            }
         }
     }
 
-    if (wb.SheetNames.length === 0) {
-        alert("No records found for any field.");
-        return;
+    if (format === 'xlsx') {
+        if (wb.SheetNames.length === 0) {
+            alert("No records found for any field.");
+            return;
+        }
+        XLSX.writeFile(wb, "all_fields_records.xlsx");
+    } else {
+        if (allDataForCSV.length === 0) {
+            alert("No records found for any field.");
+            return;
+        }
+        const ws = XLSX.utils.json_to_sheet(allDataForCSV);
+        const csv = XLSX.utils.sheet_to_csv(ws);
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "all_fields_records.csv";
+        a.click();
+        URL.revokeObjectURL(url);
     }
-
-    XLSX.writeFile(wb, "all_fields_records.xlsx");
 }
 
 function exportISOXML() {

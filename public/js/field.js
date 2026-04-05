@@ -97,8 +97,40 @@ async function loadYearlyRecord() {
     document.getElementById('field-harvesting-date').value = record.harvesting_date || '';
     document.getElementById('field-notes').value = record.notes || '';
 
-    prefillDates();
+    // prefillDates(); // No longer prefill on load
     updateBBCHEstimation();
+    setupDateAutoFill();
+}
+
+function setupDateAutoFill() {
+    const mappings = [
+        { textId: 'field-seeding', dateId: 'field-seeding-date' },
+        { textId: 'field-fertilizing', dateId: 'field-fertilizing-date' },
+        { textId: 'field-spraying', dateId: 'field-spraying-date' },
+        { textId: 'field-tilling', dateId: 'field-tilling-date' },
+        { textId: 'field-harvesting', dateId: 'field-harvesting-date' }
+    ];
+
+    mappings.forEach(m => {
+        const textEl = document.getElementById(m.textId);
+        const dateEl = document.getElementById(m.dateId);
+
+        if (textEl && dateEl) {
+            const handleInput = () => {
+                if (textEl.value.trim() !== '' && !dateEl.value) {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    dateEl.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+                }
+            };
+            textEl.removeEventListener('input', handleInput);
+            textEl.addEventListener('input', handleInput);
+        }
+    });
 }
 
 function updateBBCHEstimation() {
@@ -236,6 +268,30 @@ async function onPSMSelected(kennr) {
 
         document.getElementById('psm-info-bee').textContent = `${_t('psm-bee')}: ${selectedPSM.bee_safety}`;
 
+        // Suggested intended use based on crop
+        const currentCrop = document.getElementById('field-crop').value.toLowerCase();
+        let suggestedUse = "";
+        if (selectedPSM.awg && currentCrop) {
+            // Very basic matching for demo/MVP
+            const matchingAwg = selectedPSM.awg.find(a =>
+                (a.kultur && currentCrop.includes(a.kultur.toLowerCase())) ||
+                (a.anwendungsbereich && currentCrop.includes(a.anwendungsbereich.toLowerCase()))
+            );
+            if (matchingAwg) {
+                suggestedUse = matchingAwg.schadorganismus || matchingAwg.anwendungsbereich;
+            }
+        }
+        selectedPSM.suggestedUse = suggestedUse;
+
+        const infoUse = document.getElementById('psm-info-use') || document.createElement('div');
+        infoUse.id = 'psm-info-use';
+        infoUse.style.fontWeight = 'bold';
+        infoUse.style.color = '#2c3e50';
+        infoUse.textContent = suggestedUse ? `${_t('psm-suggested-use')}: ${suggestedUse}` : "";
+        if (!document.getElementById('psm-info-use')) {
+            detailsDiv.insertBefore(infoUse, document.getElementById('psm-add-btn'));
+        }
+
         let ratesText = `${_t('psm-rates')}: `;
         if (selectedPSM.rates && selectedPSM.rates.length > 0) {
             ratesText += selectedPSM.rates.map(r => `${r.amount} ${r.unit}`).join(", ");
@@ -257,6 +313,7 @@ function addPSMToDetails() {
 
     let line = `${selectedPSM.mittel.mittelname} (${selectedPSM.mittel.kennr})`;
     if (rate) line += ` @ ${rate}`;
+    if (selectedPSM.suggestedUse) line += ` - ${selectedPSM.suggestedUse}`;
     line += ` [${_t('psm-expiry')}: ${expiryDate}, ${_t('psm-bee')}: ${selectedPSM.bee_safety}]`;
 
     textarea.value += line;
@@ -309,7 +366,15 @@ async function saveField() {
     alert(_t('btn-save-changes') + "!");
 }
 
-async function exportCSV() {
+function getCenter(geometry) {
+    let geojson = typeof geometry === 'string' ? JSON.parse(geometry) : geometry;
+    let layer = L.geoJSON(geojson);
+    let bounds = layer.getBounds();
+    let center = bounds.getCenter();
+    return { lat: center.lat.toFixed(6), lng: center.lng.toFixed(6) };
+}
+
+async function exportData(format = 'xlsx') {
     const response = await fetch(`api/records.php?field_id=${currentField.id}`);
     const records = await response.json();
 
@@ -318,7 +383,12 @@ async function exportCSV() {
         return;
     }
 
+    const center = getCenter(currentField.geometry);
+
     const data = records.map(r => ({
+        "Field Name": currentField.name,
+        "Latitude": center.lat,
+        "Longitude": center.lng,
         "Year": r.year,
         "Crop": r.crop,
         "Seeding Date": r.seeding_date,
@@ -337,10 +407,21 @@ async function exportCSV() {
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, currentField.name.substring(0, 31));
 
-    XLSX.writeFile(wb, `field_${currentField.id}_records.xlsx`);
+    if (format === 'xlsx') {
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, currentField.name.substring(0, 31));
+        XLSX.writeFile(wb, `field_${currentField.id}_records.xlsx`);
+    } else {
+        const csv = XLSX.utils.sheet_to_csv(ws);
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `field_${currentField.id}_records.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
 }
 
 async function deleteField() {

@@ -56,7 +56,8 @@ if ($kennr) {
     echo json_encode([
         "mittel" => $mittel['items'][0] ?? null,
         "bee_safety" => $bee_safety,
-        "rates" => $rates
+        "rates" => $rates,
+        "awg" => $awg['items'] ?? []
     ]);
     exit;
 }

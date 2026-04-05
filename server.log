@@ -1,88 +1,40 @@
-[Sun Apr  5 16:10:04 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
-[Sun Apr  5 16:10:48 2026] [::1]:51474 Accepted
-[Sun Apr  5 16:10:48 2026] [::1]:51474 [200]: GET /
-[Sun Apr  5 16:10:48 2026] [::1]:51474 Closing
-[Sun Apr  5 16:10:48 2026] [::1]:51480 Accepted
-[Sun Apr  5 16:10:48 2026] [::1]:51492 Accepted
-[Sun Apr  5 16:10:48 2026] [::1]:51494 Accepted
-[Sun Apr  5 16:10:48 2026] [::1]:51480 [200]: GET /css/style.css
-[Sun Apr  5 16:10:48 2026] [::1]:51492 [200]: GET /js/i18n.js
-[Sun Apr  5 16:10:48 2026] [::1]:51494 [200]: GET /js/app.js
-[Sun Apr  5 16:10:48 2026] [::1]:51480 Closing
-[Sun Apr  5 16:10:48 2026] [::1]:51492 Closing
-[Sun Apr  5 16:10:48 2026] [::1]:51494 Closing
-[Sun Apr  5 16:10:49 2026] [::1]:51502 Accepted
-[Sun Apr  5 16:10:49 2026] [::1]:51512 Accepted
-[Sun Apr  5 16:10:49 2026] [::1]:51502 [200]: GET /api/fields.php
-[Sun Apr  5 16:10:49 2026] [::1]:51502 Closing
-[Sun Apr  5 16:10:49 2026] [::1]:51512 [200]: GET /data/crops.json
-[Sun Apr  5 16:10:49 2026] [::1]:51512 Closing
-[Sun Apr  5 16:11:09 2026] [::1]:37896 Accepted
-[Sun Apr  5 16:11:09 2026] [::1]:37896 [200]: POST /api/fields.php
-[Sun Apr  5 16:11:09 2026] [::1]:37896 Closing
-[Sun Apr  5 16:11:09 2026] [::1]:37912 Accepted
-[Sun Apr  5 16:11:09 2026] [::1]:37912 [200]: GET /
-[Sun Apr  5 16:11:09 2026] [::1]:37912 Closing
-[Sun Apr  5 16:11:09 2026] [::1]:37928 Accepted
-[Sun Apr  5 16:11:09 2026] [::1]:37930 Accepted
-[Sun Apr  5 16:11:09 2026] [::1]:37946 Accepted
-[Sun Apr  5 16:11:09 2026] [::1]:37928 [200]: GET /css/style.css
-[Sun Apr  5 16:11:09 2026] [::1]:37928 Closing
-[Sun Apr  5 16:11:09 2026] [::1]:37930 [200]: GET /js/i18n.js
-[Sun Apr  5 16:11:09 2026] [::1]:37946 [200]: GET /js/app.js
-[Sun Apr  5 16:11:09 2026] [::1]:37930 Closing
-[Sun Apr  5 16:11:09 2026] [::1]:37946 Closing
-[Sun Apr  5 16:11:09 2026] [::1]:37962 Accepted
-[Sun Apr  5 16:11:09 2026] [::1]:37972 Accepted
-[Sun Apr  5 16:11:09 2026] [::1]:37962 [200]: GET /api/fields.php
-[Sun Apr  5 16:11:09 2026] [::1]:37962 Closing
-[Sun Apr  5 16:11:09 2026] [::1]:37972 [200]: GET /data/crops.json
-[Sun Apr  5 16:11:09 2026] [::1]:37972 Closing
-[Sun Apr  5 16:11:35 2026] [::1]:53256 Accepted
-[Sun Apr  5 16:11:35 2026] [::1]:53256 [200]: POST /api/fields.php
-[Sun Apr  5 16:11:35 2026] [::1]:53256 Closing
-[Sun Apr  5 16:11:35 2026] [::1]:53258 Accepted
-[Sun Apr  5 16:11:35 2026] [::1]:53258 [200]: GET /
-[Sun Apr  5 16:11:35 2026] [::1]:53258 Closing
-[Sun Apr  5 16:11:35 2026] [::1]:53270 Accepted
-[Sun Apr  5 16:11:35 2026] [::1]:53286 Accepted
-[Sun Apr  5 16:11:35 2026] [::1]:53292 Accepted
-[Sun Apr  5 16:11:35 2026] [::1]:53270 [200]: GET /css/style.css
-[Sun Apr  5 16:11:35 2026] [::1]:53270 Closing
-[Sun Apr  5 16:11:35 2026] [::1]:53286 [200]: GET /js/i18n.js
-[Sun Apr  5 16:11:35 2026] [::1]:53292 [200]: GET /js/app.js
-[Sun Apr  5 16:11:35 2026] [::1]:53286 Closing
-[Sun Apr  5 16:11:35 2026] [::1]:53292 Closing
-[Sun Apr  5 16:11:35 2026] [::1]:53296 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53296 [200]: GET /api/fields.php
-[Sun Apr  5 16:11:36 2026] [::1]:53296 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53308 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53308 [200]: GET /data/crops.json
-[Sun Apr  5 16:11:36 2026] [::1]:53308 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53322 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53322 [200]: GET /field.html?id=12
-[Sun Apr  5 16:11:36 2026] [::1]:53322 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53326 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53326 [200]: GET /css/style.css
-[Sun Apr  5 16:11:36 2026] [::1]:53326 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53342 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53352 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53342 [200]: GET /js/field.js
-[Sun Apr  5 16:11:36 2026] [::1]:53352 [200]: GET /js/i18n.js
-[Sun Apr  5 16:11:36 2026] [::1]:53342 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53352 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53360 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53362 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53360 [200]: GET /api/fields.php?id=12
-[Sun Apr  5 16:11:36 2026] [::1]:53360 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53362 [200]: GET /data/crops.json
-[Sun Apr  5 16:11:36 2026] [::1]:53362 Closing
-[Sun Apr  5 16:11:36 2026] [::1]:53370 Accepted
-[Sun Apr  5 16:11:36 2026] [::1]:53370 [200]: GET /api/records.php?field_id=12&year=2026
-[Sun Apr  5 16:11:36 2026] [::1]:53370 Closing
-[Sun Apr  5 16:11:37 2026] [::1]:53384 Accepted
-[Sun Apr  5 16:11:37 2026] [::1]:53384 [200]: PUT /api/fields.php?id=12
-[Sun Apr  5 16:11:37 2026] [::1]:53384 Closing
-[Sun Apr  5 16:11:37 2026] [::1]:53390 Accepted
-[Sun Apr  5 16:11:37 2026] [::1]:53390 [200]: POST /api/records.php
-[Sun Apr  5 16:11:37 2026] [::1]:53390 Closing
+[Sun Apr  5 20:08:16 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Sun Apr  5 20:09:14 2026] [::1]:47532 Accepted
+[Sun Apr  5 20:09:14 2026] [::1]:47532 [200]: GET /index.html
+[Sun Apr  5 20:09:14 2026] [::1]:47532 Closing
+[Sun Apr  5 20:09:14 2026] [::1]:47546 Accepted
+[Sun Apr  5 20:09:14 2026] [::1]:47550 Accepted
+[Sun Apr  5 20:09:14 2026] [::1]:47562 Accepted
+[Sun Apr  5 20:09:14 2026] [::1]:47546 [200]: GET /css/style.css
+[Sun Apr  5 20:09:14 2026] [::1]:47550 [200]: GET /js/i18n.js
+[Sun Apr  5 20:09:14 2026] [::1]:47546 Closing
+[Sun Apr  5 20:09:14 2026] [::1]:47550 Closing
+[Sun Apr  5 20:09:14 2026] [::1]:47562 [200]: GET /js/app.js
+[Sun Apr  5 20:09:14 2026] [::1]:47562 Closing
+[Sun Apr  5 20:09:15 2026] [::1]:47576 Accepted
+[Sun Apr  5 20:09:15 2026] [::1]:47584 Accepted
+[Sun Apr  5 20:09:15 2026] [::1]:47576 [200]: GET /api/fields.php
+[Sun Apr  5 20:09:15 2026] [::1]:47576 Closing
+[Sun Apr  5 20:09:15 2026] [::1]:47584 [200]: GET /data/crops.json
+[Sun Apr  5 20:09:15 2026] [::1]:47584 Closing
+[Sun Apr  5 20:09:17 2026] [::1]:47588 Accepted
+[Sun Apr  5 20:09:17 2026] [::1]:47588 [200]: GET /field.html?id=1
+[Sun Apr  5 20:09:17 2026] [::1]:47588 Closing
+[Sun Apr  5 20:09:17 2026] [::1]:47600 Accepted
+[Sun Apr  5 20:09:17 2026] [::1]:47612 Accepted
+[Sun Apr  5 20:09:17 2026] [::1]:47618 Accepted
+[Sun Apr  5 20:09:17 2026] [::1]:47600 [200]: GET /css/style.css
+[Sun Apr  5 20:09:17 2026] [::1]:47612 [200]: GET /js/field.js
+[Sun Apr  5 20:09:17 2026] [::1]:47600 Closing
+[Sun Apr  5 20:09:17 2026] [::1]:47612 Closing
+[Sun Apr  5 20:09:17 2026] [::1]:47618 [200]: GET /js/i18n.js
+[Sun Apr  5 20:09:17 2026] [::1]:47618 Closing
+[Sun Apr  5 20:09:17 2026] [::1]:43914 Accepted
+[Sun Apr  5 20:09:17 2026] [::1]:43922 Accepted
+[Sun Apr  5 20:09:17 2026] [::1]:43914 [200]: GET /api/fields.php?id=1
+[Sun Apr  5 20:09:17 2026] [::1]:43914 Closing
+[Sun Apr  5 20:09:17 2026] [::1]:43922 [200]: GET /data/crops.json
+[Sun Apr  5 20:09:17 2026] [::1]:43922 Closing
+[Sun Apr  5 20:09:17 2026] [::1]:43928 Accepted
+[Sun Apr  5 20:09:17 2026] [::1]:43928 [200]: GET /api/records.php?field_id=1&year=2026
+[Sun Apr  5 20:09:17 2026] [::1]:43928 Closing

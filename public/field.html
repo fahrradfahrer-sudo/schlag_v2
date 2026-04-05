@@ -39,7 +39,13 @@
                         <label id="label-year">Management Year:</label>
                         <select id="mgmt-year-select" onchange="loadYearlyRecord()"></select>
                     </div>
-                    <button class="btn-success" id="export-csv-btn" onclick="exportCSV()">Export CSV</button>
+                    <div class="dropdown">
+                        <button class="dropbtn" id="export-btn-label">Export</button>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="exportData('xlsx')">Excel (.xlsx)</a>
+                            <a href="#" onclick="exportData('csv')">CSV (.csv)</a>
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <div class="form-group">
