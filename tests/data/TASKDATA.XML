@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ISO11783_TaskData VersionMajor="4" VersionMinor="0">
+  <PFD A="PFD1" C="Multi-Polygon Field">
+    <PLN A="1">
+      <LSG A="1">
+        <PNT C="52.0" D="13.0"/>
+        <PNT C="52.1" D="13.0"/>
+        <PNT C="52.1" D="13.1"/>
+        <PNT C="52.0" D="13.1"/>
+        <PNT C="52.0" D="13.0"/>
+      </LSG>
+      <LSG A="2">
+        <PNT C="52.02" D="13.02"/>
+        <PNT C="52.08" D="13.02"/>
+        <PNT C="52.08" D="13.08"/>
+        <PNT C="52.02" D="13.08"/>
+        <PNT C="52.02" D="13.02"/>
+      </LSG>
+    </PLN>
+    <PLN A="1">
+      <LSG A="1">
+        <PNT C="52.2" D="13.2"/>
+        <PNT C="52.3" D="13.2"/>
+        <PNT C="52.3" D="13.3"/>
+        <PNT C="52.2" D="13.3"/>
+        <PNT C="52.2" D="13.2"/>
+      </LSG>
+    </PLN>
+  </PFD>
+</ISO11783_TaskData>
