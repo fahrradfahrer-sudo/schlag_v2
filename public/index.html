@@ -61,7 +61,13 @@
                 <div class="btn-group">
                     <button class="btn-primary" id="zoom-all-btn" onclick="zoomToAllFields()">Zoom All</button>
                     <button class="btn-success" id="export-btn" onclick="exportISOXML()">Export ISOXML</button>
-                    <button class="btn-success" id="export-all-csv-btn" onclick="exportAllData()">Export All Fields</button>
+                    <div class="dropdown">
+                        <button class="dropbtn" id="export-all-btn">Export All Fields</button>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="exportAllData('xlsx')">Excel (.xlsx)</a>
+                            <a href="#" onclick="exportAllData('csv')">CSV (.csv)</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="total-area" id="total-area-display">Total Area: 0.00 ha</div>
             </div>

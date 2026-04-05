@@ -38,7 +38,7 @@ const translations = {
         'psm-choose-option': '-- Choose product --',
         'btn-psm-search': 'Search',
         'mgmt-year': 'Management Year:',
-        'export-csv': 'Export Excel',
+        'export-csv': 'Export',
         'psm-product': 'Product',
         'psm-expiry': 'Approval End',
         'psm-bee': 'Bee safety',
@@ -47,7 +47,8 @@ const translations = {
         'label-spraying-employee': 'Spraying Employee:',
         'label-bbch': 'BBCH Stage:',
         'bbch-explanation': 'Estimated BBCH explanation:',
-        'export-all-fields': 'Export All Fields'
+        'export-all-fields': 'Export All Fields',
+        'psm-suggested-use': 'Suggested use'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -88,7 +89,7 @@ const translations = {
         'psm-choose-option': '-- Produkt wählen --',
         'btn-psm-search': 'Suchen',
         'mgmt-year': 'Wirtschaftsjahr:',
-        'export-csv': 'Excel Export',
+        'export-csv': 'Exportieren',
         'psm-product': 'Produkt',
         'psm-expiry': 'Zulassungsende',
         'psm-bee': 'Bienenschutz',
@@ -97,7 +98,8 @@ const translations = {
         'label-spraying-employee': 'Ausführende Person:',
         'label-bbch': 'BBCH-Stadium:',
         'bbch-explanation': 'Erklärung zum geschätzten BBCH:',
-        'export-all-fields': 'Alle Felder exportieren'
+        'export-all-fields': 'Alle Felder exportieren',
+        'psm-suggested-use': 'Empfohlene Anwendung'
     }
 };
 
@@ -157,8 +159,8 @@ function applyTranslations() {
         'back-link': t['back-link'],
         'save-btn': t['btn-save-changes'],
         'delete-btn': t['btn-delete-field'],
-        'export-csv-btn': t['export-csv'],
-        'export-all-csv-btn': t['export-all-fields'],
+        'export-btn-label': t['export-csv'],
+        'export-all-btn': t['export-all-fields'],
         'label-spraying-employee': t['label-spraying-employee'],
         'label-bbch': t['label-bbch'],
         'label-bbch-explanation': t['bbch-explanation']
