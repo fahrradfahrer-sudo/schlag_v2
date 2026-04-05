@@ -61,6 +61,7 @@
                 <div class="btn-group">
                     <button class="btn-primary" id="zoom-all-btn" onclick="zoomToAllFields()">Zoom All</button>
                     <button class="btn-success" id="export-btn" onclick="exportISOXML()">Export ISOXML</button>
+                    <button class="btn-success" id="export-all-csv-btn" onclick="exportAllData()">Export All Fields</button>
                 </div>
                 <div class="total-area" id="total-area-display">Total Area: 0.00 ha</div>
             </div>
@@ -137,6 +138,8 @@
     <script src="https://unpkg.com/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
     <!-- shpjs for Shapefiles -->
     <script src="https://unpkg.com/shpjs@4.0.4/dist/shp.js"></script>
+    <!-- SheetJS for Excel export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
     <script src="js/i18n.js"></script>
     <script src="js/app.js"></script>
