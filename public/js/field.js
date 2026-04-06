@@ -82,6 +82,14 @@ async function loadYearlyRecord() {
     const response = await fetch(`api/records.php?field_id=${currentField.id}&year=${year}`);
     const record = await response.json();
 
+    const dateIds = [
+        'field-seeding-date',
+        'field-fertilizing-date',
+        'field-spraying-date',
+        'field-tilling-date',
+        'field-harvesting-date'
+    ];
+
     document.getElementById('field-crop').value = record.crop || '';
     document.getElementById('field-seeding').value = record.seeding || '';
     document.getElementById('field-seeding-date').value = record.seeding_date || '';
@@ -95,6 +103,14 @@ async function loadYearlyRecord() {
     document.getElementById('field-tilling-date').value = record.tilling_date || '';
     document.getElementById('field-harvesting').value = record.harvesting || '';
     document.getElementById('field-harvesting-date').value = record.harvesting_date || '';
+
+    dateIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.readOnly = !!el.value;
+        }
+    });
+
     document.getElementById('field-notes').value = record.notes || '';
 
     // prefillDates(); // No longer prefill on load
@@ -271,26 +287,49 @@ async function onPSMSelected(kennr) {
         // Suggested intended use based on crop
         const currentCrop = document.getElementById('field-crop').value.toLowerCase();
         let suggestedUse = "";
-        if (selectedPSM.awg && currentCrop) {
-            // Very basic matching for demo/MVP
-            const matchingAwg = selectedPSM.awg.find(a =>
-                (a.kultur && currentCrop.includes(a.kultur.toLowerCase())) ||
-                (a.anwendungsbereich && currentCrop.includes(a.anwendungsbereich.toLowerCase()))
-            );
-            if (matchingAwg) {
-                suggestedUse = matchingAwg.schadorganismus || matchingAwg.anwendungsbereich;
+        let matchingAwgs = [];
+
+        if (selectedPSM.awg) {
+            if (currentCrop) {
+                // Try to find matching applications for the current crop
+                // We check both ways: if registration crop name is in field crop name, or vice versa
+                matchingAwgs = selectedPSM.awg.filter(a =>
+                    (a.kultur && (currentCrop.includes(a.kultur.toLowerCase()) || a.kultur.toLowerCase().includes(currentCrop))) ||
+                    (a.anwendungsbereich && (currentCrop.includes(a.anwendungsbereich.toLowerCase()) || a.anwendungsbereich.toLowerCase().includes(currentCrop)))
+                );
+            }
+
+            // If no match found for crop, or if multiple exist, we might want to show them
+            // For the suggestion, we'll take the most relevant ones
+            if (matchingAwgs.length > 0) {
+                suggestedUse = [...new Set(matchingAwgs.map(a => a.schadorganismus))].filter(s => s).join(", ");
+            } else if (selectedPSM.awg.length > 0) {
+                // Fallback: show first 2 general uses if no crop match
+                suggestedUse = [...new Set(selectedPSM.awg.slice(0, 2).map(a => a.schadorganismus))].filter(s => s).join(", ");
             }
         }
         selectedPSM.suggestedUse = suggestedUse;
 
-        const infoUse = document.getElementById('psm-info-use') || document.createElement('div');
-        infoUse.id = 'psm-info-use';
-        infoUse.style.fontWeight = 'bold';
-        infoUse.style.color = '#2c3e50';
-        infoUse.textContent = suggestedUse ? `${_t('psm-suggested-use')}: ${suggestedUse}` : "";
-        if (!document.getElementById('psm-info-use')) {
+        let infoUse = document.getElementById('psm-info-use');
+        if (!infoUse) {
+            infoUse = document.createElement('div');
+            infoUse.id = 'psm-info-use';
+            infoUse.style.marginTop = '10px';
+            infoUse.style.padding = '8px';
+            infoUse.style.background = '#fff';
+            infoUse.style.borderLeft = '4px solid #2ecc71';
+            infoUse.style.fontWeight = 'bold';
             detailsDiv.insertBefore(infoUse, document.getElementById('psm-add-btn'));
         }
+
+        // Use textContent for safety, but we need separate elements for the label
+        infoUse.textContent = '';
+        const labelSpan = document.createElement('span');
+        labelSpan.style.color = suggestedUse ? '#27ae60' : '#e67e22';
+        labelSpan.textContent = `${_t('psm-suggested-use')}:`;
+        infoUse.appendChild(labelSpan);
+        infoUse.appendChild(document.createElement('br'));
+        infoUse.appendChild(document.createTextNode(suggestedUse || 'N/A'));
 
         let ratesText = `${_t('psm-rates')}: `;
         if (selectedPSM.rates && selectedPSM.rates.length > 0) {
@@ -387,8 +426,6 @@ async function exportData(format = 'xlsx') {
 
     const data = records.map(r => ({
         "Field Name": currentField.name,
-        "Latitude": center.lat,
-        "Longitude": center.lng,
         "Year": r.year,
         "Crop": r.crop,
         "Seeding Date": r.seeding_date,
@@ -403,14 +440,17 @@ async function exportData(format = 'xlsx') {
         "Tilling": r.tilling,
         "Harvesting Date": r.harvesting_date,
         "Harvesting": r.harvesting,
-        "Notes": r.notes
+        "Notes": r.notes,
+        "Latitude": center.lat,
+        "Longitude": center.lng
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
 
     if (format === 'xlsx') {
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, currentField.name.substring(0, 31));
+        let sheetName = `${currentField.id}_${currentField.name}`.substring(0, 31);
+        XLSX.utils.book_append_sheet(wb, ws, sheetName);
         XLSX.writeFile(wb, `field_${currentField.id}_records.xlsx`);
     } else {
         const csv = XLSX.utils.sheet_to_csv(ws);

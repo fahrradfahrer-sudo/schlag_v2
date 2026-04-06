@@ -371,8 +371,6 @@ async function exportAllData(format = 'xlsx') {
         if (records.length > 0) {
             const data = records.map(r => ({
                 "Field Name": field.name,
-                "Latitude": center.lat,
-                "Longitude": center.lng,
                 "Year": r.year,
                 "Crop": r.crop,
                 "Seeding Date": r.seeding_date,
@@ -387,13 +385,16 @@ async function exportAllData(format = 'xlsx') {
                 "Tilling": r.tilling,
                 "Harvesting Date": r.harvesting_date,
                 "Harvesting": r.harvesting,
-                "Notes": r.notes
+                "Notes": r.notes,
+                "Latitude": center.lat,
+                "Longitude": center.lng
             }));
 
             if (format === 'xlsx') {
                 const ws = XLSX.utils.json_to_sheet(data);
-                // Sheet name max length 31 chars
-                XLSX.utils.book_append_sheet(wb, ws, field.name.substring(0, 31));
+                // Sheet name max length 31 chars. Ensure uniqueness by using ID.
+                let sheetName = `${field.id}_${field.name}`.substring(0, 31);
+                XLSX.utils.book_append_sheet(wb, ws, sheetName);
             } else {
                 allDataForCSV = allDataForCSV.concat(data);
             }
