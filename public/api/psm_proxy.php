@@ -24,6 +24,21 @@ if ($kennr) {
     $mittel = fetch_api($base_url . "mittel/?q=" . $q_kennr);
     $auflagen = fetch_api($base_url . "auflagen/?q=" . $q_ebene);
     $awg = fetch_api($base_url . "awg/?q=" . $q_kennr);
+    $wirkstoff_gehalt = fetch_api($base_url . "wirkstoff_gehalt/?q=" . $q_kennr);
+    $wirkstoffe_data = [];
+    if (isset($wirkstoff_gehalt['items'])) {
+        foreach ($wirkstoff_gehalt['items'] as $wg) {
+            $q_wirknr = urlencode(json_encode(["wirknr" => $wg['wirknr']]));
+            $w_info = fetch_api($base_url . "wirkstoff/?q=" . $q_wirknr);
+            if (isset($w_info['items'][0])) {
+                $wirkstoffe_data[] = [
+                    "name" => $w_info['items'][0]['wirkstoffname'],
+                    "amount" => $wg['gehalt_rein'],
+                    "unit" => $wg['gehalt_einheit']
+                ];
+            }
+        }
+    }
 
     $bee_safety = "N/A";
     if (isset($auflagen['items'])) {
@@ -57,7 +72,9 @@ if ($kennr) {
         "mittel" => $mittel['items'][0] ?? null,
         "bee_safety" => $bee_safety,
         "rates" => $rates,
-        "awg" => $awg['items'] ?? []
+        "awg" => $awg['items'] ?? [],
+        "auflagen" => $auflagen['items'] ?? [],
+        "wirkstoffe" => $wirkstoffe_data
     ]);
     exit;
 }

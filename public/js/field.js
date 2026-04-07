@@ -107,7 +107,9 @@ async function loadYearlyRecord() {
     dateIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            el.readOnly = !!el.value;
+            el.readOnly = false; // Always changeable
+            // Hide if no value
+            el.style.display = el.value ? 'block' : 'none';
         }
     });
 
@@ -133,14 +135,17 @@ function setupDateAutoFill() {
 
         if (textEl && dateEl) {
             const handleInput = () => {
-                if (textEl.value.trim() !== '' && !dateEl.value) {
-                    const now = new Date();
-                    const year = now.getFullYear();
-                    const month = String(now.getMonth() + 1).padStart(2, '0');
-                    const day = String(now.getDate()).padStart(2, '0');
-                    const hours = String(now.getHours()).padStart(2, '0');
-                    const minutes = String(now.getMinutes()).padStart(2, '0');
-                    dateEl.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+                if (textEl.value.trim() !== '') {
+                    dateEl.style.display = 'block';
+                    if (!dateEl.value) {
+                        const now = new Date();
+                        const year = now.getFullYear();
+                        const month = String(now.getMonth() + 1).padStart(2, '0');
+                        const day = String(now.getDate()).padStart(2, '0');
+                        const hours = String(now.getHours()).padStart(2, '0');
+                        const minutes = String(now.getMinutes()).padStart(2, '0');
+                        dateEl.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+                    }
                 }
             };
             textEl.removeEventListener('input', handleInput);
@@ -265,9 +270,11 @@ let selectedPSM = null;
 
 async function onPSMSelected(kennr) {
     const detailsDiv = document.getElementById('psm-details');
+    const extraDetailsDiv = document.getElementById('psm-extra-details');
 
     if (!kennr) {
         detailsDiv.style.display = 'none';
+        extraDetailsDiv.style.display = 'none';
         selectedPSM = null;
         return;
     }
@@ -277,7 +284,17 @@ async function onPSMSelected(kennr) {
 
     if (selectedPSM.mittel) {
         detailsDiv.style.display = 'block';
+        extraDetailsDiv.style.display = 'block';
         document.getElementById('psm-info-name').textContent = `${_t('psm-product')}: ${selectedPSM.mittel.mittelname} (${selectedPSM.mittel.kennr})`;
+
+        // Clear ingredients from last search to avoid state leakage
+        const ingredientsEl = document.getElementById('psm-info-ingredients');
+        if (selectedPSM.wirkstoffe && selectedPSM.wirkstoffe.length > 0) {
+            const ingredientsText = selectedPSM.wirkstoffe.map(w => `${w.name} (${w.amount} ${w.unit})`).join(", ");
+            ingredientsEl.textContent = ingredientsText;
+        } else {
+            ingredientsEl.textContent = 'N/A';
+        }
 
         const expiryDate = selectedPSM.mittel.zul_ende ? new Date(selectedPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
         document.getElementById('psm-info-expiry').textContent = `${_t('psm-expiry')}: ${expiryDate}`;
@@ -304,8 +321,8 @@ async function onPSMSelected(kennr) {
             if (matchingAwgs.length > 0) {
                 suggestedUse = [...new Set(matchingAwgs.map(a => a.schadorganismus))].filter(s => s).join(", ");
             } else if (selectedPSM.awg.length > 0) {
-                // Fallback: show first 2 general uses if no crop match
-                suggestedUse = [...new Set(selectedPSM.awg.slice(0, 2).map(a => a.schadorganismus))].filter(s => s).join(", ");
+                // Fallback: show all registered uses if no crop match
+                suggestedUse = [...new Set(selectedPSM.awg.map(a => a.schadorganismus))].filter(s => s).join(", ");
             }
         }
         selectedPSM.suggestedUse = suggestedUse;
@@ -330,6 +347,23 @@ async function onPSMSelected(kennr) {
         infoUse.appendChild(labelSpan);
         infoUse.appendChild(document.createElement('br'));
         infoUse.appendChild(document.createTextNode(suggestedUse || 'N/A'));
+
+        const infoRestrictions = document.getElementById('psm-info-restrictions');
+        infoRestrictions.textContent = '';
+        if (selectedPSM.auflagen && selectedPSM.auflagen.length > 0) {
+            const list = document.createElement('ul');
+            list.style.margin = '5px 0 0 20px';
+            list.style.padding = '0';
+            const uniqueAuflagen = [...new Set(selectedPSM.auflagen.map(a => a.auflage))];
+            uniqueAuflagen.forEach(a => {
+                const li = document.createElement('li');
+                li.textContent = a;
+                list.appendChild(li);
+            });
+            infoRestrictions.appendChild(list);
+        } else {
+            infoRestrictions.appendChild(document.createTextNode('N/A'));
+        }
 
         let ratesText = `${_t('psm-rates')}: `;
         if (selectedPSM.rates && selectedPSM.rates.length > 0) {

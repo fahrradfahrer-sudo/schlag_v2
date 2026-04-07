@@ -48,7 +48,9 @@ const translations = {
         'label-bbch': 'BBCH Stage:',
         'bbch-explanation': 'Estimated BBCH explanation:',
         'export-all-fields': 'Export All Fields',
-        'psm-suggested-use': 'Suggested use'
+        'psm-suggested-use': 'Suggested use',
+        'psm-active-ingredients': 'Active Ingredients',
+        'psm-restrictions': 'Restrictions'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -99,7 +101,9 @@ const translations = {
         'label-bbch': 'BBCH-Stadium:',
         'bbch-explanation': 'Erklärung zum geschätzten BBCH:',
         'export-all-fields': 'Alle Felder exportieren',
-        'psm-suggested-use': 'Empfohlene Anwendung'
+        'psm-suggested-use': 'Empfohlene Anwendung',
+        'psm-active-ingredients': 'Wirkstoffe',
+        'psm-restrictions': 'Auflagen'
     }
 };
 
@@ -163,7 +167,9 @@ function applyTranslations() {
         'export-all-btn': t['export-all-fields'],
         'label-spraying-employee': t['label-spraying-employee'],
         'label-bbch': t['label-bbch'],
-        'label-bbch-explanation': t['bbch-explanation']
+        'label-bbch-explanation': t['bbch-explanation'],
+        'label-psm-ingredients': t['psm-active-ingredients'],
+        'label-psm-restrictions': t['psm-restrictions']
     };
 
     for (let id in map) {
