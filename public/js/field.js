@@ -82,81 +82,106 @@ async function loadYearlyRecord() {
     const response = await fetch(`api/records.php?field_id=${currentField.id}&year=${year}`);
     const record = await response.json();
 
-    const dateIds = [
-        'field-seeding-date',
-        'field-fertilizing-date',
-        'field-spraying-date',
-        'field-tilling-date',
-        'field-harvesting-date'
-    ];
-
     document.getElementById('field-crop').value = record.crop || '';
-    document.getElementById('field-seeding').value = record.seeding || '';
-    document.getElementById('field-seeding-date').value = record.seeding_date || '';
-    document.getElementById('field-fertilizing').value = record.fertilizing || '';
-    document.getElementById('field-fertilizing-date').value = record.fertilizing_date || '';
-    document.getElementById('field-spraying').value = record.spraying || '';
-    document.getElementById('field-spraying-date').value = record.spraying_date || '';
-    document.getElementById('field-spraying-employee').value = record.spraying_employee || '';
-    document.getElementById('field-bbch').value = record.bbch || '';
-    document.getElementById('field-tilling').value = record.tilling || '';
-    document.getElementById('field-tilling-date').value = record.tilling_date || '';
-    document.getElementById('field-harvesting').value = record.harvesting || '';
-    document.getElementById('field-harvesting-date').value = record.harvesting_date || '';
-
-    dateIds.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.readOnly = false; // Always changeable
-            // Hide if no value
-            el.style.display = el.value ? 'block' : 'none';
-        }
-    });
-
     document.getElementById('field-notes').value = record.notes || '';
 
-    // prefillDates(); // No longer prefill on load
-    updateBBCHEstimation();
-    setupDateAutoFill();
+    loadTasks();
 }
 
-function setupDateAutoFill() {
-    const mappings = [
-        { textId: 'field-seeding', dateId: 'field-seeding-date' },
-        { textId: 'field-fertilizing', dateId: 'field-fertilizing-date' },
-        { textId: 'field-spraying', dateId: 'field-spraying-date' },
-        { textId: 'field-tilling', dateId: 'field-tilling-date' },
-        { textId: 'field-harvesting', dateId: 'field-harvesting-date' }
-    ];
+async function loadTasks() {
+    const year = document.getElementById('mgmt-year-select').value;
+    const response = await fetch(`api/tasks.php?field_id=${currentField.id}&year=${year}`);
+    const tasks = await response.json();
 
-    mappings.forEach(m => {
-        const textEl = document.getElementById(m.textId);
-        const dateEl = document.getElementById(m.dateId);
+    const container = document.getElementById('tasks-list');
+    container.innerHTML = '';
 
-        if (textEl && dateEl) {
-            const handleInput = () => {
-                if (textEl.value.trim() !== '') {
-                    dateEl.style.display = 'block';
-                    if (!dateEl.value) {
-                        const now = new Date();
-                        const year = now.getFullYear();
-                        const month = String(now.getMonth() + 1).padStart(2, '0');
-                        const day = String(now.getDate()).padStart(2, '0');
-                        const hours = String(now.getHours()).padStart(2, '0');
-                        const minutes = String(now.getMinutes()).padStart(2, '0');
-                        dateEl.value = `${year}-${month}-${day}T${hours}:${minutes}`;
-                    }
-                }
-            };
-            textEl.removeEventListener('input', handleInput);
-            textEl.addEventListener('input', handleInput);
+    if (tasks.length === 0) {
+        container.innerHTML = '<p>No tasks recorded for this year.</p>';
+        return;
+    }
+
+    tasks.forEach(task => {
+        const div = document.createElement('div');
+        div.className = 'task-item';
+        div.style.border = '1px solid #ddd';
+        div.style.padding = '10px';
+        div.style.marginBottom = '10px';
+        div.style.borderRadius = '4px';
+        div.style.background = '#fcfcfc';
+
+        let html = `<strong>${task.task_type.toUpperCase()}</strong> - ${task.task_date}<br>`;
+        html += `<span>${task.content}</span>`;
+        if (task.comment) {
+            html += `<div style="font-style: italic; color: #666; margin-top: 5px;">Comment: ${task.comment}</div>`;
         }
+        if (task.employee) {
+            html += `<div style="font-size: 0.9em; margin-top: 5px;">Employee: ${task.employee}</div>`;
+        }
+        if (task.bbch) {
+            html += `<div style="font-size: 0.9em;">BBCH: ${task.bbch}</div>`;
+        }
+        html += `<button class="btn-danger" style="padding: 2px 5px; font-size: 0.8em; margin-top: 5px;" onclick="deleteTask(${task.id})">Delete Task</button>`;
+
+        div.innerHTML = html;
+        container.appendChild(div);
     });
+}
+
+function toggleTaskFields() {
+    const type = document.getElementById('task-type').value;
+    document.getElementById('spraying-fields').style.display = (type === 'spraying') ? 'block' : 'none';
+    document.getElementById('bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
+
+    // Default date if empty
+    const dateInput = document.getElementById('task-date');
+    if (!dateInput.value) {
+        const now = new Date();
+        dateInput.value = now.toISOString().slice(0, 16);
+    }
+}
+
+async function addTask() {
+    const data = {
+        field_id: currentField.id,
+        year: document.getElementById('mgmt-year-select').value,
+        task_type: document.getElementById('task-type').value,
+        task_date: document.getElementById('task-date').value,
+        content: document.getElementById('task-content').value,
+        comment: document.getElementById('task-comment').value,
+        employee: document.getElementById('task-employee').value,
+        bbch: document.getElementById('task-bbch').value
+    };
+
+    if (!data.task_date) {
+        alert("Please select a date.");
+        return;
+    }
+
+    await fetch('api/tasks.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    // Clear form
+    document.getElementById('task-content').value = '';
+    document.getElementById('task-comment').value = '';
+    document.getElementById('task-bbch').value = '';
+
+    loadTasks();
+}
+
+async function deleteTask(id) {
+    if (confirm("Delete this task?")) {
+        await fetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
+        loadTasks();
+    }
 }
 
 function updateBBCHEstimation() {
     const cropValue = document.getElementById('field-crop').value.toLowerCase();
-    const bbchInput = document.getElementById('field-bbch');
+    const bbchInput = document.getElementById('task-bbch');
     const explanationText = document.getElementById('bbch-explanation-text');
 
     if (!cropValue) {
@@ -167,13 +192,11 @@ function updateBBCHEstimation() {
     const now = new Date();
     const month = now.getMonth() + 1;
     const day = now.getDate();
-    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
 
     let estimation = "";
     let bbch = "";
 
     if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
-        // BBCH Potato Estimation based on general German climate (approximate)
         if (month < 4) {
             bbch = "00";
             estimation = currentLang === 'de' ? "Keimruhe / Vorbereitung" : "Dormancy / Preparation";
@@ -378,7 +401,7 @@ async function onPSMSelected(kennr) {
 function addPSMToDetails() {
     if (!selectedPSM || !selectedPSM.mittel) return;
 
-    const textarea = document.getElementById('field-spraying');
+    const textarea = document.getElementById('task-content');
     if (textarea.value) textarea.value += "\n";
 
     const expiryDate = selectedPSM.mittel.zul_ende ? new Date(selectedPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
@@ -415,18 +438,6 @@ async function saveField() {
         field_id: currentField.id,
         year: year,
         crop: document.getElementById('field-crop').value,
-        seeding: document.getElementById('field-seeding').value,
-        seeding_date: document.getElementById('field-seeding-date').value,
-        fertilizing: document.getElementById('field-fertilizing').value,
-        fertilizing_date: document.getElementById('field-fertilizing-date').value,
-        spraying: document.getElementById('field-spraying').value,
-        spraying_date: document.getElementById('field-spraying-date').value,
-        spraying_employee: document.getElementById('field-spraying-employee').value,
-        bbch: document.getElementById('field-bbch').value,
-        tilling: document.getElementById('field-tilling').value,
-        tilling_date: document.getElementById('field-tilling-date').value,
-        harvesting: document.getElementById('field-harvesting').value,
-        harvesting_date: document.getElementById('field-harvesting-date').value,
         notes: document.getElementById('field-notes').value
     };
 
