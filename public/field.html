@@ -57,63 +57,70 @@
                     <input type="text" id="field-crop" list="crop-list" placeholder="Search crop or EPPO code...">
                     <datalist id="crop-list"></datalist>
                 </div>
-                <div class="form-group">
-                    <label id="label-seeding">Seeding Details:</label>
-                    <input type="datetime-local" id="field-seeding-date" style="margin-bottom: 5px;">
-                    <textarea id="field-seeding" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label id="label-fertilizing">Fertilizing Details:</label>
-                    <input type="datetime-local" id="field-fertilizing-date" style="margin-bottom: 5px;">
-                    <textarea id="field-fertilizing" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label id="label-spraying">Spraying Details:</label>
-                    <div style="display: flex; gap: 5px; margin-bottom: 5px;">
-                        <input type="text" id="psm-search" list="psm-list" placeholder="Search product..." style="flex: 1;" oninput="searchPSM()">
-                        <datalist id="psm-list"></datalist>
+
+                <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 id="add-task-title">Add New Task</h3>
+                    <div class="form-group">
+                        <label>Task Type:</label>
+                        <select id="task-type" onchange="toggleTaskFields()">
+                            <option value="seeding">Seeding</option>
+                            <option value="fertilizing">Fertilizing</option>
+                            <option value="spraying">Plant Protection</option>
+                            <option value="tilling">Tilling</option>
+                            <option value="harvesting">Harvesting</option>
+                        </select>
                     </div>
-                    <div id="psm-details" style="background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 5px; display: none; font-size: 0.9em;">
-                        <div id="psm-info-name"></div>
-                        <div id="psm-info-expiry"></div>
-                        <div id="psm-info-bee"></div>
-                        <div id="psm-info-rates"></div>
-                        <button type="button" id="psm-add-btn" class="btn-success" style="margin-top: 5px; padding: 2px 10px;" onclick="addPSMToDetails()">Add to spraying</button>
-                    </div>
-                    <div id="psm-extra-details" style="background: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 4px; margin-top: 10px; display: none; font-size: 0.9em;">
-                        <div id="psm-info-ingredients-container" style="margin-bottom: 10px;">
-                            <label style="font-weight: bold; display: block;" id="label-psm-ingredients"></label>
-                            <div id="psm-info-ingredients"></div>
+
+                    <!-- Plant Protection Extra -->
+                    <div id="spraying-fields" style="display: none; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background: #fff;">
+                        <div style="display: flex; gap: 5px; margin-bottom: 5px;">
+                            <input type="text" id="psm-search" list="psm-list" placeholder="Search product..." style="flex: 1;" oninput="searchPSM()">
+                            <datalist id="psm-list"></datalist>
                         </div>
-                        <div id="psm-info-restrictions-container">
-                            <label style="font-weight: bold; display: block;" id="label-psm-restrictions"></label>
-                            <div id="psm-info-restrictions"></div>
+                        <div id="psm-details" style="background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 5px; display: none; font-size: 0.9em;">
+                            <div id="psm-info-name"></div>
+                            <div id="psm-info-expiry"></div>
+                            <div id="psm-info-bee"></div>
+                            <div id="psm-info-rates"></div>
+                            <button type="button" id="psm-add-btn" class="btn-success" style="margin-top: 5px; padding: 2px 10px;" onclick="addPSMToDetails()">Add to details</button>
                         </div>
                     </div>
-                    <input type="datetime-local" id="field-spraying-date" style="margin-bottom: 5px;">
-                    <textarea id="field-spraying" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label id="label-spraying-employee">Spraying Employee:</label>
-                    <input type="text" id="field-spraying-employee">
-                </div>
-                <div class="form-group">
-                    <label id="label-bbch">BBCH Stage:</label>
-                    <input type="text" id="field-bbch" placeholder="e.g. 32">
-                    <div id="bbch-explanation-container" style="font-size: 0.85em; color: #555; margin-top: 5px;">
-                        <span id="label-bbch-explanation" style="font-weight: bold;">Estimated BBCH explanation:</span>
-                        <span id="bbch-explanation-text"></span>
+
+                    <div class="form-group">
+                        <label>Date/Time:</label>
+                        <input type="datetime-local" id="task-date">
                     </div>
+                    <div class="form-group">
+                        <label>Details:</label>
+                        <textarea id="task-content" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Comment:</label>
+                        <textarea id="task-comment" rows="2" placeholder="Task-specific comment..."></textarea>
+                    </div>
+
+                    <div id="extra-task-fields">
+                        <div class="form-group">
+                            <label id="label-spraying-employee">Employee:</label>
+                            <input type="text" id="task-employee">
+                        </div>
+                        <div class="form-group" id="bbch-group" style="display: none;">
+                            <label id="label-bbch">BBCH Stage:</label>
+                            <input type="text" id="task-bbch" placeholder="e.g. 32">
+                            <div id="bbch-explanation-container" style="font-size: 0.85em; color: #555; margin-top: 5px;">
+                                <span id="label-bbch-explanation" style="font-weight: bold;">Estimated BBCH:</span>
+                                <span id="bbch-explanation-text"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-success" onclick="addTask()">Add Task</button>
                 </div>
-                <div class="form-group">
-                    <label id="label-tilling">Tilling Details:</label>
-                    <input type="datetime-local" id="field-tilling-date" style="margin-bottom: 5px;">
-                    <textarea id="field-tilling" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label id="label-harvesting">Harvesting Details:</label>
-                    <input type="datetime-local" id="field-harvesting-date" style="margin-bottom: 5px;">
-                    <textarea id="field-harvesting" rows="3"></textarea>
+
+                <div id="tasks-container">
+                    <h3 id="tasks-title">Task History</h3>
+                    <div id="tasks-list">
+                        <!-- Tasks will be loaded here -->
+                    </div>
                 </div>
                 <div class="form-group">
                     <label id="label-notes">General Notes:</label>

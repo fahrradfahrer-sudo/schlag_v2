@@ -65,7 +65,55 @@ try {
         } catch (PDOException $e) {}
     }
 
-    // 4. Migration: Copy data from fields to field_records if management columns exist in fields
+    // 4. Create tasks table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS tasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        field_id INTEGER NOT NULL,
+        year INTEGER NOT NULL,
+        task_type TEXT NOT NULL,
+        task_date TEXT,
+        content TEXT,
+        comment TEXT,
+        employee TEXT,
+        bbch TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (field_id) REFERENCES fields(id) ON DELETE CASCADE
+    )");
+
+    // Migration: Move existing data from field_records to tasks if tasks table is empty
+    $count = $pdo->query("SELECT COUNT(*) FROM tasks")->fetchColumn();
+    if ($count == 0) {
+        $records = $pdo->query("SELECT * FROM field_records")->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($records as $r) {
+            // Seeding
+            if (!empty($r['seeding']) || !empty($r['seeding_date'])) {
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content) VALUES (?, ?, 'seeding', ?, ?)");
+                $stmt->execute([$r['field_id'], $r['year'], $r['seeding_date'], $r['seeding']]);
+            }
+            // Fertilizing
+            if (!empty($r['fertilizing']) || !empty($r['fertilizing_date'])) {
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, bbch) VALUES (?, ?, 'fertilizing', ?, ?, ?)");
+                $stmt->execute([$r['field_id'], $r['year'], $r['fertilizing_date'], $r['fertilizing'], $r['bbch']]);
+            }
+            // Spraying (Plant Protection)
+            if (!empty($r['spraying']) || !empty($r['spraying_date'])) {
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, employee, bbch) VALUES (?, ?, 'spraying', ?, ?, ?, ?)");
+                $stmt->execute([$r['field_id'], $r['year'], $r['spraying_date'], $r['spraying'], $r['spraying_employee'], $r['bbch']]);
+            }
+            // Tilling
+            if (!empty($r['tilling']) || !empty($r['tilling_date'])) {
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content) VALUES (?, ?, 'tilling', ?, ?)");
+                $stmt->execute([$r['field_id'], $r['year'], $r['tilling_date'], $r['tilling']]);
+            }
+            // Harvesting
+            if (!empty($r['harvesting']) || !empty($r['harvesting_date'])) {
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content) VALUES (?, ?, 'harvesting', ?, ?)");
+                $stmt->execute([$r['field_id'], $r['year'], $r['harvesting_date'], $r['harvesting']]);
+            }
+        }
+    }
+
+    // 5. Migration: Copy data from fields to field_records if management columns exist in fields
     $res = $pdo->query("PRAGMA table_info(fields)");
     $cols = $res->fetchAll(PDO::FETCH_COLUMN, 1);
 

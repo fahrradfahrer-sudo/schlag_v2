@@ -34,6 +34,86 @@ map.addControl(drawControl);
 // Store for loaded fields
 let loadedFields = [];
 
+// Helper to toggle bulk actions
+function toggleAllFields(checked) {
+    const checkboxes = document.querySelectorAll('.field-checkbox');
+    checkboxes.forEach(cb => cb.checked = checked);
+}
+
+function selectFieldsByCrop(crop) {
+    const rows = document.querySelectorAll('#field-list tr');
+    rows.forEach(row => {
+        const checkbox = row.querySelector('.field-checkbox');
+        const fieldCrop = row.dataset.crop;
+        if (crop === "" || fieldCrop === crop) {
+            checkbox.checked = true;
+        } else {
+            checkbox.checked = false;
+        }
+    });
+}
+
+function openBulkTaskModal() {
+    const selectedFields = getSelectedFieldIds();
+    if (selectedFields.length === 0) {
+        alert("Please select at least one field.");
+        return;
+    }
+    document.getElementById('bulk-task-modal').style.display = 'block';
+
+    // Set default date
+    const now = new Date();
+    const currentDateTime = now.toISOString().slice(0, 16);
+    document.getElementById('bulk-task-date').value = currentDateTime;
+}
+
+function closeBulkModal() {
+    document.getElementById('bulk-task-modal').style.display = 'none';
+}
+
+function toggleBulkBBCH() {
+    const type = document.getElementById('bulk-task-type').value;
+    const bbchGroup = document.getElementById('bulk-bbch-group');
+    bbchGroup.style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
+}
+
+function getSelectedFieldIds() {
+    const checkboxes = document.querySelectorAll('.field-checkbox:checked');
+    return Array.from(checkboxes).map(cb => cb.value);
+}
+
+async function applyBulkTask() {
+    const fieldIds = getSelectedFieldIds();
+    const taskDate = document.getElementById('bulk-task-date').value;
+    const year = taskDate ? new Date(taskDate).getFullYear() : new Date().getFullYear();
+
+    const data = {
+        bulk: true,
+        field_ids: fieldIds,
+        year: year,
+        task_type: document.getElementById('bulk-task-type').value,
+        task_date: document.getElementById('bulk-task-date').value,
+        content: document.getElementById('bulk-task-content').value,
+        comment: document.getElementById('bulk-task-comment').value,
+        employee: document.getElementById('bulk-task-employee').value,
+        bbch: document.getElementById('bulk-task-bbch').value
+    };
+
+    const response = await fetch('api/tasks.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        alert("Task applied successfully to " + fieldIds.length + " fields.");
+        closeBulkModal();
+        loadFields();
+    } else {
+        alert("Error applying bulk task.");
+    }
+}
+
 // Helper to calculate area in hectares
 function calculateArea(geometry) {
     if (!geometry) return 0;
@@ -89,12 +169,14 @@ async function loadFields(autoZoom = false) {
         let totalArea = 0;
         const cropLabel = (typeof _t === 'function') ? _t('label-crop') : "Crop:";
 
+        const crops = new Set();
         for (const field of fields) {
             let geojson = JSON.parse(field.geometry);
             const area = calculateArea(geojson);
             totalArea += parseFloat(area);
 
             const crop = field.crop || '';
+            if (crop) crops.add(crop);
 
             // Ensure we have a Feature/FeatureCollection for L.geoJSON to properly trigger onEachFeature
             if (geojson.type !== 'Feature' && geojson.type !== 'FeatureCollection') {
@@ -129,47 +211,39 @@ async function loadFields(autoZoom = false) {
                 }
             });
 
-            // Add to Sidebar
-            const item = document.createElement('div');
-            item.className = 'field-item';
+            // Add to Sidebar Table
+            const row = document.createElement('tr');
+            row.dataset.crop = crop;
 
-            const title = document.createElement('h4');
-            title.textContent = `${field.name} (${area} ha)`;
-            item.appendChild(title);
+            const lastTaskText = field.last_task ? `${field.last_task.task_type} (${field.last_task.task_date})` : '-';
 
-            if (crop) {
-                const cropInfo = document.createElement('div');
-                cropInfo.style.fontSize = '0.9em';
-                cropInfo.style.marginBottom = '5px';
-                cropInfo.textContent = cropLabel + " " + crop;
-                item.appendChild(cropInfo);
-            }
+            row.innerHTML = `
+                <td><input type="checkbox" class="field-checkbox" value="${field.id}"></td>
+                <td>${field.name}</td>
+                <td>${crop}</td>
+                <td>${area}</td>
+                <td style="font-size: 0.8em;">${lastTaskText}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn-primary" onclick="zoomToField(${field.id})" title="Zoom">Z</button>
+                        <button class="btn-success" onclick="window.location.href='field.html?id=${field.id}'" title="Edit">E</button>
+                        <button class="btn-danger" onclick="deleteField(${field.id})" title="Delete">D</button>
+                    </div>
+                </td>
+            `;
 
-            const actions = document.createElement('div');
-            actions.className = 'actions';
-
-            const zoomBtn = document.createElement('button');
-            zoomBtn.className = 'btn-primary';
-            zoomBtn.textContent = (typeof _t === 'function') ? _t('btn-zoom') : 'Zoom';
-            zoomBtn.onclick = () => zoomToField(field.id);
-
-            const editBtn = document.createElement('button');
-            editBtn.className = 'btn-success';
-            editBtn.textContent = (typeof _t === 'function') ? _t('btn-edit') : 'Edit/Info';
-            editBtn.onclick = () => window.location.href = `field.html?id=${field.id}`;
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'btn-danger';
-            deleteBtn.textContent = (typeof _t === 'function') ? _t('btn-delete') : 'Delete';
-            deleteBtn.onclick = () => deleteField(field.id);
-
-            actions.appendChild(zoomBtn);
-            actions.appendChild(editBtn);
-            actions.appendChild(deleteBtn);
-            item.appendChild(actions);
-
-            listElement.appendChild(item);
+            listElement.appendChild(row);
         }
+
+        // Update crop dropdown
+        const cropSelect = document.getElementById('bulk-select-crop');
+        cropSelect.innerHTML = '<option value="">-- All --</option>';
+        Array.from(crops).sort().forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            cropSelect.appendChild(opt);
+        });
 
         const totalAreaText = (typeof _t === 'function') ? _t('total-area', {area: totalArea.toFixed(2)}) : `Total Area: ${totalArea.toFixed(2)} ha`;
         document.getElementById('total-area-display').textContent = totalAreaText;
@@ -716,7 +790,8 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: props.name || props.NAME || props.Name || props.NAM || props.Designator || defaultName,
+                    name: props.SCHLAGNR || props.name || props.NAME || props.Name || props.NAM || props.Designator || defaultName,
+                    crop: props.KTA_VJ || '',
                     notes: props.description || props.notes || '',
                     geometry: JSON.stringify(geometry),
                     area: calculateArea(geometry)

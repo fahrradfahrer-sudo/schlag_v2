@@ -18,22 +18,51 @@ try {
             $id = $_GET['id'] ?? null;
             $year = (int)($_GET['year'] ?? date('Y'));
             if ($id) {
-                $stmt = $pdo->prepare("SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
-                                      r.crop, r.seeding, r.fertilizing, r.spraying, r.spraying_employee, r.bbch, r.tilling, r.harvesting
-                                      FROM fields f
-                                      LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
-                                      WHERE f.id = ?");
-                $stmt->execute([$year, $id]);
+                $sql = "SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
+                               r.crop,
+                               t.task_type as last_task_type, t.task_date as last_task_date
+                        FROM fields f
+                        LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
+                        LEFT JOIN tasks t ON t.id = (
+                            SELECT id FROM tasks
+                            WHERE field_id = f.id AND year = ?
+                            ORDER BY task_date DESC, id DESC LIMIT 1
+                        )
+                        WHERE f.id = ?";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$year, $year, $id]);
                 $field = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($field) {
+                    $field['last_task'] = $field['last_task_type'] ? [
+                        'task_type' => $field['last_task_type'],
+                        'task_date' => $field['last_task_date']
+                    ] : null;
+                    unset($field['last_task_type'], $field['last_task_date']);
+                }
                 echo json_encode($field);
             } else {
-                $stmt = $pdo->prepare("SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
-                                      r.crop, r.seeding, r.fertilizing, r.spraying, r.spraying_employee, r.bbch, r.tilling, r.harvesting
-                                      FROM fields f
-                                      LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
-                                      ORDER BY f.created_at DESC");
-                $stmt->execute([$year]);
+                $sql = "SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
+                               r.crop,
+                               t.task_type as last_task_type, t.task_date as last_task_date
+                        FROM fields f
+                        LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
+                        LEFT JOIN tasks t ON t.id = (
+                            SELECT id FROM tasks
+                            WHERE field_id = f.id AND year = ?
+                            ORDER BY task_date DESC, id DESC LIMIT 1
+                        )
+                        ORDER BY f.created_at DESC";
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$year, $year]);
                 $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($fields as &$field) {
+                    $field['last_task'] = $field['last_task_type'] ? [
+                        'task_type' => $field['last_task_type'],
+                        'task_date' => $field['last_task_date']
+                    ] : null;
+                    unset($field['last_task_type'], $field['last_task_date']);
+                }
                 echo json_encode($fields);
             }
             break;
