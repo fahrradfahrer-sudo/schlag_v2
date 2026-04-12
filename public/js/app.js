@@ -54,36 +54,93 @@ function selectFieldsByCrop(crop) {
 }
 
 function openBulkTaskModal() {
-    const selectedFields = getSelectedFieldIds();
-    if (selectedFields.length === 0) {
-        alert("Please select at least one field.");
-        return;
-    }
     document.getElementById('bulk-task-modal').style.display = 'block';
 
     // Set default date
     const now = new Date();
     const currentDateTime = now.toISOString().slice(0, 16);
     document.getElementById('bulk-task-date').value = currentDateTime;
+
+    populateBulkFieldList();
+}
+
+function populateBulkFieldList() {
+    const container = document.getElementById('bulk-field-list');
+    container.innerHTML = '';
+
+    const selectedIds = getSelectedFieldIds();
+
+    loadedFields.forEach(field => {
+        const row = document.createElement('tr');
+        row.className = 'bulk-field-row';
+        row.dataset.name = field.name.toLowerCase();
+        row.dataset.crop = (field.crop || '').toLowerCase();
+
+        let lastTaskText = '-';
+        if (field.last_task) {
+            lastTaskText = `${field.last_task.task_type} (${field.last_task.task_date})`;
+            if (field.last_task.task_type === 'spraying' && field.last_task.content) {
+                // Try to extract product name from content (it's usually the first line or before the first [)
+                const firstLine = field.last_task.content.split('\n')[0];
+                lastTaskText += `<br><span style="font-size:0.8em; color:#666;">${firstLine}</span>`;
+            }
+        }
+
+        const geojson = JSON.parse(field.geometry);
+        const area = calculateArea(geojson);
+
+        const isChecked = selectedIds.includes(String(field.id));
+
+        row.innerHTML = `
+            <td><input type="checkbox" class="bulk-field-checkbox" value="${field.id}" ${isChecked ? 'checked' : ''}></td>
+            <td>${field.name}</td>
+            <td>${field.crop || ''}</td>
+            <td>${area}</td>
+            <td>${lastTaskText}</td>
+        `;
+        container.appendChild(row);
+    });
+}
+
+function filterBulkFields() {
+    const query = document.getElementById('bulk-field-search').value.toLowerCase();
+    const rows = document.querySelectorAll('.bulk-field-row');
+    rows.forEach(row => {
+        const matches = row.dataset.name.includes(query) || row.dataset.crop.includes(query);
+        row.style.display = matches ? '' : 'none';
+    });
+}
+
+function toggleBulkSelection(checked) {
+    const checkboxes = document.querySelectorAll('.bulk-field-checkbox');
+    checkboxes.forEach(cb => {
+        if (cb.parentElement.parentElement.style.display !== 'none') {
+            cb.checked = checked;
+        }
+    });
 }
 
 function closeBulkModal() {
     document.getElementById('bulk-task-modal').style.display = 'none';
 }
 
-function toggleBulkBBCH() {
+function toggleBulkExtraFields() {
     const type = document.getElementById('bulk-task-type').value;
-    const bbchGroup = document.getElementById('bulk-bbch-group');
-    bbchGroup.style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
+    document.getElementById('bulk-spraying-fields').style.display = (type === 'spraying') ? 'block' : 'none';
+    document.getElementById('bulk-bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
 }
 
-function getSelectedFieldIds() {
-    const checkboxes = document.querySelectorAll('.field-checkbox:checked');
+function getBulkSelectedFieldIds() {
+    const checkboxes = document.querySelectorAll('.bulk-field-checkbox:checked');
     return Array.from(checkboxes).map(cb => cb.value);
 }
 
 async function applyBulkTask() {
-    const fieldIds = getSelectedFieldIds();
+    const fieldIds = getBulkSelectedFieldIds();
+    if (fieldIds.length === 0) {
+        alert("Please select at least one field.");
+        return;
+    }
     const taskDate = document.getElementById('bulk-task-date').value;
     const year = taskDate ? new Date(taskDate).getFullYear() : new Date().getFullYear();
 
@@ -112,6 +169,76 @@ async function applyBulkTask() {
     } else {
         alert("Error applying bulk task.");
     }
+}
+
+let bulkPsmSearchTimeout = null;
+let bulkPsmSearchResults = [];
+let selectedBulkPSM = null;
+
+async function searchBulkPSM() {
+    const query = document.getElementById('bulk-psm-search').value;
+    const datalist = document.getElementById('bulk-psm-list');
+
+    const matched = bulkPsmSearchResults.find(item => `${item.mittelname} (${item.kennr})` === query);
+    if (matched) {
+        onBulkPSMSelected(matched.kennr);
+        return;
+    }
+
+    if (query.length < 3) {
+        datalist.innerHTML = '';
+        return;
+    }
+
+    clearTimeout(bulkPsmSearchTimeout);
+    bulkPsmSearchTimeout = setTimeout(async () => {
+        const response = await fetch(`api/psm_proxy.php?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        datalist.innerHTML = '';
+        bulkPsmSearchResults = data.items || [];
+
+        if (data.items) {
+            data.items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = `${item.mittelname} (${item.kennr})`;
+                datalist.appendChild(option);
+            });
+        }
+    }, 400);
+}
+
+async function onBulkPSMSelected(kennr) {
+    const detailsDiv = document.getElementById('bulk-psm-details');
+    const response = await fetch(`api/psm_proxy.php?kennr=${encodeURIComponent(kennr)}`);
+    selectedBulkPSM = await response.json();
+
+    if (selectedBulkPSM.mittel) {
+        detailsDiv.style.display = 'block';
+        document.getElementById('bulk-psm-info-name').textContent = `${selectedBulkPSM.mittel.mittelname} (${selectedBulkPSM.mittel.kennr})`;
+        let ratesText = "Rates: ";
+        if (selectedBulkPSM.rates && selectedBulkPSM.rates.length > 0) {
+            ratesText += selectedBulkPSM.rates.map(r => `${r.amount} ${r.unit}`).join(", ");
+        } else {
+            ratesText += "N/A";
+        }
+        document.getElementById('bulk-psm-info-rates').textContent = ratesText;
+    }
+}
+
+function addBulkPSMToDetails() {
+    if (!selectedBulkPSM || !selectedBulkPSM.mittel) return;
+    const textarea = document.getElementById('bulk-task-content');
+    if (textarea.value) textarea.value += "\n";
+
+    const expiryDate = selectedBulkPSM.mittel.zul_ende ? new Date(selectedBulkPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
+    const rate = (selectedBulkPSM.rates && selectedBulkPSM.rates[0]) ? `${selectedBulkPSM.rates[0].amount} ${selectedBulkPSM.rates[0].unit}` : '';
+
+    let line = `${selectedBulkPSM.mittel.mittelname} (${selectedBulkPSM.mittel.kennr})`;
+    if (rate) line += ` @ ${rate}`;
+    line += ` [Expiry: ${expiryDate}, Bee safety: ${selectedBulkPSM.bee_safety}]`;
+
+    textarea.value += line;
 }
 
 // Helper to calculate area in hectares
@@ -215,14 +342,21 @@ async function loadFields(autoZoom = false) {
             const row = document.createElement('tr');
             row.dataset.crop = crop;
 
-            const lastTaskText = field.last_task ? `${field.last_task.task_type} (${field.last_task.task_date})` : '-';
+            let lastTaskText = '-';
+            if (field.last_task) {
+                lastTaskText = `${field.last_task.task_type} (${field.last_task.task_date})`;
+                if (field.last_task.task_type === 'spraying' && field.last_task.content) {
+                    const firstLine = field.last_task.content.split('\n')[0];
+                    lastTaskText += `<br><span style="font-size:0.8em; color:#666;">${firstLine}</span>`;
+                }
+            }
 
             row.innerHTML = `
                 <td><input type="checkbox" class="field-checkbox" value="${field.id}"></td>
                 <td>${field.name}</td>
                 <td>${crop}</td>
                 <td>${area}</td>
-                <td style="font-size: 0.8em;">${lastTaskText}</td>
+                <td style="font-size: 0.85em;">${lastTaskText}</td>
                 <td>
                     <div class="btn-group">
                         <button class="btn-primary" onclick="zoomToField(${field.id})" title="Zoom">Z</button>
@@ -641,13 +775,16 @@ async function handleZip(file) {
 
 async function handleShp(group) {
     try {
-        const options = {
-            shp: await group.shp.arrayBuffer()
-        };
-        if (group.dbf) options.dbf = await group.dbf.arrayBuffer();
-        if (group.shx) options.shx = await group.shx.arrayBuffer();
+        const shpBuffer = await group.shp.arrayBuffer();
+        const dbfBuffer = group.dbf ? await group.dbf.arrayBuffer() : null;
 
-        let geojson = await shp(options);
+        let geojson;
+        if (dbfBuffer) {
+            geojson = shp.combine([shp.parseShp(shpBuffer), shp.parseDbf(dbfBuffer)]);
+        } else {
+            geojson = shp.parseShp(shpBuffer);
+        }
+
         const prjText = group.prj ? await group.prj.text() : null;
 
         // Handle reprojection if .prj exists and isn't WGS84
@@ -665,7 +802,9 @@ async function handleShp(group) {
                             coords[0] = lng;
                             coords[1] = lat;
                         } else {
-                            coords.forEach(reprojectCoords);
+                            if (Array.isArray(coords)) {
+                                coords.forEach(reprojectCoords);
+                            }
                         }
                     };
                     reprojectCoords(feature.geometry.coordinates);
@@ -782,16 +921,39 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
         features = [geojson];
     }
 
+    // Load crops for NC uncoding if not already present
+    if (typeof cropList === 'undefined' || cropList.length === 0) {
+        try {
+            const resp = await fetch('data/crops.json');
+            window.cropList = await resp.json();
+        } catch (e) {
+            console.error("Failed to load crops for uncoding", e);
+        }
+    }
+    const list = window.cropList || [];
+
     for (const item of features) {
         let geometry = item.geometry || (item.type === 'Polygon' || item.type === 'MultiPolygon' ? item : null);
         if (geometry) {
             const props = item.properties || {};
+
+            // Uncode NC if present
+            let rawCrop = props.KTA_VJ || props.NC || props.NutzCode || props.NC_CODE || '';
+            let finalCrop = rawCrop;
+            if (rawCrop) {
+                const matched = list.find(c => String(c.nc) === String(rawCrop));
+                if (matched) {
+                    const lang = (typeof currentLang !== 'undefined') ? currentLang : 'de';
+                    finalCrop = `${lang === 'de' ? matched.name : matched.en} (${matched.eppo})`;
+                }
+            }
+
             await fetch('api/fields.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: props.SCHLAGNR || props.name || props.NAME || props.Name || props.NAM || props.Designator || defaultName,
-                    crop: props.KTA_VJ || '',
+                    crop: finalCrop,
                     notes: props.description || props.notes || '',
                     geometry: JSON.stringify(geometry),
                     area: calculateArea(geometry)

@@ -131,32 +131,70 @@
 
     <!-- Modals -->
     <div id="bulk-task-modal" class="modal">
-        <div class="modal-content">
-            <h3 id="bulk-modal-title">Bulk Task</h3>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Task Type:</label>
-                    <select id="bulk-task-type" onchange="toggleBulkBBCH()">
-                        <option value="seeding">Seeding</option>
-                        <option value="fertilizing">Fertilizing</option>
-                        <option value="spraying">Plant Protection</option>
-                        <option value="tilling">Tilling</option>
-                        <option value="harvesting">Harvesting</option>
-                    </select>
+        <div class="modal-content" style="width: 80%; max-width: 1000px;">
+            <h3 id="bulk-modal-title">Create New Tasks</h3>
+            <div class="modal-body" style="display: flex; gap: 20px;">
+                <!-- Left: Field Selection -->
+                <div style="flex: 1; border-right: 1px solid #ddd; padding-right: 20px;">
+                    <h4>Select Fields</h4>
+                    <div class="form-group">
+                        <input type="text" id="bulk-field-search" placeholder="Search by name, crop..." oninput="filterBulkFields()">
+                    </div>
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        <table id="bulk-field-selection-table" style="width: 100%; font-size: 0.9em;">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="bulk-select-all" onclick="toggleBulkSelection(this.checked)"></th>
+                                    <th>Name</th>
+                                    <th>Crop</th>
+                                    <th>ha</th>
+                                    <th>Last Task</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bulk-field-list"></tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Date:</label>
-                    <input type="datetime-local" id="bulk-task-date">
-                </div>
-                <div class="form-group">
-                    <label>Details:</label>
-                    <textarea id="bulk-task-content" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Comment:</label>
-                    <textarea id="bulk-task-comment" rows="2"></textarea>
-                </div>
-                <div id="bulk-extra-fields">
+
+                <!-- Right: Task Details -->
+                <div style="flex: 1;">
+                    <h4>Task Details</h4>
+                    <div class="form-group">
+                        <label>Task Type:</label>
+                        <select id="bulk-task-type" onchange="toggleBulkExtraFields()">
+                            <option value="seeding">Seeding</option>
+                            <option value="fertilizing">Fertilizing</option>
+                            <option value="spraying">Plant Protection</option>
+                            <option value="tilling">Tilling</option>
+                            <option value="harvesting">Harvesting</option>
+                        </select>
+                    </div>
+
+                    <!-- Plant Protection Extra -->
+                    <div id="bulk-spraying-fields" style="display: none; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background: #fff;">
+                        <div style="display: flex; gap: 5px; margin-bottom: 5px;">
+                            <input type="text" id="bulk-psm-search" list="bulk-psm-list" placeholder="Search product..." style="flex: 1;" oninput="searchBulkPSM()">
+                            <datalist id="bulk-psm-list"></datalist>
+                        </div>
+                        <div id="bulk-psm-details" style="background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 5px; display: none; font-size: 0.9em;">
+                            <div id="bulk-psm-info-name"></div>
+                            <div id="bulk-psm-info-rates"></div>
+                            <button type="button" class="btn-success" style="margin-top: 5px; padding: 2px 10px;" onclick="addBulkPSMToDetails()">Add to details</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date/Time:</label>
+                        <input type="datetime-local" id="bulk-task-date">
+                    </div>
+                    <div class="form-group">
+                        <label>Details:</label>
+                        <textarea id="bulk-task-content" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Comment:</label>
+                        <textarea id="bulk-task-comment" rows="2"></textarea>
+                    </div>
                     <div class="form-group">
                         <label>Employee:</label>
                         <input type="text" id="bulk-task-employee">
@@ -167,8 +205,8 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 15px;">
-                <button class="btn-primary" onclick="applyBulkTask()">Apply</button>
+            <div style="margin-top: 15px; text-align: right;">
+                <button class="btn-primary" onclick="applyBulkTask()">Apply Task to Selected</button>
                 <button onclick="closeBulkModal()">Cancel</button>
             </div>
         </div>
