@@ -20,7 +20,7 @@ try {
             if ($id) {
                 $sql = "SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
                                r.crop,
-                               t.task_type as last_task_type, t.task_date as last_task_date
+                               t.task_type as last_task_type, t.task_date as last_task_date, t.content as last_task_content
                         FROM fields f
                         LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
                         LEFT JOIN tasks t ON t.id = (
@@ -35,15 +35,16 @@ try {
                 if ($field) {
                     $field['last_task'] = $field['last_task_type'] ? [
                         'task_type' => $field['last_task_type'],
-                        'task_date' => $field['last_task_date']
+                        'task_date' => $field['last_task_date'],
+                        'content' => $field['last_task_content']
                     ] : null;
-                    unset($field['last_task_type'], $field['last_task_date']);
+                    unset($field['last_task_type'], $field['last_task_date'], $field['last_task_content']);
                 }
                 echo json_encode($field);
             } else {
                 $sql = "SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
                                r.crop,
-                               t.task_type as last_task_type, t.task_date as last_task_date
+                               t.task_type as last_task_type, t.task_date as last_task_date, t.content as last_task_content
                         FROM fields f
                         LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
                         LEFT JOIN tasks t ON t.id = (
@@ -59,9 +60,10 @@ try {
                 foreach ($fields as &$field) {
                     $field['last_task'] = $field['last_task_type'] ? [
                         'task_type' => $field['last_task_type'],
-                        'task_date' => $field['last_task_date']
+                        'task_date' => $field['last_task_date'],
+                        'content' => $field['last_task_content']
                     ] : null;
-                    unset($field['last_task_type'], $field['last_task_date']);
+                    unset($field['last_task_type'], $field['last_task_date'], $field['last_task_content']);
                 }
                 echo json_encode($fields);
             }
