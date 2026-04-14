@@ -103,10 +103,12 @@ function populateBulkFieldList() {
 }
 
 function filterBulkFields() {
-    const query = document.getElementById('bulk-field-search').value.toLowerCase();
+    const query = document.getElementById('bulk-field-search').value.toLowerCase().trim();
     const rows = document.querySelectorAll('.bulk-field-row');
     rows.forEach(row => {
-        const matches = row.dataset.name.includes(query) || row.dataset.crop.includes(query);
+        const name = row.dataset.name || "";
+        const crop = row.dataset.crop || "";
+        const matches = name.includes(query) || crop.includes(query);
         row.style.display = matches ? '' : 'none';
     });
 }
@@ -271,7 +273,13 @@ function calculateArea(geometry) {
         return calculateArea(geometry.geometry);
     }
 
-    return (totalArea / 10000).toFixed(2); // Convert to hectares
+    const hectares = totalArea / 10000;
+    // Sanity check: If area is impossibly large, something went wrong with projection
+    if (hectares > 1000000) {
+        console.warn('Suspiciously large area calculated:', hectares, 'ha. Check coordinates.');
+        return "0.00";
+    }
+    return hectares.toFixed(2); // Convert to hectares
 }
 
 // Load Fields from Backend
@@ -788,30 +796,34 @@ async function handleShp(group) {
         const prjText = group.prj ? await group.prj.text() : null;
 
         // Handle reprojection if .prj exists and isn't WGS84
-        if (prjText && !prjText.includes('WGS_1984') && !prjText.includes('EPSG","4326"')) {
+        const isWGS84 = !prjText || prjText.includes('WGS_1984') || prjText.includes('EPSG","4326"') || prjText.includes('GEOGCS["GCS_WGS_1984"');
+
+        if (!isWGS84) {
             try {
+                console.log('Reprojecting from:', prjText);
                 const sourceProj = prjText;
                 const destProj = 'EPSG:4326';
                 const features = Array.isArray(geojson) ? geojson.flatMap(g => g.features || [g]) : (geojson.features || [geojson]);
 
                 features.forEach(feature => {
                     if (!feature.geometry || !feature.geometry.coordinates) return;
-                    const reprojectCoords = (coords) => {
-                        if (typeof coords[0] === 'number') {
-                            const [lng, lat] = proj4(sourceProj, destProj, coords);
-                            coords[0] = lng;
-                            coords[1] = lat;
-                        } else {
-                            if (Array.isArray(coords)) {
-                                coords.forEach(reprojectCoords);
-                            }
+
+                    const reprojectNode = (node) => {
+                        if (Array.isArray(node) && typeof node[0] === 'number' && typeof node[1] === 'number') {
+                            const [lng, lat] = proj4(sourceProj, destProj, [node[0], node[1]]);
+                            node[0] = lng;
+                            node[1] = lat;
+                        } else if (Array.isArray(node)) {
+                            node.forEach(reprojectNode);
                         }
                     };
-                    reprojectCoords(feature.geometry.coordinates);
+                    reprojectNode(feature.geometry.coordinates);
                 });
             } catch (reprojErr) {
                 console.warn('Reprojection failed, falling back to raw coordinates:', reprojErr);
             }
+        } else {
+            console.log('SHP already in WGS84 or no PRJ found.');
         }
 
         await saveGeoJSONFeatures(geojson, group.shp.name.split('.')[0]);
@@ -938,10 +950,12 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
             const props = item.properties || {};
 
             // Uncode NC if present
-            let rawCrop = props.KTA_VJ || props.NC || props.NutzCode || props.NC_CODE || '';
+            let rawCrop = props.KTA_VJ || props.NC || props.NutzCode || props.NC_CODE || props.KULTUR_KOD || props.KULTUR || props.Nutzung || '';
             let finalCrop = rawCrop;
             if (rawCrop) {
-                const matched = list.find(c => String(c.nc) === String(rawCrop));
+                // Remove leading zeros for matching if it's a numeric string
+                const cleanNC = String(rawCrop).replace(/^0+/, '');
+                const matched = list.find(c => String(c.nc) === cleanNC || String(c.nc) === String(rawCrop));
                 if (matched) {
                     const lang = (typeof currentLang !== 'undefined') ? currentLang : 'de';
                     finalCrop = `${lang === 'de' ? matched.name : matched.en} (${matched.eppo})`;
