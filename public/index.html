@@ -104,7 +104,11 @@
             <div class="import-section">
                 <h3 id="import-title">Import Fields</h3>
                 <input type="file" id="file-import" accept=".kml,.zip,.shp,.shx,.dbf,.prj,.xml" multiple style="display: none;">
-                <button class="btn-success" id="upload-btn" style="width: 100%;" onclick="document.getElementById('file-import').click()">Upload File</button>
+                <input type="file" id="folder-import" webkitdirectory mozdirectory directory style="display: none;">
+                <div style="display: flex; gap: 5px;">
+                    <button class="btn-success" id="upload-btn" style="flex: 1;" onclick="document.getElementById('file-import').click()">Upload File</button>
+                    <button class="btn-success" id="upload-folder-btn" style="flex: 1;" onclick="document.getElementById('folder-import').click()">Upload Folder</button>
+                </div>
             </div>
 
             <div id="field-list-container">

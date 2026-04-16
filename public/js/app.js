@@ -40,6 +40,11 @@ function toggleAllFields(checked) {
     checkboxes.forEach(cb => cb.checked = checked);
 }
 
+function getSelectedFieldIds() {
+    const checkboxes = document.querySelectorAll('.field-checkbox:checked');
+    return Array.from(checkboxes).map(cb => cb.value);
+}
+
 function selectFieldsByCrop(crop) {
     const rows = document.querySelectorAll('#field-list tr');
     rows.forEach(row => {
@@ -707,16 +712,19 @@ function exportISOXML() {
 
 // Import Logic
 const fileInput = document.getElementById('file-import');
+const folderInput = document.getElementById('folder-import');
 
-fileInput.onchange = async (event) => {
-    const files = Array.from(event.target.files);
+async function handleFileSelection(files) {
     if (files.length === 0) return;
 
     const fileGroups = {};
     files.forEach(file => {
-        const nameParts = file.name.split('.');
+        // For folder upload, the path might be in webkitRelativePath
+        const path = file.webkitRelativePath || file.name;
+        const nameParts = path.split('/').pop().split('.');
         const ext = nameParts.pop().toLowerCase();
         const base = nameParts.join('.');
+
         if (!fileGroups[base]) fileGroups[base] = {};
         fileGroups[base][ext] = file;
     });
@@ -730,7 +738,16 @@ fileInput.onchange = async (event) => {
         else if (group.xml && base.toUpperCase() === 'TASKDATA') await handleISOXML(group.xml);
     }
     loadFields(true);
+}
+
+fileInput.onchange = async (event) => {
+    await handleFileSelection(Array.from(event.target.files));
     fileInput.value = '';
+};
+
+folderInput.onchange = async (event) => {
+    await handleFileSelection(Array.from(event.target.files));
+    folderInput.value = '';
 };
 
 async function handleGenericJSON(file) {
@@ -783,17 +800,24 @@ async function handleZip(file) {
 
 async function handleShp(group) {
     try {
-        const shpBuffer = await group.shp.arrayBuffer();
-        const dbfBuffer = group.dbf ? await group.dbf.arrayBuffer() : null;
+        if (!group.dbf || !group.prj) {
+            let missing = [];
+            if (!group.dbf) missing.push('.dbf');
+            if (!group.prj) missing.push('.prj');
 
-        let geojson;
-        if (dbfBuffer) {
-            geojson = shp.combine([shp.parseShp(shpBuffer), shp.parseDbf(dbfBuffer)]);
-        } else {
-            geojson = shp.parseShp(shpBuffer);
+            const msg = currentLang === 'de'
+                ? `Für den Import der Datei "${group.shp.name}" fehlen folgende Dateien: ${missing.join(', ')}.\n\nBitte wählen Sie alle zugehörigen Dateien (.shp, .dbf, .prj) zusammen aus oder verwenden Sie die Funktion "Ordner hochladen".\n\nOhne .dbf fehlen die Feldnamen, und ohne .prj kann die Position falsch sein.`
+                : `The following files are missing for importing "${group.shp.name}": ${missing.join(', ')}.\n\nPlease select all related files (.shp, .dbf, .prj) together or use the "Upload Folder" function.\n\nWithout .dbf, field names will be missing, and without .prj, the position might be incorrect.`;
+
+            alert(msg);
+            return;
         }
 
-        const prjText = group.prj ? await group.prj.text() : null;
+        const shpBuffer = await group.shp.arrayBuffer();
+        const dbfBuffer = await group.dbf.arrayBuffer();
+
+        const geojson = shp.combine([shp.parseShp(shpBuffer), shp.parseDbf(dbfBuffer)]);
+        const prjText = await group.prj.text();
 
         // Handle reprojection if .prj exists and isn't WGS84
         const isWGS84 = !prjText || prjText.includes('WGS_1984') || prjText.includes('EPSG","4326"') || prjText.includes('GEOGCS["GCS_WGS_1984"');
