@@ -96,10 +96,12 @@ button {
 
 .modal-content {
     background-color: white;
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 20px;
     width: 300px;
     border-radius: 5px;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 /* Dropdown Button */
