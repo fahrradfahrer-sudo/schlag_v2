@@ -66,6 +66,9 @@ function openBulkTaskModal() {
     const currentDateTime = now.toISOString().slice(0, 16);
     document.getElementById('bulk-task-date').value = currentDateTime;
 
+    // Ensure extra fields are toggled correctly for the initial selection
+    toggleBulkExtraFields();
+
     populateBulkFieldList();
 }
 

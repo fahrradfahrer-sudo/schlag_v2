@@ -44,14 +44,45 @@ const translations = {
         'psm-expiry': 'Approval End',
         'psm-bee': 'Bee safety',
         'psm-rates': 'Rates',
-        'psm-add-btn': 'Add to spraying',
+        'psm-add-btn': 'Add to details',
         'label-spraying-employee': 'Spraying Employee:',
         'label-bbch': 'BBCH Stage:',
         'bbch-explanation': 'Estimated BBCH explanation:',
         'export-all-fields': 'Export All Fields',
         'psm-suggested-use': 'Suggested use',
         'psm-active-ingredients': 'Active Ingredients',
-        'psm-restrictions': 'Restrictions'
+        'psm-restrictions': 'Restrictions',
+        'bulk-actions-title': 'Bulk Actions',
+        'label-select-crop': 'Select by Crop:',
+        'opt-all': '-- All --',
+        'btn-open-bulk-task': 'Apply Task to Selected',
+        'bulk-modal-title': 'Create New Tasks',
+        'bulk-select-fields-title': 'Select Fields',
+        'bulk-field-search-placeholder': 'Search by name, crop...',
+        'th-name': 'Name',
+        'th-crop': 'Crop',
+        'th-area': 'ha',
+        'th-last-task': 'Last Task',
+        'bulk-task-details-title': 'Task Details',
+        'label-task-type': 'Task Type:',
+        'task-type-seeding': 'Seeding',
+        'task-type-fertilizing': 'Fertilizing',
+        'task-type-spraying': 'Plant Protection',
+        'task-type-tilling': 'Tilling',
+        'task-type-harvesting': 'Harvesting',
+        'label-task-date': 'Date/Time:',
+        'label-task-content': 'Details:',
+        'label-task-comment': 'Comment:',
+        'label-task-employee': 'Employee:',
+        'label-task-bbch': 'BBCH Stage:',
+        'btn-bulk-apply': 'Apply Task to Selected',
+        'btn-bulk-cancel': 'Cancel',
+        'add-task-title': 'Add New Task',
+        'btn-add-task': 'Add Task',
+        'tasks-title': 'Task History',
+        'placeholder-task-comment': 'Task-specific comment...',
+        'no-fields-found': 'No fields found.',
+        'no-tasks-found': 'No tasks recorded for this year.'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -105,7 +136,39 @@ const translations = {
         'export-all-fields': 'Alle Felder exportieren',
         'psm-suggested-use': 'Empfohlene Anwendung',
         'psm-active-ingredients': 'Wirkstoffe',
-        'psm-restrictions': 'Auflagen'
+        'psm-restrictions': 'Auflagen',
+        'bulk-actions-title': 'Massenaktionen',
+        'label-select-crop': 'Nach Kultur auswählen:',
+        'opt-all': '-- Alle --',
+        'btn-open-bulk-task-title': 'Aufgabe auf Ausgewählte anwenden',
+        'btn-open-bulk-task': 'Aufgabe auf Ausgewählte anwenden',
+        'bulk-modal-title': 'Neue Aufgaben erstellen',
+        'bulk-select-fields-title': 'Felder auswählen',
+        'bulk-field-search-placeholder': 'Suche nach Name, Kultur...',
+        'th-name': 'Name',
+        'th-crop': 'Kultur',
+        'th-area': 'ha',
+        'th-last-task': 'Letzte Aufgabe',
+        'bulk-task-details-title': 'Aufgabendetails',
+        'label-task-type': 'Aufgabenart:',
+        'task-type-seeding': 'Aussaat',
+        'task-type-fertilizing': 'Düngung',
+        'task-type-spraying': 'Pflanzenschutz',
+        'task-type-tilling': 'Bodenbearbeitung',
+        'task-type-harvesting': 'Ernte',
+        'label-task-date': 'Datum/Zeit:',
+        'label-task-content': 'Details:',
+        'label-task-comment': 'Kommentar:',
+        'label-task-employee': 'Ausführende Person:',
+        'label-task-bbch': 'BBCH-Stadium:',
+        'btn-bulk-apply': 'Aufgabe anwenden',
+        'btn-bulk-cancel': 'Abbrechen',
+        'add-task-title': 'Neue Aufgabe hinzufügen',
+        'btn-add-task': 'Aufgabe hinzufügen',
+        'tasks-title': 'Aufgabenhistorie',
+        'placeholder-task-comment': 'Aufgabenspezifischer Kommentar...',
+        'no-fields-found': 'Keine Felder gefunden.',
+        'no-tasks-found': 'Keine Aufgaben für dieses Jahr aufgezeichnet.'
     }
 };
 
@@ -172,7 +235,54 @@ function applyTranslations() {
         'label-bbch': t['label-bbch'],
         'label-bbch-explanation': t['bbch-explanation'],
         'label-psm-ingredients': t['psm-active-ingredients'],
-        'label-psm-restrictions': t['psm-restrictions']
+        'label-psm-restrictions': t['psm-restrictions'],
+
+        // Bulk Actions
+        'bulk-actions-title': t['bulk-actions-title'],
+        'label-select-crop': t['label-select-crop'],
+        'opt-all': t['opt-all'],
+        'btn-open-bulk-task': t['btn-open-bulk-task'],
+        'bulk-modal-title': t['bulk-modal-title'],
+        'bulk-select-fields-title': t['bulk-select-fields-title'],
+        'th-bulk-name': t['th-name'],
+        'th-bulk-crop': t['th-crop'],
+        'th-bulk-area': t['th-area'],
+        'th-bulk-last-task': t['th-last-task'],
+        'th-name': t['th-name'],
+        'th-crop': t['th-crop'],
+        'th-area': t['th-area'],
+        'th-last-task': t['th-last-task'],
+        'bulk-task-details-title': t['bulk-task-details-title'],
+        'label-bulk-task-type': t['label-task-type'],
+        'opt-seeding': t['task-type-seeding'],
+        'opt-fertilizing': t['task-type-fertilizing'],
+        'opt-spraying': t['task-type-spraying'],
+        'opt-tilling': t['task-type-tilling'],
+        'opt-harvesting': t['task-type-harvesting'],
+        'label-bulk-task-date': t['label-task-date'],
+        'label-bulk-task-content': t['label-task-content'],
+        'label-bulk-task-comment': t['label-task-comment'],
+        'label-bulk-task-employee': t['label-task-employee'],
+        'label-bulk-task-bbch': t['label-task-bbch'],
+        'btn-bulk-psm-add': t['psm-add-btn'],
+        'btn-bulk-apply': t['btn-bulk-apply'],
+        'btn-bulk-cancel': t['btn-bulk-cancel'],
+
+        // Field Details Tasks
+        'add-task-title': t['add-task-title'],
+        'label-task-type': t['label-task-type'],
+        'opt-task-seeding': t['task-type-seeding'],
+        'opt-task-fertilizing': t['task-type-fertilizing'],
+        'opt-task-spraying': t['task-type-spraying'],
+        'opt-task-tilling': t['task-type-tilling'],
+        'opt-task-harvesting': t['task-type-harvesting'],
+        'label-task-date': t['label-task-date'],
+        'label-task-content': t['label-task-content'],
+        'label-task-comment': t['label-task-comment'],
+        'label-task-employee': t['label-task-employee'],
+        'label-task-bbch': t['label-task-bbch'],
+        'btn-add-task': t['btn-add-task'],
+        'tasks-title': t['tasks-title']
     };
 
     for (let id in map) {
@@ -190,6 +300,12 @@ function applyTranslations() {
     const psmSearchInput = document.getElementById('psm-search');
     if (psmSearchInput) psmSearchInput.placeholder = t['psm-search-placeholder'];
 
+    const bulkPsmSearchInput = document.getElementById('bulk-psm-search');
+    if (bulkPsmSearchInput) bulkPsmSearchInput.placeholder = t['psm-search-placeholder'];
+
+    const bulkFieldSearchInput = document.getElementById('bulk-field-search');
+    if (bulkFieldSearchInput) bulkFieldSearchInput.placeholder = t['bulk-field-search-placeholder'];
+
     const psmChooseOption = document.querySelector('#psm-select option[value=""]');
     if (psmChooseOption) psmChooseOption.textContent = t['psm-choose-option'];
 
@@ -202,6 +318,9 @@ function applyTranslations() {
     const psmAddBtn = document.getElementById('psm-add-btn');
     if (psmAddBtn) psmAddBtn.textContent = t['psm-add-btn'];
 
+    const taskComment = document.getElementById('task-comment');
+    if (taskComment) taskComment.placeholder = t['placeholder-task-comment'];
+
     const mainHeader = document.querySelector('header h1');
     if (mainHeader) {
         if (window.location.pathname.includes('field.html')) {
@@ -213,7 +332,7 @@ function applyTranslations() {
 }
 
 function _t(key, replacements = {}) {
-    let str = translations[currentLang][key] || key;
+    let str = (translations[currentLang] && translations[currentLang][key]) || key;
     for (let k in replacements) {
         str = str.replace(`{${k}}`, replacements[k]);
     }

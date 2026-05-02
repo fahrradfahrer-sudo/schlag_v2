@@ -95,10 +95,10 @@
                 <div class="form-group">
                     <label id="label-select-crop">Select by Crop:</label>
                     <select id="bulk-select-crop" onchange="selectFieldsByCrop(this.value)">
-                        <option value="">-- All --</option>
+                        <option value="" id="opt-all">-- All --</option>
                     </select>
                 </div>
-                <button class="btn-primary" onclick="openBulkTaskModal()" style="width: 100%;">Apply Task to Selected</button>
+                <button class="btn-primary" id="btn-open-bulk-task" onclick="openBulkTaskModal()" style="width: 100%;">Apply Task to Selected</button>
             </div>
 
             <div class="import-section">
@@ -135,12 +135,12 @@
 
     <!-- Modals -->
     <div id="bulk-task-modal" class="modal">
-        <div class="modal-content" style="width: 90%; max-width: 1100px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;">
+        <div class="modal-content" style="width: 90%; max-width: 1100px; max-height: 90vh; margin: 2% auto; overflow: hidden; display: flex; flex-direction: column;">
             <h3 id="bulk-modal-title" style="margin-top: 0;">Create New Tasks</h3>
             <div class="modal-body" style="display: flex; gap: 20px; flex: 1; overflow-y: auto; min-height: 0;">
                 <!-- Left: Field Selection -->
                 <div style="flex: 1; border-right: 1px solid #ddd; padding-right: 20px;">
-                    <h4>Select Fields</h4>
+                    <h4 id="bulk-select-fields-title">Select Fields</h4>
                     <div class="form-group">
                         <input type="text" id="bulk-field-search" placeholder="Search by name, crop..." oninput="filterBulkFields()">
                     </div>
@@ -149,10 +149,10 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" id="bulk-select-all" onclick="toggleBulkSelection(this.checked)"></th>
-                                    <th>Name</th>
-                                    <th>Crop</th>
-                                    <th>ha</th>
-                                    <th>Last Task</th>
+                                    <th id="th-bulk-name">Name</th>
+                                    <th id="th-bulk-crop">Crop</th>
+                                    <th id="th-bulk-area">ha</th>
+                                    <th id="th-bulk-last-task">Last Task</th>
                                 </tr>
                             </thead>
                             <tbody id="bulk-field-list"></tbody>
@@ -162,15 +162,15 @@
 
                 <!-- Right: Task Details -->
                 <div style="flex: 1;">
-                    <h4>Task Details</h4>
+                    <h4 id="bulk-task-details-title">Task Details</h4>
                     <div class="form-group">
-                        <label>Task Type:</label>
+                        <label id="label-bulk-task-type">Task Type:</label>
                         <select id="bulk-task-type" onchange="toggleBulkExtraFields()">
-                            <option value="seeding">Seeding</option>
-                            <option value="fertilizing">Fertilizing</option>
-                            <option value="spraying">Plant Protection</option>
-                            <option value="tilling">Tilling</option>
-                            <option value="harvesting">Harvesting</option>
+                            <option value="seeding" id="opt-seeding">Seeding</option>
+                            <option value="fertilizing" id="opt-fertilizing">Fertilizing</option>
+                            <option value="spraying" id="opt-spraying">Plant Protection</option>
+                            <option value="tilling" id="opt-tilling">Tilling</option>
+                            <option value="harvesting" id="opt-harvesting">Harvesting</option>
                         </select>
                     </div>
 
@@ -183,35 +183,35 @@
                         <div id="bulk-psm-details" style="background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 5px; display: none; font-size: 0.9em;">
                             <div id="bulk-psm-info-name"></div>
                             <div id="bulk-psm-info-rates"></div>
-                            <button type="button" class="btn-success" style="margin-top: 5px; padding: 2px 10px;" onclick="addBulkPSMToDetails()">Add to details</button>
+                            <button type="button" id="btn-bulk-psm-add" class="btn-success" style="margin-top: 5px; padding: 2px 10px;" onclick="addBulkPSMToDetails()">Add to details</button>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Date/Time:</label>
+                        <label id="label-bulk-task-date">Date/Time:</label>
                         <input type="datetime-local" id="bulk-task-date">
                     </div>
                     <div class="form-group">
-                        <label>Details:</label>
+                        <label id="label-bulk-task-content">Details:</label>
                         <textarea id="bulk-task-content" rows="3"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Comment:</label>
+                        <label id="label-bulk-task-comment">Comment:</label>
                         <textarea id="bulk-task-comment" rows="2"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Employee:</label>
+                        <label id="label-bulk-task-employee">Employee:</label>
                         <input type="text" id="bulk-task-employee">
                     </div>
                     <div class="form-group" id="bulk-bbch-group" style="display: none;">
-                        <label>BBCH Stage:</label>
+                        <label id="label-bulk-task-bbch">BBCH Stage:</label>
                         <input type="text" id="bulk-task-bbch">
                     </div>
                 </div>
             </div>
             <div style="margin-top: 15px; text-align: right;">
-                <button class="btn-primary" onclick="applyBulkTask()">Apply Task to Selected</button>
-                <button onclick="closeBulkModal()">Cancel</button>
+                <button class="btn-primary" id="btn-bulk-apply" onclick="applyBulkTask()">Apply Task to Selected</button>
+                <button id="btn-bulk-cancel" onclick="closeBulkModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -231,23 +231,23 @@
                     <datalist id="crop-list"></datalist>
                 </div>
                 <div class="form-group">
-                    <label>Seeding Details:</label>
+                    <label id="label-seeding">Seeding Details:</label>
                     <textarea id="field-seeding" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Fertilizing Details:</label>
+                    <label id="label-fertilizing">Fertilizing Details:</label>
                     <textarea id="field-fertilizing" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Spraying Details:</label>
+                    <label id="label-spraying">Spraying Details:</label>
                     <textarea id="field-spraying" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Tilling Details:</label>
+                    <label id="label-tilling">Tilling Details:</label>
                     <textarea id="field-tilling" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Harvesting Details:</label>
+                    <label id="label-harvesting">Harvesting Details:</label>
                     <textarea id="field-harvesting" rows="2"></textarea>
                 </div>
                 <div class="form-group">

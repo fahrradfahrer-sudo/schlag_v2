@@ -97,7 +97,7 @@ async function loadTasks() {
     container.innerHTML = '';
 
     if (tasks.length === 0) {
-        container.innerHTML = '<p>No tasks recorded for this year.</p>';
+        container.innerHTML = `<p>${_t('no-tasks-found')}</p>`;
         return;
     }
 
@@ -110,18 +110,21 @@ async function loadTasks() {
         div.style.borderRadius = '4px';
         div.style.background = '#fcfcfc';
 
-        let html = `<strong>${task.task_type.toUpperCase()}</strong> - ${task.task_date}<br>`;
+        const typeKey = `task-type-${task.task_type}`;
+        const translatedType = _t(typeKey).toUpperCase();
+
+        let html = `<strong>${translatedType}</strong> - ${task.task_date}<br>`;
         html += `<span>${task.content}</span>`;
         if (task.comment) {
-            html += `<div style="font-style: italic; color: #666; margin-top: 5px;">Comment: ${task.comment}</div>`;
+            html += `<div style="font-style: italic; color: #666; margin-top: 5px;">${_t('label-task-comment')} ${task.comment}</div>`;
         }
         if (task.employee) {
-            html += `<div style="font-size: 0.9em; margin-top: 5px;">Employee: ${task.employee}</div>`;
+            html += `<div style="font-size: 0.9em; margin-top: 5px;">${_t('label-task-employee')} ${task.employee}</div>`;
         }
         if (task.bbch) {
-            html += `<div style="font-size: 0.9em;">BBCH: ${task.bbch}</div>`;
+            html += `<div style="font-size: 0.9em;">${_t('label-task-bbch')} ${task.bbch}</div>`;
         }
-        html += `<button class="btn-danger" style="padding: 2px 5px; font-size: 0.8em; margin-top: 5px;" onclick="deleteTask(${task.id})">Delete Task</button>`;
+        html += `<button class="btn-danger" style="padding: 2px 5px; font-size: 0.8em; margin-top: 5px;" onclick="deleteTask(${task.id})">${_t('btn-delete')}</button>`;
 
         div.innerHTML = html;
         container.appendChild(div);
