@@ -114,7 +114,21 @@ async function loadTasks() {
         const translatedType = _t(typeKey).toUpperCase();
 
         let html = `<strong>${translatedType}</strong> - ${task.task_date}<br>`;
-        html += `<span>${task.content}</span>`;
+
+        if (task.task_type === 'spraying' && task.products && task.products.length > 0) {
+            html += `<ul style="margin: 5px 0; padding-left: 20px;">`;
+            task.products.forEach(p => {
+                html += `<li><strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge} ${p.einheit}<br>`;
+                html += `<small>${p.schadorganismus} | ${p.verwendungszweck}</small></li>`;
+            });
+            html += `</ul>`;
+            if (task.water_rate) {
+                html += `<div><small>Water: ${task.water_rate} l/ha</small></div>`;
+            }
+        } else {
+            html += `<span>${task.content}</span>`;
+        }
+
         if (task.comment) {
             html += `<div style="font-style: italic; color: #666; margin-top: 5px;">${_t('label-task-comment')} ${task.comment}</div>`;
         }
@@ -122,7 +136,11 @@ async function loadTasks() {
             html += `<div style="font-size: 0.9em; margin-top: 5px;">${_t('label-task-employee')} ${task.employee}</div>`;
         }
         if (task.bbch) {
-            html += `<div style="font-size: 0.9em;">${_t('label-task-bbch')} ${task.bbch}</div>`;
+            html += `<div style="font-size: 0.9em;">${_t('label-task-bbch')} ${task.bbch}`;
+            if (task.bbch_description) {
+                html += ` - ${task.bbch_description}`;
+            }
+            html += `</div>`;
         }
         html += `<button class="btn-danger" style="padding: 2px 5px; font-size: 0.8em; margin-top: 5px;" onclick="deleteTask(${task.id})">${_t('btn-delete')}</button>`;
 
@@ -144,21 +162,85 @@ function toggleTaskFields() {
     }
 }
 
+let addedProducts = [];
+
+function addProductToList() {
+    const awgSelect = document.getElementById('psm-awg-select');
+    const schadSelect = document.getElementById('psm-schadorg-select');
+    const verwSelect = document.getElementById('psm-verw-select');
+    const rateSelect = document.getElementById('psm-rate-select');
+
+    if (!selectedPSM || !awgSelect.value) return;
+
+    const product = {
+        mittelname: selectedPSM.mittel.mittelname,
+        kennr: selectedPSM.mittel.kennr,
+        schadorganismus: schadSelect.value,
+        verwendungszweck: verwSelect.value,
+        aufwandmenge: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-amount'),
+        einheit: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-unit')
+    };
+
+    addedProducts.push(product);
+    renderAddedProducts();
+
+    // Reset selection
+    document.getElementById('psm-api-selection').style.display = 'none';
+    document.getElementById('psm-search').value = '';
+}
+
+function renderAddedProducts() {
+    const container = document.getElementById('added-products-container');
+    const list = document.getElementById('added-products-list');
+    list.innerHTML = '';
+
+    if (addedProducts.length > 0) {
+        container.style.display = 'block';
+        addedProducts.forEach((p, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `${p.mittelname} (${p.kennr}) - ${p.aufwandmenge} ${p.einheit} <button type="button" class="btn-danger" style="padding: 0 5px;" onclick="removeProduct(${index})">x</button>`;
+            list.appendChild(li);
+        });
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function removeProduct(index) {
+    addedProducts.splice(index, 1);
+    renderAddedProducts();
+}
+
 async function addTask() {
+    const taskType = document.getElementById('task-type').value;
     const data = {
         field_id: currentField.id,
         year: document.getElementById('mgmt-year-select').value,
-        task_type: document.getElementById('task-type').value,
+        task_type: taskType,
         task_date: document.getElementById('task-date').value,
         content: document.getElementById('task-content').value,
         comment: document.getElementById('task-comment').value,
         employee: document.getElementById('task-employee').value,
-        bbch: document.getElementById('task-bbch').value
+        bbch: document.getElementById('task-bbch').value,
+        bbch_description: document.getElementById('task-bbch-desc').value,
+        water_rate: document.getElementById('task-water-rate').value,
+        products: (taskType === 'spraying') ? addedProducts : []
     };
 
     if (!data.task_date) {
         alert("Please select a date.");
         return;
+    }
+
+    if (taskType === 'spraying') {
+        if (addedProducts.length === 0) {
+            alert("Please add at least one product for plant protection.");
+            return;
+        }
+        if (!data.water_rate) {
+            alert("Water application rate is mandatory for plant protection.");
+            return;
+        }
     }
 
     await fetch('api/tasks.php', {
@@ -171,6 +253,10 @@ async function addTask() {
     document.getElementById('task-content').value = '';
     document.getElementById('task-comment').value = '';
     document.getElementById('task-bbch').value = '';
+    document.getElementById('task-bbch-desc').value = '';
+    document.getElementById('task-water-rate').value = '';
+    addedProducts = [];
+    renderAddedProducts();
 
     loadTasks();
 }
@@ -246,6 +332,11 @@ function updateBBCHEstimation() {
         bbchInput.placeholder = `e.g. ${bbch}`;
     }
     explanationText.textContent = estimation ? `${bbch}: ${estimation}` : "";
+
+    if (estimation) {
+        document.getElementById('task-bbch-desc').value = estimation;
+        if (!bbchInput.value) bbchInput.value = bbch.split('-')[0];
+    }
 }
 
 document.getElementById('field-crop').addEventListener('change', updateBBCHEstimation);
@@ -296,11 +387,11 @@ let selectedPSM = null;
 
 async function onPSMSelected(kennr) {
     const detailsDiv = document.getElementById('psm-details');
-    const extraDetailsDiv = document.getElementById('psm-extra-details');
+    const apiSelectionDiv = document.getElementById('psm-api-selection');
 
     if (!kennr) {
         detailsDiv.style.display = 'none';
-        extraDetailsDiv.style.display = 'none';
+        apiSelectionDiv.style.display = 'none';
         selectedPSM = null;
         return;
     }
@@ -310,76 +401,26 @@ async function onPSMSelected(kennr) {
 
     if (selectedPSM.mittel) {
         detailsDiv.style.display = 'block';
-        extraDetailsDiv.style.display = 'block';
+        apiSelectionDiv.style.display = 'block';
         document.getElementById('psm-info-name').textContent = `${_t('psm-product')}: ${selectedPSM.mittel.mittelname} (${selectedPSM.mittel.kennr})`;
 
-        // Clear ingredients from last search to avoid state leakage
+        // Clear ingredients
         const ingredientsEl = document.getElementById('psm-info-ingredients');
         if (selectedPSM.wirkstoffe && selectedPSM.wirkstoffe.length > 0) {
-            const ingredientsText = selectedPSM.wirkstoffe.map(w => `${w.name} (${w.amount} ${w.unit})`).join(", ");
-            ingredientsEl.textContent = ingredientsText;
+            ingredientsEl.textContent = selectedPSM.wirkstoffe.map(w => `${w.name} (${w.amount} ${w.unit})`).join(", ");
         } else {
             ingredientsEl.textContent = 'N/A';
         }
 
         const expiryDate = selectedPSM.mittel.zul_ende ? new Date(selectedPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
         document.getElementById('psm-info-expiry').textContent = `${_t('psm-expiry')}: ${expiryDate}`;
-
         document.getElementById('psm-info-bee').textContent = `${_t('psm-bee')}: ${selectedPSM.bee_safety}`;
-
-        // Suggested intended use based on crop
-        const currentCrop = document.getElementById('field-crop').value.toLowerCase();
-        let suggestedUse = "";
-        let matchingAwgs = [];
-
-        if (selectedPSM.awg) {
-            if (currentCrop) {
-                // Try to find matching applications for the current crop
-                // We check both ways: if registration crop name is in field crop name, or vice versa
-                matchingAwgs = selectedPSM.awg.filter(a =>
-                    (a.kultur && (currentCrop.includes(a.kultur.toLowerCase()) || a.kultur.toLowerCase().includes(currentCrop))) ||
-                    (a.anwendungsbereich && (currentCrop.includes(a.anwendungsbereich.toLowerCase()) || a.anwendungsbereich.toLowerCase().includes(currentCrop)))
-                );
-            }
-
-            // If no match found for crop, or if multiple exist, we might want to show them
-            // For the suggestion, we'll take the most relevant ones
-            if (matchingAwgs.length > 0) {
-                suggestedUse = [...new Set(matchingAwgs.map(a => a.schadorganismus))].filter(s => s).join(", ");
-            } else if (selectedPSM.awg.length > 0) {
-                // Fallback: show all registered uses if no crop match
-                suggestedUse = [...new Set(selectedPSM.awg.map(a => a.schadorganismus))].filter(s => s).join(", ");
-            }
-        }
-        selectedPSM.suggestedUse = suggestedUse;
-
-        let infoUse = document.getElementById('psm-info-use');
-        if (!infoUse) {
-            infoUse = document.createElement('div');
-            infoUse.id = 'psm-info-use';
-            infoUse.style.marginTop = '10px';
-            infoUse.style.padding = '8px';
-            infoUse.style.background = '#fff';
-            infoUse.style.borderLeft = '4px solid #2ecc71';
-            infoUse.style.fontWeight = 'bold';
-            detailsDiv.insertBefore(infoUse, document.getElementById('psm-add-btn'));
-        }
-
-        // Use textContent for safety, but we need separate elements for the label
-        infoUse.textContent = '';
-        const labelSpan = document.createElement('span');
-        labelSpan.style.color = suggestedUse ? '#27ae60' : '#e67e22';
-        labelSpan.textContent = `${_t('psm-suggested-use')}:`;
-        infoUse.appendChild(labelSpan);
-        infoUse.appendChild(document.createElement('br'));
-        infoUse.appendChild(document.createTextNode(suggestedUse || 'N/A'));
 
         const infoRestrictions = document.getElementById('psm-info-restrictions');
         infoRestrictions.textContent = '';
         if (selectedPSM.auflagen && selectedPSM.auflagen.length > 0) {
             const list = document.createElement('ul');
             list.style.margin = '5px 0 0 20px';
-            list.style.padding = '0';
             const uniqueAuflagen = [...new Set(selectedPSM.auflagen.map(a => a.auflage))];
             uniqueAuflagen.forEach(a => {
                 const li = document.createElement('li');
@@ -391,32 +432,74 @@ async function onPSMSelected(kennr) {
             infoRestrictions.appendChild(document.createTextNode('N/A'));
         }
 
-        let ratesText = `${_t('psm-rates')}: `;
-        if (selectedPSM.rates && selectedPSM.rates.length > 0) {
-            ratesText += selectedPSM.rates.map(r => `${r.amount} ${r.unit}`).join(", ");
-        } else {
-            ratesText += "N/A";
-        }
-        document.getElementById('psm-info-rates').textContent = ratesText;
+        // Fill AWG select
+        const awgSelect = document.getElementById('psm-awg-select');
+        awgSelect.innerHTML = '';
+        selectedPSM.awg.forEach(a => {
+            const opt = document.createElement('option');
+            opt.value = a.awg_id;
+            opt.textContent = `AWG ${a.awg_id} (${a.anwendungsbereich})`;
+            awgSelect.appendChild(opt);
+        });
+
+        onAWGSelected();
     }
 }
 
-function addPSMToDetails() {
-    if (!selectedPSM || !selectedPSM.mittel) return;
+function onAWGSelected() {
+    const awgId = document.getElementById('psm-awg-select').value;
+    const awg = selectedPSM.awg.find(a => a.awg_id === awgId);
+    if (!awg) return;
 
-    const textarea = document.getElementById('task-content');
-    if (textarea.value) textarea.value += "\n";
+    // Kultur Check
+    const currentCrop = document.getElementById('field-crop').value.toLowerCase();
+    const warningDiv = document.getElementById('psm-kultur-warning');
+    let cropMatch = false;
+    if (currentCrop && awg.kultur) {
+        cropMatch = awg.kultur.some(k => currentCrop.includes(k.kultur.toLowerCase()) || k.kultur.toLowerCase().includes(currentCrop));
+    }
+    warningDiv.style.display = cropMatch ? 'none' : 'block';
 
-    const expiryDate = selectedPSM.mittel.zul_ende ? new Date(selectedPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
-    const rate = (selectedPSM.rates && selectedPSM.rates[0]) ? `${selectedPSM.rates[0].amount} ${selectedPSM.rates[0].unit}` : '';
+    // Schadorg
+    const schadSelect = document.getElementById('psm-schadorg-select');
+    schadSelect.innerHTML = '';
+    awg.schadorg.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.schadorg;
+        opt.textContent = s.schadorg;
+        schadSelect.appendChild(opt);
+    });
 
-    let line = `${selectedPSM.mittel.mittelname} (${selectedPSM.mittel.kennr})`;
-    if (rate) line += ` @ ${rate}`;
-    if (selectedPSM.suggestedUse) line += ` - ${selectedPSM.suggestedUse}`;
-    line += ` [${_t('psm-expiry')}: ${expiryDate}, ${_t('psm-bee')}: ${selectedPSM.bee_safety}]`;
+    // Verwendung
+    const verwSelect = document.getElementById('psm-verw-select');
+    verwSelect.innerHTML = '';
+    if (awg.verwendung.length > 0) {
+        awg.verwendung.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.verwendungszweck;
+            opt.textContent = v.verwendungszweck;
+            verwSelect.appendChild(opt);
+        });
+    } else {
+        const opt = document.createElement('option');
+        opt.value = 'N/A';
+        opt.textContent = 'N/A';
+        verwSelect.appendChild(opt);
+    }
 
-    textarea.value += line;
+    // Rate
+    const rateSelect = document.getElementById('psm-rate-select');
+    rateSelect.innerHTML = '';
+    awg.aufwand.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = `${r.m_aufwand} ${r.m_aufwand_einheit}`;
+        opt.textContent = `${r.m_aufwand} ${r.m_aufwand_einheit} (${r.aufwandbedingung || ''})`;
+        opt.setAttribute('data-amount', r.m_aufwand);
+        opt.setAttribute('data-unit', r.m_aufwand_einheit);
+        rateSelect.appendChild(opt);
+    });
 }
+
 
 async function saveField() {
     // 1. Update Field Name

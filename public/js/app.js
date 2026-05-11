@@ -66,6 +66,13 @@ function openBulkTaskModal() {
     const currentDateTime = now.toISOString().slice(0, 16);
     document.getElementById('bulk-task-date').value = currentDateTime;
 
+    // Reset plant protection state
+    addedBulkProducts = [];
+    renderBulkAddedProducts();
+    document.getElementById('bulk-task-water-rate').value = '';
+    document.getElementById('bulk-psm-api-selection').style.display = 'none';
+    document.getElementById('bulk-psm-details').style.display = 'none';
+
     // Ensure extra fields are toggled correctly for the initial selection
     toggleBulkExtraFields();
 
@@ -151,6 +158,7 @@ async function applyBulkTask() {
         alert("Please select at least one field.");
         return;
     }
+    const taskType = document.getElementById('bulk-task-type').value;
     const taskDate = document.getElementById('bulk-task-date').value;
     const year = taskDate ? new Date(taskDate).getFullYear() : new Date().getFullYear();
 
@@ -158,13 +166,26 @@ async function applyBulkTask() {
         bulk: true,
         field_ids: fieldIds,
         year: year,
-        task_type: document.getElementById('bulk-task-type').value,
-        task_date: document.getElementById('bulk-task-date').value,
+        task_type: taskType,
+        task_date: taskDate,
         content: document.getElementById('bulk-task-content').value,
         comment: document.getElementById('bulk-task-comment').value,
         employee: document.getElementById('bulk-task-employee').value,
-        bbch: document.getElementById('bulk-task-bbch').value
+        bbch: document.getElementById('bulk-task-bbch').value,
+        water_rate: document.getElementById('bulk-task-water-rate').value,
+        products: (taskType === 'spraying') ? addedBulkProducts : []
     };
+
+    if (taskType === 'spraying') {
+        if (addedBulkProducts.length === 0) {
+            alert("Please add at least one product.");
+            return;
+        }
+        if (!data.water_rate) {
+            alert("Water rate is mandatory.");
+            return;
+        }
+    }
 
     const response = await fetch('api/tasks.php', {
         method: 'POST',
@@ -220,35 +241,85 @@ async function searchBulkPSM() {
 
 async function onBulkPSMSelected(kennr) {
     const detailsDiv = document.getElementById('bulk-psm-details');
+    const selectionDiv = document.getElementById('bulk-psm-api-selection');
     const response = await fetch(`api/psm_proxy.php?kennr=${encodeURIComponent(kennr)}`);
     selectedBulkPSM = await response.json();
 
     if (selectedBulkPSM.mittel) {
         detailsDiv.style.display = 'block';
+        selectionDiv.style.display = 'block';
         document.getElementById('bulk-psm-info-name').textContent = `${selectedBulkPSM.mittel.mittelname} (${selectedBulkPSM.mittel.kennr})`;
-        let ratesText = "Rates: ";
-        if (selectedBulkPSM.rates && selectedBulkPSM.rates.length > 0) {
-            ratesText += selectedBulkPSM.rates.map(r => `${r.amount} ${r.unit}`).join(", ");
-        } else {
-            ratesText += "N/A";
-        }
-        document.getElementById('bulk-psm-info-rates').textContent = ratesText;
+
+        const awgSelect = document.getElementById('bulk-psm-awg-select');
+        awgSelect.innerHTML = '';
+        selectedBulkPSM.awg.forEach(a => {
+            const opt = document.createElement('option');
+            opt.value = a.awg_id;
+            opt.textContent = `AWG ${a.awg_id} (${a.anwendungsbereich})`;
+            awgSelect.appendChild(opt);
+        });
+        onBulkAWGSelected();
     }
 }
 
-function addBulkPSMToDetails() {
-    if (!selectedBulkPSM || !selectedBulkPSM.mittel) return;
-    const textarea = document.getElementById('bulk-task-content');
-    if (textarea.value) textarea.value += "\n";
+function onBulkAWGSelected() {
+    const awgId = document.getElementById('bulk-psm-awg-select').value;
+    const awg = selectedBulkPSM.awg.find(a => a.awg_id === awgId);
+    if (!awg) return;
 
-    const expiryDate = selectedBulkPSM.mittel.zul_ende ? new Date(selectedBulkPSM.mittel.zul_ende).toLocaleDateString() : 'N/A';
-    const rate = (selectedBulkPSM.rates && selectedBulkPSM.rates[0]) ? `${selectedBulkPSM.rates[0].amount} ${selectedBulkPSM.rates[0].unit}` : '';
+    const rateSelect = document.getElementById('bulk-psm-rate-select');
+    rateSelect.innerHTML = '';
+    awg.aufwand.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = `${r.m_aufwand} ${r.m_aufwand_einheit}`;
+        opt.textContent = `${r.m_aufwand} ${r.m_aufwand_einheit} (${r.aufwandbedingung || ''})`;
+        opt.setAttribute('data-amount', r.m_aufwand);
+        opt.setAttribute('data-unit', r.m_aufwand_einheit);
+        rateSelect.appendChild(opt);
+    });
+}
 
-    let line = `${selectedBulkPSM.mittel.mittelname} (${selectedBulkPSM.mittel.kennr})`;
-    if (rate) line += ` @ ${rate}`;
-    line += ` [Expiry: ${expiryDate}, Bee safety: ${selectedBulkPSM.bee_safety}]`;
+let addedBulkProducts = [];
 
-    textarea.value += line;
+function addBulkProductToList() {
+    const awgSelect = document.getElementById('bulk-psm-awg-select');
+    const rateSelect = document.getElementById('bulk-psm-rate-select');
+    if (!selectedBulkPSM || !awgSelect.value) return;
+
+    const product = {
+        mittelname: selectedBulkPSM.mittel.mittelname,
+        kennr: selectedBulkPSM.mittel.kennr,
+        schadorganismus: 'N/A',
+        verwendungszweck: 'N/A',
+        aufwandmenge: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-amount'),
+        einheit: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-unit')
+    };
+
+    addedBulkProducts.push(product);
+    renderBulkAddedProducts();
+    document.getElementById('bulk-psm-api-selection').style.display = 'none';
+    document.getElementById('bulk-psm-search').value = '';
+}
+
+function renderBulkAddedProducts() {
+    const container = document.getElementById('bulk-added-products-container');
+    const list = document.getElementById('bulk-added-products-list');
+    list.innerHTML = '';
+    if (addedBulkProducts.length > 0) {
+        container.style.display = 'block';
+        addedBulkProducts.forEach((p, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `${p.mittelname} (${p.kennr}) - ${p.aufwandmenge} ${p.einheit} <button type="button" onclick="removeBulkProduct(${index})">x</button>`;
+            list.appendChild(li);
+        });
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function removeBulkProduct(index) {
+    addedBulkProducts.splice(index, 1);
+    renderBulkAddedProducts();
 }
 
 // Helper to calculate area in hectares

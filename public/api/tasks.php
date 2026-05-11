@@ -19,15 +19,33 @@ try {
             if ($id) {
                 $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ?");
                 $stmt->execute([$id]);
-                echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
+                $task = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($task) {
+                    $stmt = $pdo->prepare("SELECT * FROM task_products WHERE task_id = ?");
+                    $stmt->execute([$id]);
+                    $task['products'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+                echo json_encode($task);
             } else if ($field_id && $year) {
                 $stmt = $pdo->prepare("SELECT * FROM tasks WHERE field_id = ? AND year = ? ORDER BY task_date DESC");
                 $stmt->execute([$field_id, $year]);
-                echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+                $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($tasks as &$task) {
+                    $stmt = $pdo->prepare("SELECT * FROM task_products WHERE task_id = ?");
+                    $stmt->execute([$task['id']]);
+                    $task['products'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+                echo json_encode($tasks);
             } else if ($field_id) {
                 $stmt = $pdo->prepare("SELECT * FROM tasks WHERE field_id = ? ORDER BY task_date DESC");
                 $stmt->execute([$field_id]);
-                echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+                $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($tasks as &$task) {
+                    $stmt = $pdo->prepare("SELECT * FROM task_products WHERE task_id = ?");
+                    $stmt->execute([$task['id']]);
+                    $task['products'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+                echo json_encode($tasks);
             } else {
                 http_response_code(400);
                 echo json_encode(["error" => "Missing parameters"]);
@@ -38,7 +56,8 @@ try {
             $data = json_decode(file_get_contents("php://input"), true);
             if (isset($data['bulk']) && is_array($data['field_ids'])) {
                 $pdo->beginTransaction();
-                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 foreach ($data['field_ids'] as $fid) {
                     $stmt->execute([
                         $fid,
@@ -48,13 +67,30 @@ try {
                         $data['content'] ?? '',
                         $data['comment'] ?? '',
                         $data['employee'] ?? '',
-                        $data['bbch'] ?? ''
+                        $data['bbch'] ?? '',
+                        $data['bbch_description'] ?? '',
+                        $data['water_rate'] ?? null
                     ]);
+                    $taskId = $pdo->lastInsertId();
+                    if (isset($data['products']) && is_array($data['products'])) {
+                        foreach ($data['products'] as $p) {
+                            $prodStmt->execute([
+                                $taskId,
+                                $p['mittelname'] ?? '',
+                                $p['kennr'] ?? '',
+                                $p['schadorganismus'] ?? '',
+                                $p['verwendungszweck'] ?? '',
+                                $p['aufwandmenge'] ?? null,
+                                $p['einheit'] ?? ''
+                            ]);
+                        }
+                    }
                 }
                 $pdo->commit();
                 echo json_encode(["status" => "success", "count" => count($data['field_ids'])]);
             } else {
-                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $pdo->beginTransaction();
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute([
                     $data['field_id'],
                     $data['year'],
@@ -63,9 +99,27 @@ try {
                     $data['content'] ?? '',
                     $data['comment'] ?? '',
                     $data['employee'] ?? '',
-                    $data['bbch'] ?? ''
+                    $data['bbch'] ?? '',
+                    $data['bbch_description'] ?? '',
+                    $data['water_rate'] ?? null
                 ]);
-                echo json_encode(["status" => "success", "id" => $pdo->lastInsertId()]);
+                $taskId = $pdo->lastInsertId();
+                if (isset($data['products']) && is_array($data['products'])) {
+                    $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    foreach ($data['products'] as $p) {
+                        $prodStmt->execute([
+                            $taskId,
+                            $p['mittelname'] ?? '',
+                            $p['kennr'] ?? '',
+                            $p['schadorganismus'] ?? '',
+                            $p['verwendungszweck'] ?? '',
+                            $p['aufwandmenge'] ?? null,
+                            $p['einheit'] ?? ''
+                        ]);
+                    }
+                }
+                $pdo->commit();
+                echo json_encode(["status" => "success", "id" => $taskId]);
             }
             break;
 
@@ -77,15 +131,36 @@ try {
                 echo json_encode(["error" => "Missing ID"]);
                 break;
             }
-            $stmt = $pdo->prepare("UPDATE tasks SET task_date = ?, content = ?, comment = ?, employee = ?, bbch = ? WHERE id = ?");
+            $pdo->beginTransaction();
+            $stmt = $pdo->prepare("UPDATE tasks SET task_date = ?, content = ?, comment = ?, employee = ?, bbch = ?, bbch_description = ?, water_rate = ? WHERE id = ?");
             $stmt->execute([
                 $data['task_date'],
                 $data['content'] ?? '',
                 $data['comment'] ?? '',
                 $data['employee'] ?? '',
                 $data['bbch'] ?? '',
+                $data['bbch_description'] ?? '',
+                $data['water_rate'] ?? null,
                 $id
             ]);
+
+            // Update products (delete and re-insert for simplicity)
+            $pdo->prepare("DELETE FROM task_products WHERE task_id = ?")->execute([$id]);
+            if (isset($data['products']) && is_array($data['products'])) {
+                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                foreach ($data['products'] as $p) {
+                    $prodStmt->execute([
+                        $id,
+                        $p['mittelname'] ?? '',
+                        $p['kennr'] ?? '',
+                        $p['schadorganismus'] ?? '',
+                        $p['verwendungszweck'] ?? '',
+                        $p['aufwandmenge'] ?? null,
+                        $p['einheit'] ?? ''
+                    ]);
+                }
+            }
+            $pdo->commit();
             echo json_encode(["status" => "success"]);
             break;
 

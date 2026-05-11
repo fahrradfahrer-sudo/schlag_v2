@@ -76,8 +76,34 @@ try {
         comment TEXT,
         employee TEXT,
         bbch TEXT,
+        bbch_description TEXT,
+        water_rate REAL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (field_id) REFERENCES fields(id) ON DELETE CASCADE
+    )");
+
+    // Add new columns to tasks if they don't exist
+    $tasksColsToAdd = [
+        'bbch_description' => 'TEXT',
+        'water_rate' => 'REAL'
+    ];
+    foreach ($tasksColsToAdd as $col => $type) {
+        try {
+            $pdo->exec("ALTER TABLE tasks ADD COLUMN $col $type");
+        } catch (PDOException $e) {}
+    }
+
+    // 5. Create task_products table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS task_products (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task_id INTEGER NOT NULL,
+        mittelname TEXT,
+        kennr TEXT,
+        schadorganismus TEXT,
+        verwendungszweck TEXT,
+        aufwandmenge REAL,
+        einheit TEXT,
+        FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
     )");
 
     // Migration: Move existing data from field_records to tasks if tasks table is empty
