@@ -159,6 +159,17 @@ async function applyBulkTask() {
         return;
     }
     const taskType = document.getElementById('bulk-task-type').value;
+
+    // Auto-add current product if selection is visible and list is empty
+    if (taskType === 'spraying' && addedBulkProducts.length === 0) {
+        const selectionDiv = document.getElementById('bulk-psm-api-selection');
+        if (selectionDiv.style.display !== 'none') {
+            const awgSelect = document.getElementById('bulk-psm-awg-select');
+            if (awgSelect.value) {
+                addBulkProductToList();
+            }
+        }
+    }
     const taskDate = document.getElementById('bulk-task-date').value;
     const year = taskDate ? new Date(taskDate).getFullYear() : new Date().getFullYear();
 

@@ -85,6 +85,7 @@ async function loadYearlyRecord() {
     document.getElementById('field-crop').value = record.crop || '';
     document.getElementById('field-notes').value = record.notes || '';
 
+    updateBBCHEstimation();
     loadTasks();
 }
 
@@ -170,23 +171,34 @@ function addProductToList() {
     const verwSelect = document.getElementById('psm-verw-select');
     const rateSelect = document.getElementById('psm-rate-select');
 
-    if (!selectedPSM || !awgSelect.value) return;
+    if (!selectedPSM || !awgSelect.value) {
+        console.warn("No product or AWG selected");
+        return;
+    }
+
+    let amount = null;
+    let unit = '';
+    if (rateSelect.selectedIndex >= 0) {
+        amount = rateSelect.options[rateSelect.selectedIndex].getAttribute('data-amount');
+        unit = rateSelect.options[rateSelect.selectedIndex].getAttribute('data-unit');
+    }
 
     const product = {
         mittelname: selectedPSM.mittel.mittelname,
         kennr: selectedPSM.mittel.kennr,
-        schadorganismus: schadSelect.value,
-        verwendungszweck: verwSelect.value,
-        aufwandmenge: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-amount'),
-        einheit: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-unit')
+        schadorganismus: schadSelect.value || 'N/A',
+        verwendungszweck: verwSelect.value || 'N/A',
+        aufwandmenge: amount,
+        einheit: unit
     };
 
     addedProducts.push(product);
     renderAddedProducts();
 
-    // Reset selection
+    // Reset selection UI but keep details visible if desired
     document.getElementById('psm-api-selection').style.display = 'none';
     document.getElementById('psm-search').value = '';
+    document.getElementById('psm-details').style.display = 'none';
 }
 
 function renderAddedProducts() {
@@ -198,7 +210,19 @@ function renderAddedProducts() {
         container.style.display = 'block';
         addedProducts.forEach((p, index) => {
             const li = document.createElement('li');
-            li.innerHTML = `${p.mittelname} (${p.kennr}) - ${p.aufwandmenge} ${p.einheit} <button type="button" class="btn-danger" style="padding: 0 5px;" onclick="removeProduct(${index})">x</button>`;
+            li.style.marginBottom = '5px';
+            li.style.padding = '5px';
+            li.style.background = '#f9f9f9';
+            li.style.border = '1px solid #eee';
+            li.style.borderRadius = '4px';
+            li.style.listStyle = 'none';
+
+            let html = `<strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge || ''} ${p.einheit}`;
+            html += `<br><small>${p.schadorganismus} | ${p.verwendungszweck}</small>`;
+            html += ` <button type="button" class="btn-danger" style="padding: 0 5px; float: right;" onclick="removeProduct(${index})">x</button>`;
+            html += `<div style="clear: both;"></div>`;
+
+            li.innerHTML = html;
             list.appendChild(li);
         });
     } else {
@@ -213,6 +237,18 @@ function removeProduct(index) {
 
 async function addTask() {
     const taskType = document.getElementById('task-type').value;
+
+    // Auto-add current product if selection is visible and list is empty
+    if (taskType === 'spraying' && addedProducts.length === 0) {
+        const apiSelectionDiv = document.getElementById('psm-api-selection');
+        if (apiSelectionDiv.style.display !== 'none') {
+            const awgSelect = document.getElementById('psm-awg-select');
+            if (awgSelect.value) {
+                addProductToList();
+            }
+        }
+    }
+
     const data = {
         field_id: currentField.id,
         year: document.getElementById('mgmt-year-select').value,
@@ -319,13 +355,35 @@ function updateBBCHEstimation() {
             estimation = currentLang === 'de' ? "Absterben der Pflanze / Ernte" : "Senescence / Harvest";
         }
     } else if (cropValue.includes('wheat') || cropValue.includes('weizen')) {
-        if (month <= 3) bbch = "21-29";
-        else if (month === 4) bbch = "30-32";
-        else if (month === 5) bbch = "37-51";
-        else if (month === 6) bbch = "61-71";
-        else if (month === 7) bbch = "75-89";
-        else bbch = "00-11";
-        estimation = currentLang === 'de' ? "Schätzung für Winterweizen" : "Estimation for winter wheat";
+        if (month <= 3) { bbch = "21-29"; estimation = currentLang === 'de' ? "Bestockung" : "Tillering"; }
+        else if (month === 4) { bbch = "30-32"; estimation = currentLang === 'de' ? "Schossen" : "Stem elongation"; }
+        else if (month === 5) { bbch = "37-51"; estimation = currentLang === 'de' ? "Fahnenblatt bis Ährenschieben" : "Flag leaf to ear emergence"; }
+        else if (month === 6) { bbch = "61-71"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
+        else if (month === 7) { bbch = "75-89"; estimation = currentLang === 'de' ? "Milchreife bis Totreife" : "Milk to full ripeness"; }
+        else { bbch = "00-11"; estimation = currentLang === 'de' ? "Keimung" : "Germination"; }
+    } else if (cropValue.includes('maize') || cropValue.includes('mais')) {
+        if (month === 5) { bbch = "00-19"; estimation = currentLang === 'de' ? "Keimung bis Blattentwicklung" : "Germination to leaf development"; }
+        else if (month === 6) { bbch = "30-39"; estimation = currentLang === 'de' ? "Längenwachstum" : "Stem elongation"; }
+        else if (month === 7) { bbch = "51-69"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
+        else if (month === 8) { bbch = "71-89"; estimation = currentLang === 'de' ? "Fruchtentwicklung bis Reife" : "Fruit development to ripeness"; }
+        else { bbch = "99"; estimation = currentLang === 'de' ? "Ernte" : "Harvest"; }
+    } else if (cropValue.includes('barley') || cropValue.includes('gerste')) {
+        if (month <= 3) { bbch = "21-29"; estimation = currentLang === 'de' ? "Bestockung" : "Tillering"; }
+        else if (month === 4) { bbch = "31-39"; estimation = currentLang === 'de' ? "Schossen" : "Stem elongation"; }
+        else if (month === 5) { bbch = "49-59"; estimation = currentLang === 'de' ? "Grannenspitzen bis Ährenschieben" : "Awns visible to ear emergence"; }
+        else if (month === 6) { bbch = "61-71"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
+        else { bbch = "87-99"; estimation = currentLang === 'de' ? "Reife / Ernte" : "Ripeness / Harvest"; }
+    } else if (cropValue.includes('rapeseed') || cropValue.includes('raps')) {
+        if (month <= 3) { bbch = "19-30"; estimation = currentLang === 'de' ? "Rosettenstadium bis Schossen" : "Rosette stage to stem elongation"; }
+        else if (month === 4) { bbch = "50-59"; estimation = currentLang === 'de' ? "Knospenentwicklung" : "Inflorescence emergence"; }
+        else if (month === 5) { bbch = "60-69"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
+        else if (month === 6) { bbch = "71-79"; estimation = currentLang === 'de' ? "Schotenentwicklung" : "Development of fruit"; }
+        else { bbch = "80-99"; estimation = currentLang === 'de' ? "Reife / Ernte" : "Ripeness / Harvest"; }
+    } else if (cropValue.includes('sugar beet') || cropValue.includes('zuckerrübe')) {
+        if (month === 4) { bbch = "00-09"; estimation = currentLang === 'de' ? "Keimung" : "Germination"; }
+        else if (month === 5) { bbch = "10-19"; estimation = currentLang === 'de' ? "Blattentwicklung" : "Leaf development"; }
+        else if (month === 6) { bbch = "31-39"; estimation = currentLang === 'de' ? "Reihenschluss" : "Crop cover"; }
+        else { bbch = "41-49"; estimation = currentLang === 'de' ? "Rübenentwicklung" : "Development of beet root"; }
     }
 
     if (bbch && !bbchInput.value) {
@@ -350,7 +408,7 @@ async function searchPSM(force = false) {
     const datalist = document.getElementById('psm-list');
 
     // Check if the current value matches a result from our search
-    const matched = psmSearchResults.find(item => `${item.mittelname} (${item.kennr})` === query);
+    const matched = psmSearchResults.find(item => `${item.mittelname} (${item.kennr})` === query || item.mittelname === query || item.kennr === query);
     if (matched && !force) {
         onPSMSelected(matched.kennr);
         return;
@@ -396,10 +454,20 @@ async function onPSMSelected(kennr) {
         return;
     }
 
-    const response = await fetch(`api/psm_proxy.php?kennr=${encodeURIComponent(kennr)}`);
-    selectedPSM = await response.json();
+    // Show loading or clear previous
+    document.getElementById('psm-info-name').textContent = 'Loading...';
+    apiSelectionDiv.style.display = 'none';
 
-    if (selectedPSM.mittel) {
+    try {
+        const response = await fetch(`api/psm_proxy.php?kennr=${encodeURIComponent(kennr)}`);
+        selectedPSM = await response.json();
+    } catch (e) {
+        console.error("Error fetching PSM details:", e);
+        document.getElementById('psm-info-name').textContent = 'Error loading product details.';
+        return;
+    }
+
+    if (selectedPSM && selectedPSM.mittel) {
         detailsDiv.style.display = 'block';
         apiSelectionDiv.style.display = 'block';
         document.getElementById('psm-info-name').textContent = `${_t('psm-product')}: ${selectedPSM.mittel.mittelname} (${selectedPSM.mittel.kennr})`;

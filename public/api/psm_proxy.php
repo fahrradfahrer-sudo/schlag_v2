@@ -12,7 +12,7 @@ if ($kennr) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
         $response = curl_exec($ch);
         curl_close($ch);
         return json_decode($response, true);
@@ -27,16 +27,28 @@ if ($kennr) {
     $wirkstoff_gehalt = fetch_api($base_url . "wirkstoff_gehalt/?q=" . $q_kennr);
     $wirkstoffe_data = [];
     if (isset($wirkstoff_gehalt['items'])) {
-        foreach ($wirkstoff_gehalt['items'] as $wg) {
-            $q_wirknr = urlencode(json_encode(["wirknr" => $wg['wirknr']]));
-            $w_info = fetch_api($base_url . "wirkstoff/?q=" . $q_wirknr);
-            if (isset($w_info['items'][0])) {
-                $wirkstoffe_data[] = [
-                    "name" => $w_info['items'][0]['wirkstoffname'],
-                    "amount" => $wg['gehalt_rein'],
-                    "unit" => $wg['gehalt_einheit']
-                ];
+        // Fetch all wirkstoff definitions in one go (assuming they fit in one request or we don't have many)
+        $wirknrs = array_unique(array_column($wirkstoff_gehalt['items'], 'wirknr'));
+        $all_wirkstoffe = [];
+        if (!empty($wirknrs)) {
+            // BVL API doesn't seem to support IN queries easily via JSON q, so we might still need individual or just cache
+            // But let's check if we can filter by wirknr using $in
+            $q_wirk = urlencode(json_encode(["wirknr" => ["\$in" => array_values($wirknrs)]]));
+            $w_infos = fetch_api($base_url . "wirkstoff/?q=" . $q_wirk);
+            if (isset($w_infos['items'])) {
+                foreach ($w_infos['items'] as $wi) {
+                    $all_wirkstoffe[$wi['wirknr']] = $wi['wirkstoffname'];
+                }
             }
+        }
+
+        foreach ($wirkstoff_gehalt['items'] as $wg) {
+            $name = $all_wirkstoffe[$wg['wirknr']] ?? "Unknown ({$wg['wirknr']})";
+            $wirkstoffe_data[] = [
+                "name" => $name,
+                "amount" => $wg['gehalt_rein'],
+                "unit" => $wg['gehalt_rein_einheit'] ?? $wg['gehalt_einheit']
+            ];
         }
     }
 
@@ -52,7 +64,9 @@ if ($kennr) {
 
     $awg_details = [];
     if (isset($awg['items'])) {
-        foreach ($awg['items'] as $a) {
+        // Limit AWGs to avoid too many requests
+        $awg_items = array_slice($awg['items'], 0, 15);
+        foreach ($awg_items as $a) {
             $awg_id = $a['awg_id'];
             $q_awg = urlencode(json_encode(["awg_id" => $awg_id]));
 
@@ -81,23 +95,20 @@ if ($kennr) {
         "auflagen" => $auflagen['items'] ?? [],
         "wirkstoffe" => $wirkstoffe_data
     ]);
-    exit;
+    return;
 }
 
 if (!$query) {
-    // If no query, just fetch the first 50 items
     $api_url = "https://psm-api.bvl.bund.de/ords/psm/api-v1/mittel/?limit=50";
 } else {
-    // PSM-API supports $instr for substring search
     $api_url = "https://psm-api.bvl.bund.de/ords/psm/api-v1/mittel/?q=" . urlencode(json_encode(["mittelname" => ["\$instr" => $query]]));
 }
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $api_url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 $response = curl_exec($ch);
 curl_close($ch);
 
 echo $response;
-?>
