@@ -50,29 +50,34 @@ if ($kennr) {
         }
     }
 
-    $rates = [];
+    $awg_details = [];
     if (isset($awg['items'])) {
-        // Just take the first few to avoid too much data
-        $first_awgs = array_slice($awg['items'], 0, 3);
-        foreach ($first_awgs as $a) {
+        foreach ($awg['items'] as $a) {
             $awg_id = $a['awg_id'];
             $q_awg = urlencode(json_encode(["awg_id" => $awg_id]));
+
             $aufwand = fetch_api($base_url . "awg_aufwand/?q=" . $q_awg);
-            if (isset($aufwand['items'][0])) {
-                $item = $aufwand['items'][0];
-                $rates[] = [
-                    "amount" => $item['m_aufwand'],
-                    "unit" => $item['m_aufwand_einheit']
-                ];
-            }
+            $schadorg = fetch_api($base_url . "awg_schadorg/?q=" . $q_awg);
+            $verw = fetch_api($base_url . "awg_verwendungszweck/?q=" . $q_awg);
+            $kultur = fetch_api($base_url . "awg_kultur/?q=" . $q_awg);
+
+            $awg_details[] = [
+                "awg_id" => $awg_id,
+                "anwendungsbereich" => $a['anwendungsbereich'],
+                "stadium_kultur_bis" => $a['stadium_kultur_bis'],
+                "stadium_kultur_von" => $a['stadium_kultur_von'],
+                "aufwand" => $aufwand['items'] ?? [],
+                "schadorg" => $schadorg['items'] ?? [],
+                "verwendung" => $verw['items'] ?? [],
+                "kultur" => $kultur['items'] ?? []
+            ];
         }
     }
 
     echo json_encode([
         "mittel" => $mittel['items'][0] ?? null,
         "bee_safety" => $bee_safety,
-        "rates" => $rates,
-        "awg" => $awg['items'] ?? [],
+        "awg" => $awg_details,
         "auflagen" => $auflagen['items'] ?? [],
         "wirkstoffe" => $wirkstoffe_data
     ]);
