@@ -66,9 +66,15 @@
 <body>
     <header>
         <h1 id="header-title">AgriField Manager</h1>
-        <div class="lang-switch">
-            <button onclick="setLanguage('en')">EN</button>
-            <button onclick="setLanguage('de')">DE</button>
+        <div class="header-right" style="display: flex; align-items: center; gap: 20px;">
+            <div class="form-group" style="margin-bottom: 0; color: white;">
+                <label id="label-year" style="display: inline; margin-right: 5px;">Management Year:</label>
+                <select id="mgmt-year-select" onchange="changeYear(this.value)" style="width: auto; padding: 5px;"></select>
+            </div>
+            <div class="lang-switch" style="position: static;">
+                <button onclick="setLanguage('en')">EN</button>
+                <button onclick="setLanguage('de')">DE</button>
+            </div>
         </div>
         <div id="user-info"><span id="farmer-overview-text">Farmer Overview</span></div>
     </header>
@@ -188,7 +194,8 @@
                             </div>
                             <div class="form-group">
                                 <label id="label-bulk-psm-rate">Rate (Aufwandmenge):</label>
-                                <select id="bulk-psm-rate-select" style="width: 100%;"></select>
+                                <input type="text" id="bulk-psm-rate-input" list="bulk-psm-rate-list" style="width: 100%;">
+                                <datalist id="bulk-psm-rate-list"></datalist>
                             </div>
                             <button type="button" class="btn-success" onclick="addBulkProductToList()">Add Product</button>
                         </div>
@@ -198,9 +205,19 @@
                             <ul id="bulk-added-products-list" style="padding-left: 20px;"></ul>
                         </div>
 
-                        <div class="form-group">
-                            <label id="label-bulk-water-rate">Water Application Rate [l/ha] *:</label>
-                            <input type="number" id="bulk-task-water-rate" placeholder="e.g. 200">
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label id="label-bulk-water-rate">Water Application Rate [l/ha]:</label>
+                                <input type="number" id="bulk-task-water-rate" placeholder="e.g. 200">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label id="label-bulk-app-type">Application Type (Art der Verwendung):</label>
+                                <select id="bulk-task-app-type" style="width: 100%;">
+                                    <option value="Freiland" id="opt-bulk-app-freiland">Freiland</option>
+                                    <option value="Gewächshaus" id="opt-bulk-app-gewaechshaus">Gewächshaus</option>
+                                    <option value="Lager" id="opt-bulk-app-lager">Lager</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div id="bulk-psm-details" style="background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 5px; display: none; font-size: 0.9em;">
@@ -222,11 +239,15 @@
                     </div>
                     <div class="form-group">
                         <label id="label-bulk-task-employee">Employee:</label>
-                        <input type="text" id="bulk-task-employee">
+                        <input type="text" id="bulk-task-employee" value="Witt">
                     </div>
                     <div class="form-group" id="bulk-bbch-group" style="display: none;">
                         <label id="label-bulk-task-bbch">BBCH Stage:</label>
-                        <input type="text" id="bulk-task-bbch">
+                        <input type="text" id="bulk-task-bbch" oninput="onBulkBBCHManualChange()">
+                        <div style="margin-top: 5px;">
+                            <label>BBCH Description:</label>
+                            <input type="text" id="bulk-task-bbch-desc" placeholder="Stadium description...">
+                        </div>
                     </div>
                 </div>
             </div>

@@ -57,7 +57,8 @@ try {
         'fertilizing_date' => 'TEXT',
         'spraying_date' => 'TEXT',
         'tilling_date' => 'TEXT',
-        'harvesting_date' => 'TEXT'
+        'harvesting_date' => 'TEXT',
+        'variety' => 'TEXT'
     ];
     foreach ($recordsColsToAdd as $col => $type) {
         try {
@@ -78,6 +79,7 @@ try {
         bbch TEXT,
         bbch_description TEXT,
         water_rate REAL,
+        application_type TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (field_id) REFERENCES fields(id) ON DELETE CASCADE
     )");
@@ -85,7 +87,8 @@ try {
     // Add new columns to tasks if they don't exist
     $tasksColsToAdd = [
         'bbch_description' => 'TEXT',
-        'water_rate' => 'REAL'
+        'water_rate' => 'REAL',
+        'application_type' => 'TEXT'
     ];
     foreach ($tasksColsToAdd as $col => $type) {
         try {

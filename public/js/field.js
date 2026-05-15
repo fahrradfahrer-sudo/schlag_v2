@@ -17,7 +17,8 @@ async function loadField() {
         return;
     }
 
-    const response = await fetch(`api/fields.php?id=${fieldId}`);
+    const year = parseInt(localStorage.getItem('selectedYear')) || new Date().getFullYear();
+    const response = await fetch(`api/fields.php?id=${fieldId}&year=${year}`);
     currentField = await response.json();
 
     if (!currentField || currentField.error) {
@@ -29,6 +30,7 @@ async function loadField() {
     // Fill basic info
     document.getElementById('field-id').value = currentField.id;
     document.getElementById('field-name').value = currentField.name;
+    document.getElementById('field-variety').value = currentField.variety || '';
 
     // Render Geometry
     const geojson = JSON.parse(currentField.geometry);
@@ -41,14 +43,20 @@ async function loadField() {
 
 function initYearSelector() {
     const select = document.getElementById('mgmt-year-select');
+    const selectedYear = parseInt(localStorage.getItem('selectedYear')) || new Date().getFullYear();
     const currentYear = new Date().getFullYear();
     for (let i = currentYear + 1; i >= currentYear - 5; i--) {
         const option = document.createElement('option');
         option.value = i;
         option.textContent = i;
-        if (i === currentYear) option.selected = true;
+        if (i === selectedYear) option.selected = true;
         select.appendChild(option);
     }
+    loadYearlyRecord();
+}
+
+function changeYear(year) {
+    localStorage.setItem('selectedYear', year);
     loadYearlyRecord();
 }
 
@@ -79,10 +87,12 @@ function prefillDates() {
 
 async function loadYearlyRecord() {
     const year = document.getElementById('mgmt-year-select').value;
+    localStorage.setItem('selectedYear', year);
     const response = await fetch(`api/records.php?field_id=${currentField.id}&year=${year}`);
     const record = await response.json();
 
     document.getElementById('field-crop').value = record.crop || '';
+    document.getElementById('field-variety').value = record.variety || '';
     document.getElementById('field-notes').value = record.notes || '';
 
     updateBBCHEstimation();
@@ -143,7 +153,7 @@ async function loadTasks() {
             }
             html += `</div>`;
         }
-        html += `<button class="btn-danger" style="padding: 2px 5px; font-size: 0.8em; margin-top: 5px;" onclick="deleteTask(${task.id})">${_t('btn-delete')}</button>`;
+        html += `<button class="btn-danger" style="padding: 2px 5px; font-size: 0.8em; margin-top: 5px;" onclick="deleteTask(${task.id})" title="${_t('btn-delete')}">🗑️</button>`;
 
         div.innerHTML = html;
         container.appendChild(div);
@@ -169,18 +179,21 @@ function addProductToList() {
     const awgSelect = document.getElementById('psm-awg-select');
     const schadSelect = document.getElementById('psm-schadorg-select');
     const verwSelect = document.getElementById('psm-verw-select');
-    const rateSelect = document.getElementById('psm-rate-select');
+    const rateInput = document.getElementById('psm-rate-input');
+    const appTypeSelect = document.getElementById('psm-app-type');
 
     if (!selectedPSM || !awgSelect.value) {
         console.warn("No product or AWG selected");
         return;
     }
 
-    let amount = null;
+    let amount = rateInput.value;
     let unit = '';
-    if (rateSelect.selectedIndex >= 0) {
-        amount = rateSelect.options[rateSelect.selectedIndex].getAttribute('data-amount');
-        unit = rateSelect.options[rateSelect.selectedIndex].getAttribute('data-unit');
+    // Try to extract unit if possible, or just keep it as is
+    if (amount.includes(' ')) {
+        const parts = amount.split(' ');
+        amount = parts[0];
+        unit = parts.slice(1).join(' ');
     }
 
     const product = {
@@ -260,6 +273,7 @@ async function addTask() {
         bbch: document.getElementById('task-bbch').value,
         bbch_description: document.getElementById('task-bbch-desc').value,
         water_rate: document.getElementById('task-water-rate').value,
+        application_type: (taskType === 'spraying') ? document.getElementById('task-app-type').value : null,
         products: (taskType === 'spraying') ? addedProducts : []
     };
 
@@ -271,10 +285,6 @@ async function addTask() {
     if (taskType === 'spraying') {
         if (addedProducts.length === 0) {
             alert("Please add at least one product for plant protection.");
-            return;
-        }
-        if (!data.water_rate) {
-            alert("Water application rate is mandatory for plant protection.");
             return;
         }
     }
@@ -394,6 +404,45 @@ function updateBBCHEstimation() {
     if (estimation) {
         document.getElementById('task-bbch-desc').value = estimation;
         if (!bbchInput.value) bbchInput.value = bbch.split('-')[0];
+    }
+}
+
+function onBBCHManualChange() {
+    const bbchValue = document.getElementById('task-bbch').value;
+    if (!bbchValue) return;
+
+    // Simplified BBCH description lookup
+    const cropValue = document.getElementById('field-crop').value.toLowerCase();
+    let desc = "";
+
+    const bbchNum = parseInt(bbchValue);
+    if (isNaN(bbchNum)) return;
+
+    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
+        if (bbchNum === 0) desc = currentLang === 'de' ? "Keimruhe" : "Dormancy";
+        else if (bbchNum < 10) desc = currentLang === 'de' ? "Keimentwicklung" : "Sprout development";
+        else if (bbchNum < 20) desc = currentLang === 'de' ? "Blattentwicklung" : "Leaf development";
+        else if (bbchNum < 30) desc = currentLang === 'de' ? "Seitensprossbildung" : "Side shoot formation";
+        else if (bbchNum < 40) desc = currentLang === 'de' ? "Stängelwachstum" : "Stem elongation";
+        else if (bbchNum < 50) desc = currentLang === 'de' ? "Knollenbildung" : "Tuber formation";
+        else if (bbchNum < 70) desc = currentLang === 'de' ? "Blüte" : "Flowering";
+        else if (bbchNum < 90) desc = currentLang === 'de' ? "Beerenentwicklung" : "Fruit development";
+        else desc = currentLang === 'de' ? "Absterben / Ernte" : "Senescence / Harvest";
+    } else if (cropValue.includes('wheat') || cropValue.includes('weizen') || cropValue.includes('barley') || cropValue.includes('gerste')) {
+        if (bbchNum < 10) desc = currentLang === 'de' ? "Keimung" : "Germination";
+        else if (bbchNum < 20) desc = currentLang === 'de' ? "Blattentwicklung" : "Leaf development";
+        else if (bbchNum < 30) desc = currentLang === 'de' ? "Bestockung" : "Tillering";
+        else if (bbchNum < 40) desc = currentLang === 'de' ? "Schossen" : "Stem elongation";
+        else if (bbchNum < 50) desc = currentLang === 'de' ? "Ährenschwellen" : "Booting";
+        else if (bbchNum < 60) desc = currentLang === 'de' ? "Ährenschieben" : "Ear emergence";
+        else if (bbchNum < 70) desc = currentLang === 'de' ? "Blüte" : "Flowering";
+        else if (bbchNum < 80) desc = currentLang === 'de' ? "Milchreife" : "Milk development";
+        else if (bbchNum < 90) desc = currentLang === 'de' ? "Teigreife" : "Dough development";
+        else desc = currentLang === 'de' ? "Reife / Ernte" : "Ripening / Harvest";
+    }
+
+    if (desc) {
+        document.getElementById('task-bbch-desc').value = desc;
     }
 }
 
@@ -556,42 +605,52 @@ function onAWGSelected() {
     }
 
     // Rate
-    const rateSelect = document.getElementById('psm-rate-select');
-    rateSelect.innerHTML = '';
+    const rateList = document.getElementById('psm-rate-list');
+    rateList.innerHTML = '';
     awg.aufwand.forEach(r => {
         const opt = document.createElement('option');
         opt.value = `${r.m_aufwand} ${r.m_aufwand_einheit}`;
-        opt.textContent = `${r.m_aufwand} ${r.m_aufwand_einheit} (${r.aufwandbedingung || ''})`;
-        opt.setAttribute('data-amount', r.m_aufwand);
-        opt.setAttribute('data-unit', r.m_aufwand_einheit);
-        rateSelect.appendChild(opt);
+        rateList.appendChild(opt);
     });
+    // Set default value
+    if (awg.aufwand.length > 0) {
+        document.getElementById('psm-rate-input').value = `${awg.aufwand[0].m_aufwand} ${awg.aufwand[0].m_aufwand_einheit}`;
+    }
 }
 
 
 async function saveField() {
-    // 1. Update Field Name
     const fieldName = document.getElementById('field-name').value;
+    const crop = document.getElementById('field-crop').value;
+    const variety = document.getElementById('field-variety').value;
+    const year = document.getElementById('mgmt-year-select').value;
+
     if (!fieldName) {
         alert(_t('alert-name'));
         return;
     }
 
+    // 1. Update Field Metadata and potentially current year record via fields.php PUT
     await fetch(`api/fields.php?id=${currentField.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            ...currentField,
-            name: fieldName
+            name: fieldName,
+            geometry: currentField.geometry,
+            notes: currentField.notes,
+            area: currentField.area,
+            crop: crop,
+            variety: variety,
+            year: year
         })
     });
 
-    // 2. Save Yearly Record
-    const year = document.getElementById('mgmt-year-select').value;
+    // 2. Explicitly save Yearly Record to ensure all fields in records are covered
     const recordData = {
         field_id: currentField.id,
         year: year,
-        crop: document.getElementById('field-crop').value,
+        crop: crop,
+        variety: variety,
         notes: document.getElementById('field-notes').value
     };
 

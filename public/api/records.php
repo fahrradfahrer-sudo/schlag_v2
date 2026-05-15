@@ -38,11 +38,12 @@ try {
                 echo json_encode(["error" => "Missing field_id or year"]);
                 break;
             }
-            $stmt = $pdo->prepare("INSERT OR REPLACE INTO field_records (field_id, year, crop, spraying, spraying_employee, bbch, fertilizing, tilling, harvesting, seeding, notes, seeding_date, fertilizing_date, spraying_date, tilling_date, harvesting_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT OR REPLACE INTO field_records (field_id, year, crop, variety, spraying, spraying_employee, bbch, fertilizing, tilling, harvesting, seeding, notes, seeding_date, fertilizing_date, spraying_date, tilling_date, harvesting_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['field_id'],
                 $data['year'],
                 $data['crop'] ?? '',
+                $data['variety'] ?? '',
                 $data['spraying'] ?? '',
                 $data['spraying_employee'] ?? '',
                 $data['bbch'] ?? '',
