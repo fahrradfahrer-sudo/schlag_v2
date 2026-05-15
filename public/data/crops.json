@@ -1,40 +1,248 @@
 [
-  {"name": "Winterweizen", "en": "Winter Wheat", "eppo": "TRZAW", "nc": "115"},
-  {"name": "Wintergerste", "en": "Winter Barley", "eppo": "HORVW", "nc": "131"},
-  {"name": "Winterraps", "en": "Winter Oilseed Rape", "eppo": "BRSNW", "nc": "311"},
-  {"name": "Mais", "en": "Maize / Corn", "eppo": "ZEAMX", "nc": "171"},
-  {"name": "Zuckerrüben", "en": "Sugar Beet", "eppo": "BEAVA", "nc": "603"},
-  {"name": "Kartoffeln", "en": "Potatoes", "eppo": "SOLTU", "nc": "602"},
-  {"name": "Sommergerste", "en": "Spring Barley", "eppo": "HORVS", "nc": "132"},
-  {"name": "Sommerweizen", "en": "Spring Wheat", "eppo": "TRZAS", "nc": "116"},
-  {"name": "Roggen", "en": "Rye", "eppo": "SECCW", "nc": "121"},
-  {"name": "Hafer", "en": "Oats", "eppo": "AVESA", "nc": "143"},
-  {"name": "Triticale", "en": "Triticale", "eppo": "TTLWI", "nc": "156"},
-  {"name": "Ackerbohnen", "en": "Field Beans", "eppo": "VICFM", "nc": "211"},
-  {"name": "Futtererbsen", "en": "Field Peas", "eppo": "PIBSA", "nc": "221"},
-  {"name": "Sojabohnen", "en": "Soybeans", "eppo": "GLXMA", "nc": "330"},
-  {"name": "Sonnenblumen", "en": "Sunflowers", "eppo": "HELAN", "nc": "320"},
-  {"name": "Grünland", "en": "Grassland", "eppo": "1GRAA", "nc": "451"},
-  {"name": "Brache", "en": "Fallow", "eppo": "1FALL", "nc": "062"},
-  {"name": "Silomais", "en": "Silage Maize", "eppo": "ZEAMX", "nc": "411"},
-  {"name": "Körnermais", "en": "Grain Maize", "eppo": "ZEAMX", "nc": "171"},
-  {"name": "Dinkel", "en": "Spelt", "eppo": "TRZSP", "nc": "114"},
-  {"name": "Luzerne", "en": "Lucerne / Alfalfa", "eppo": "MEDSA", "nc": "431"},
-  {"name": "Rotklee", "en": "Red Clover", "eppo": "TRFPR", "nc": "422"},
-  {"name": "Weißklee", "en": "White Clover", "eppo": "TRFRE", "nc": "421"},
-  {"name": "Leindotter", "en": "Camelina", "eppo": "CMASA", "nc": "391"},
-  {"name": "Hanf", "en": "Hemp", "eppo": "CNISA", "nc": "711"},
-  {"name": "Buchweizen", "en": "Buckwheat", "eppo": "FAGES", "nc": "182"},
-  {"name": "Hirse", "en": "Millet", "eppo": "PANMI", "nc": "173"},
-  {"name": "Sorghum", "en": "Sorghum", "eppo": "SORVU", "nc": "174"},
-  {"name": "Leinsamen", "en": "Linseed / Flax", "eppo": "LIUUT", "nc": "341"},
-  {"name": "Blaue Lupine", "en": "Blue Lupin", "eppo": "LUPAN", "nc": "231"},
-  {"name": "Weiße Lupine", "en": "White Lupin", "eppo": "LUPAL", "nc": "232"},
-  {"name": "Gelbe Lupine", "en": "Yellow Lupin", "eppo": "LUPLU", "nc": "233"},
-  {"name": "Weinreben (Keltertrauben)", "en": "Wine Grapes", "eppo": "VITVI", "nc": "591"},
-  {"name": "Weinreben (Tafeltrauben)", "en": "Table Grapes", "eppo": "VITVI", "nc": "594"},
-  {"name": "Weinreben (noch nicht im Ertrag)", "en": "Vines (not yet bearing)", "eppo": "VITVI", "nc": "592"},
-  {"name": "Rebschule", "en": "Vine Nursery", "eppo": "1VIGG", "nc": "593"},
-  {"name": "Hopfengarten", "en": "Hop Garden", "eppo": "HUMPU", "nc": "511"},
-  {"name": "Obstgarten", "en": "Orchard", "eppo": "1FRUG", "nc": "551"}
+  {
+    "name": "Winterweichweizen",
+    "en": "Winter Soft Wheat",
+    "eppo": "TRZAW",
+    "nc": "115"
+  },
+  {
+    "name": "Wintergerste",
+    "en": "Winter Barley",
+    "eppo": "HORVW",
+    "nc": "131"
+  },
+  {
+    "name": "Winterraps",
+    "en": "Winter Oilseed Rape",
+    "eppo": "BRSNW",
+    "nc": "311"
+  },
+  {
+    "name": "Körnermais",
+    "en": "Grain Maize",
+    "eppo": "ZEAMX",
+    "nc": "171"
+  },
+  {
+    "name": "Zuckerrüben",
+    "en": "Sugar Beet",
+    "eppo": "BEAVA",
+    "nc": "603"
+  },
+  {
+    "name": "Kartoffeln",
+    "en": "Potatoes",
+    "eppo": "SOLTU",
+    "nc": "602"
+  },
+  {
+    "name": "Sommergerste",
+    "en": "Spring Barley",
+    "eppo": "HORVS",
+    "nc": "132"
+  },
+  {
+    "name": "Sommerweichweizen",
+    "en": "Spring Soft Wheat",
+    "eppo": "TRZAS",
+    "nc": "116"
+  },
+  {
+    "name": "Winterroggen",
+    "en": "Winter Rye",
+    "eppo": "SECCW",
+    "nc": "121"
+  },
+  {
+    "name": "Hafer",
+    "en": "Oats",
+    "eppo": "AVESA",
+    "nc": "143"
+  },
+  {
+    "name": "Wintertriticale",
+    "en": "Winter Triticale",
+    "eppo": "TTLWI",
+    "nc": "156"
+  },
+  {
+    "name": "Ackerbohnen",
+    "en": "Field Beans",
+    "eppo": "VICFM",
+    "nc": "211"
+  },
+  {
+    "name": "Futtererbsen",
+    "en": "Field Peas",
+    "eppo": "PIBSA",
+    "nc": "221"
+  },
+  {
+    "name": "Sojabohnen",
+    "en": "Soybeans",
+    "eppo": "GLXMA",
+    "nc": "330"
+  },
+  {
+    "name": "Sonnenblumen",
+    "en": "Sunflowers",
+    "eppo": "HELAN",
+    "nc": "320"
+  },
+  {
+    "name": "Grünland (Wiesen)",
+    "en": "Grassland (Meadows)",
+    "eppo": "1GRAA",
+    "nc": "451"
+  },
+  {
+    "name": "Brache (Ackerland aus der Erzeugung)",
+    "en": "Fallow Land",
+    "eppo": "1FALL",
+    "nc": "062"
+  },
+  {
+    "name": "Silomais",
+    "en": "Silage Maize",
+    "eppo": "ZEAMX",
+    "nc": "411"
+  },
+  {
+    "name": "Winter-Dinkel",
+    "en": "Winter Spelt",
+    "eppo": "TRZSP",
+    "nc": "114"
+  },
+  {
+    "name": "Luzerne",
+    "en": "Alfalfa",
+    "eppo": "MEDSA",
+    "nc": "431"
+  },
+  {
+    "name": "Rotklee",
+    "en": "Red Clover",
+    "eppo": "TRFPR",
+    "nc": "422"
+  },
+  {
+    "name": "Weißklee",
+    "en": "White Clover",
+    "eppo": "TRFRE",
+    "nc": "421"
+  },
+  {
+    "name": "Leindotter",
+    "en": "Camelina",
+    "eppo": "CMASA",
+    "nc": "391"
+  },
+  {
+    "name": "Hanf",
+    "en": "Hemp",
+    "eppo": "CNISA",
+    "nc": "711"
+  },
+  {
+    "name": "Buchweizen",
+    "en": "Buckwheat",
+    "eppo": "FAGES",
+    "nc": "182"
+  },
+  {
+    "name": "Hirse",
+    "en": "Millet",
+    "eppo": "PANMI",
+    "nc": "173"
+  },
+  {
+    "name": "Sorghum",
+    "en": "Sorghum",
+    "eppo": "SORVU",
+    "nc": "174"
+  },
+  {
+    "name": "Leinsamen",
+    "en": "Linseed / Flax",
+    "eppo": "LIUUT",
+    "nc": "341"
+  },
+  {
+    "name": "Blaue Lupine",
+    "en": "Blue Lupin",
+    "eppo": "LUPAN",
+    "nc": "231"
+  },
+  {
+    "name": "Weiße Lupine",
+    "en": "White Lupin",
+    "eppo": "LUPAL",
+    "nc": "232"
+  },
+  {
+    "name": "Gelbe Lupine",
+    "en": "Yellow Lupin",
+    "eppo": "LUPLU",
+    "nc": "233"
+  },
+  {
+    "name": "Weinreben",
+    "en": "Wine Grapes",
+    "eppo": "VITVI",
+    "nc": "591"
+  },
+  {
+    "name": "Weinreben (Tafeltrauben)",
+    "en": "Table Grapes",
+    "eppo": "VITVI",
+    "nc": "594"
+  },
+  {
+    "name": "Weinreben (noch nicht im Ertrag)",
+    "en": "Vines (not yet bearing)",
+    "eppo": "VITVI",
+    "nc": "592"
+  },
+  {
+    "name": "Rebschule",
+    "en": "Vine Nursery",
+    "eppo": "1VIGG",
+    "nc": "593"
+  },
+  {
+    "name": "Hopfengarten",
+    "en": "Hop Garden",
+    "eppo": "HUMPU",
+    "nc": "511"
+  },
+  {
+    "name": "Obstgarten",
+    "en": "Orchard",
+    "eppo": "1FRUG",
+    "nc": "551"
+  },
+  {
+    "name": "Sommertriticale",
+    "en": "Spring Triticale",
+    "eppo": "TTLWI",
+    "nc": "157"
+  },
+  {
+    "name": "Mähweide",
+    "en": "Mowing Pasture",
+    "eppo": "1GRAA",
+    "nc": "452"
+  },
+  {
+    "name": "Winterdurum",
+    "en": "Winter Durum Wheat",
+    "eppo": "TRZDU",
+    "nc": "112"
+  },
+  {
+    "name": "Sommerdurum",
+    "en": "Spring Durum Wheat",
+    "eppo": "TRZDU",
+    "nc": "113"
+  }
 ]

@@ -33,6 +33,13 @@ map.addControl(drawControl);
 
 // Store for loaded fields
 let loadedFields = [];
+let currentYear = parseInt(localStorage.getItem('selectedYear')) || new Date().getFullYear();
+
+async function changeYear(year) {
+    currentYear = parseInt(year);
+    localStorage.setItem('selectedYear', currentYear);
+    await loadFields();
+}
 
 // Helper to toggle bulk actions
 function toggleAllFields(checked) {
@@ -147,6 +154,29 @@ function toggleBulkExtraFields() {
     document.getElementById('bulk-bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
 }
 
+function onBulkBBCHManualChange() {
+    const bbchValue = document.getElementById('bulk-task-bbch').value;
+    if (!bbchValue) return;
+    const bbchNum = parseInt(bbchValue);
+    if (isNaN(bbchNum)) return;
+
+    // Simple heuristic for bulk description
+    let desc = "";
+    if (bbchNum < 10) desc = "Keimung";
+    else if (bbchNum < 20) desc = "Blattentwicklung";
+    else if (bbchNum < 30) desc = "Bestockung / Seitensprosse";
+    else if (bbchNum < 40) desc = "Schossen";
+    else if (bbchNum < 60) desc = "Ährenschwellen / Ährenschieben";
+    else if (bbchNum < 70) desc = "Blüte";
+    else if (bbchNum < 90) desc = "Reife";
+    else desc = "Ernte";
+
+    // Since we don't have a single crop in bulk, we provide a generic description
+    if (desc) {
+        document.getElementById('bulk-task-bbch-desc').value = desc;
+    }
+}
+
 function getBulkSelectedFieldIds() {
     const checkboxes = document.querySelectorAll('.bulk-field-checkbox:checked');
     return Array.from(checkboxes).map(cb => cb.value);
@@ -183,17 +213,15 @@ async function applyBulkTask() {
         comment: document.getElementById('bulk-task-comment').value,
         employee: document.getElementById('bulk-task-employee').value,
         bbch: document.getElementById('bulk-task-bbch').value,
+        bbch_description: document.getElementById('bulk-task-bbch-desc').value,
         water_rate: document.getElementById('bulk-task-water-rate').value,
+        application_type: (taskType === 'spraying') ? document.getElementById('bulk-task-app-type').value : null,
         products: (taskType === 'spraying') ? addedBulkProducts : []
     };
 
     if (taskType === 'spraying') {
         if (addedBulkProducts.length === 0) {
             alert("Please add at least one product.");
-            return;
-        }
-        if (!data.water_rate) {
-            alert("Water rate is mandatory.");
             return;
         }
     }
@@ -278,32 +306,41 @@ function onBulkAWGSelected() {
     const awg = selectedBulkPSM.awg.find(a => a.awg_id === awgId);
     if (!awg) return;
 
-    const rateSelect = document.getElementById('bulk-psm-rate-select');
-    rateSelect.innerHTML = '';
+    const rateList = document.getElementById('bulk-psm-rate-list');
+    rateList.innerHTML = '';
     awg.aufwand.forEach(r => {
         const opt = document.createElement('option');
         opt.value = `${r.m_aufwand} ${r.m_aufwand_einheit}`;
-        opt.textContent = `${r.m_aufwand} ${r.m_aufwand_einheit} (${r.aufwandbedingung || ''})`;
-        opt.setAttribute('data-amount', r.m_aufwand);
-        opt.setAttribute('data-unit', r.m_aufwand_einheit);
-        rateSelect.appendChild(opt);
+        rateList.appendChild(opt);
     });
+    // Set default value
+    if (awg.aufwand.length > 0) {
+        document.getElementById('bulk-psm-rate-input').value = `${awg.aufwand[0].m_aufwand} ${awg.aufwand[0].m_aufwand_einheit}`;
+    }
 }
 
 let addedBulkProducts = [];
 
 function addBulkProductToList() {
     const awgSelect = document.getElementById('bulk-psm-awg-select');
-    const rateSelect = document.getElementById('bulk-psm-rate-select');
+    const rateInput = document.getElementById('bulk-psm-rate-input');
     if (!selectedBulkPSM || !awgSelect.value) return;
+
+    let amount = rateInput.value;
+    let unit = '';
+    if (amount.includes(' ')) {
+        const parts = amount.split(' ');
+        amount = parts[0];
+        unit = parts.slice(1).join(' ');
+    }
 
     const product = {
         mittelname: selectedBulkPSM.mittel.mittelname,
         kennr: selectedBulkPSM.mittel.kennr,
         schadorganismus: 'N/A',
         verwendungszweck: 'N/A',
-        aufwandmenge: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-amount'),
-        einheit: rateSelect.options[rateSelect.selectedIndex].getAttribute('data-unit')
+        aufwandmenge: amount,
+        einheit: unit
     };
 
     addedBulkProducts.push(product);
@@ -376,7 +413,7 @@ function calculateArea(geometry) {
 async function loadFields(autoZoom = false) {
     console.log('loadFields called');
     try {
-        const response = await fetch('api/fields.php');
+        const response = await fetch(`api/fields.php?year=${currentYear}`);
         const fields = await response.json();
         console.log('Fields fetched:', fields);
 
@@ -457,9 +494,9 @@ async function loadFields(autoZoom = false) {
                 <td style="font-size: 0.85em;">${lastTaskText}</td>
                 <td>
                     <div class="btn-group">
-                        <button class="btn-primary" onclick="zoomToField(${field.id})" title="Zoom">Z</button>
-                        <button class="btn-success" onclick="window.location.href='field.html?id=${field.id}'" title="Edit">E</button>
-                        <button class="btn-danger" onclick="deleteField(${field.id})" title="Delete">D</button>
+                        <button class="btn-primary" onclick="zoomToField(${field.id})" title="Zoom">🔍</button>
+                        <button class="btn-success" onclick="window.location.href='field.html?id=${field.id}'" title="Edit">✏️</button>
+                        <button class="btn-danger" onclick="deleteField(${field.id})" title="Delete">🗑️</button>
                     </div>
                 </td>
             `;
@@ -1087,4 +1124,17 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
 }
 
 // Initial Load
-loadFields(true);
+document.addEventListener('DOMContentLoaded', () => {
+    const yearSelect = document.getElementById('mgmt-year-select');
+    if (yearSelect) {
+        const currentYearNum = new Date().getFullYear();
+        for (let y = currentYearNum + 1; y >= currentYearNum - 5; y--) {
+            const opt = document.createElement('option');
+            opt.value = y;
+            opt.textContent = y;
+            if (y === currentYear) opt.selected = true;
+            yearSelect.appendChild(opt);
+        }
+    }
+    loadFields(true);
+});

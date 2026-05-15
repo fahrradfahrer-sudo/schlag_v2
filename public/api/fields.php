@@ -19,7 +19,7 @@ try {
             $year = (int)($_GET['year'] ?? date('Y'));
             if ($id) {
                 $sql = "SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
-                               r.crop,
+                               r.crop, r.variety,
                                t.task_type as last_task_type, t.task_date as last_task_date, t.content as last_task_content
                         FROM fields f
                         LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
@@ -43,7 +43,7 @@ try {
                 echo json_encode($field);
             } else {
                 $sql = "SELECT f.id, f.name, f.geometry, f.notes, f.area, f.created_at,
-                               r.crop,
+                               r.crop, r.variety,
                                t.task_type as last_task_type, t.task_date as last_task_date, t.content as last_task_content
                         FROM fields f
                         LEFT JOIN field_records r ON f.id = r.field_id AND r.year = ?
