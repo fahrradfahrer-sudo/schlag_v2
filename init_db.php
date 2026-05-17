@@ -110,8 +110,14 @@ try {
         verwendungszweck TEXT,
         aufwandmenge REAL,
         einheit TEXT,
+        active_ingredients TEXT,
         FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
     )");
+
+    // Add new columns to task_products if they don't exist
+    try {
+        $pdo->exec("ALTER TABLE task_products ADD COLUMN active_ingredients TEXT");
+    } catch (PDOException $e) {}
 
     // Migration: Move existing data from field_records to tasks if tasks table is empty
     $count = $pdo->query("SELECT COUNT(*) FROM tasks")->fetchColumn();

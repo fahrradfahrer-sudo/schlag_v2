@@ -89,6 +89,19 @@
                         </select>
                     </div>
 
+                    <!-- Fertilizer Extra -->
+                    <div id="fertilizing-fields" style="display: none; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background: #fff;">
+                        <div style="display: flex; gap: 5px; margin-bottom: 5px;">
+                            <input type="text" id="fertilizer-search" list="fertilizer-list" placeholder="Search fertilizer..." style="flex: 1;" oninput="searchFertilizer()">
+                            <datalist id="fertilizer-list"></datalist>
+                        </div>
+                        <div id="fertilizer-info" style="display: none; background: #f0f0f0; padding: 10px; border-radius: 4px; margin-bottom: 10px; font-size: 0.9em;">
+                            <div id="fertilizer-name" style="font-weight: bold;"></div>
+                            <div id="fertilizer-ingredients"></div>
+                            <button type="button" class="btn-success" onclick="addFertilizerToContent()" style="margin-top: 5px;">Add to Details</button>
+                        </div>
+                    </div>
+
                     <!-- Plant Protection Extra -->
                     <div id="spraying-fields" style="display: none; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background: #fff;">
                         <div style="display: flex; gap: 5px; margin-bottom: 5px;">
@@ -227,6 +240,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- SheetJS for Excel export -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <div id="toast-container"></div>
     <script src="js/i18n.js"></script>
     <script src="js/field.js"></script>
 </body>

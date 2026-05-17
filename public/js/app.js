@@ -162,10 +162,62 @@ function closeBulkModal() {
 function toggleBulkExtraFields() {
     const type = document.getElementById('bulk-task-type').value;
     document.getElementById('bulk-spraying-fields').style.display = (type === 'spraying') ? 'block' : 'none';
+    document.getElementById('bulk-fertilizing-fields').style.display = (type === 'fertilizing') ? 'block' : 'none';
     document.getElementById('bulk-weather-fields').style.display = (type === 'spraying') ? 'flex' : 'none';
     document.getElementById('bulk-irrigation-fields').style.display = (type === 'irrigation') ? 'block' : 'none';
     document.getElementById('bulk-bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
     fetchBulkWeather();
+}
+
+let bulkFertSearchResults = [];
+let selectedBulkFert = null;
+
+async function searchBulkFertilizer() {
+    const query = document.getElementById('bulk-fertilizer-search').value;
+    const datalist = document.getElementById('bulk-fertilizer-list');
+
+    const matched = bulkFertSearchResults.find(f => f.name === query);
+    if (matched) {
+        onBulkFertSelected(matched);
+        return;
+    }
+
+    if (query.length < 2) {
+        datalist.innerHTML = '';
+        return;
+    }
+
+    const response = await fetch(`api/fertilizer_proxy.php?q=${encodeURIComponent(query)}`);
+    const data = await response.json();
+    bulkFertSearchResults = data;
+
+    datalist.innerHTML = '';
+    data.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f.name;
+        datalist.appendChild(opt);
+    });
+}
+
+function onBulkFertSelected(f) {
+    selectedBulkFert = f;
+    const infoDiv = document.getElementById('bulk-fertilizer-info');
+    infoDiv.style.display = 'block';
+    document.getElementById('bulk-fertilizer-name').textContent = f.name;
+    document.getElementById('bulk-fertilizer-ingredients').textContent = `N: ${f.n}%, P: ${f.p}%, K: ${f.k}%, S: ${f.s}% - ${f.description || ''}`;
+}
+
+function addBulkFertilizerToContent() {
+    if (!selectedBulkFert) return;
+    const content = document.getElementById('bulk-task-content');
+    const fertInfo = `${selectedBulkFert.name} (N:${selectedBulkFert.n} P:${selectedBulkFert.p} K:${selectedBulkFert.k} S:${selectedBulkFert.s})`;
+    if (content.value) {
+        content.value += "\n" + fertInfo;
+    } else {
+        content.value = fertInfo;
+    }
+    document.getElementById('bulk-fertilizer-info').style.display = 'none';
+    document.getElementById('bulk-fertilizer-search').value = '';
 }
 
 async function fetchBulkWeather() {
@@ -190,7 +242,9 @@ async function fetchBulkWeather() {
 
         if (data.weather && data.weather.length > 0) {
             const weather = data.weather[0];
-            document.getElementById('bulk-task-wind').value = weather.wind_speed ? weather.wind_speed.toFixed(1) : '';
+            // Bright Sky returns wind_speed in km/h. Convert to m/s.
+            const windSpeedMs = weather.wind_speed ? (weather.wind_speed / 3.6).toFixed(1) : '';
+            document.getElementById('bulk-task-wind').value = windSpeedMs;
             document.getElementById('bulk-task-temp').value = weather.temperature ? weather.temperature.toFixed(1) : '';
         }
     } catch (e) {
@@ -229,7 +283,7 @@ function getBulkSelectedFieldIds() {
 async function applyBulkTask() {
     const fieldIds = getBulkSelectedFieldIds();
     if (fieldIds.length === 0) {
-        alert("Please select at least one field.");
+        showToast("Please select at least one field.");
         return;
     }
     const taskType = document.getElementById('bulk-task-type').value;
@@ -269,7 +323,7 @@ async function applyBulkTask() {
 
     if (taskType === 'spraying') {
         if (addedBulkProducts.length === 0) {
-            alert("Please add at least one product.");
+            showToast("Please add at least one product.");
             return;
         }
     }
@@ -281,11 +335,11 @@ async function applyBulkTask() {
     });
 
     if (response.ok) {
-        alert("Task applied successfully to " + fieldIds.length + " fields.");
+        showToast(_t('task-applied-success', {count: fieldIds.length}), 'success');
         closeBulkModal();
         loadFields();
     } else {
-        alert("Error applying bulk task.");
+        showToast("Error applying bulk task.", 'error');
     }
 }
 
@@ -388,7 +442,8 @@ function addBulkProductToList() {
         schadorganismus: 'N/A',
         verwendungszweck: 'N/A',
         aufwandmenge: amount,
-        einheit: unit
+        einheit: unit,
+        active_ingredients: selectedBulkPSM.wirkstoffe ? selectedBulkPSM.wirkstoffe.map(w => `${w.name} (${w.amount} ${w.unit})`).join(", ") : ''
     };
 
     addedBulkProducts.push(product);
@@ -502,11 +557,11 @@ async function loadFields(autoZoom = false) {
             const getFieldStyle = (cropName) => {
                 const c = (cropName || '').toLowerCase();
                 let color = '#3388ff'; // Default Leaflet color
-                if (c.includes('potato') || c.includes('kartoffel')) color = 'brown';
-                else if (c.includes('vineyard') || c.includes('weinrebe') || c.includes('weinberg')) color = 'purple';
-                else if (c.includes('sugar beet') || c.includes('zuckerrübe')) color = 'white';
-                else if (c.includes('maize') || c.includes('mais')) color = 'yellow';
-                else if (c.includes('wheat') || c.includes('weizen')) color = 'green';
+                if (c.includes('kartoffel') || c.includes('soltu') || c.includes('potato')) color = 'brown';
+                else if (c.includes('zuckerrübe') || c.includes('beava') || c.includes('sugar beet')) color = 'white';
+                else if (c.includes('mais') || c.includes('zeamx') || c.includes('maize')) color = 'yellow';
+                else if (c.includes('winterweichweizen') || c.includes('trzaw') || c.includes('wheat')) color = 'green';
+                else if (c.includes('weinrebe') || c.includes('vitvi') || c.includes('vineyard') || c.includes('weinberg')) color = 'purple';
                 return { color: color, fillOpacity: 0.2 };
             };
 
@@ -687,7 +742,7 @@ saveBtn.onclick = async () => {
     };
 
     if (!data.name) {
-        alert(typeof _t === 'function' ? _t('alert-name') : 'Please enter a name');
+        showToast(typeof _t === 'function' ? _t('alert-name') : 'Please enter a name');
         return;
     }
 
@@ -723,7 +778,7 @@ saveBtn.onclick = async () => {
         closeModal();
     } catch (err) {
         console.error('Error saving field:', err);
-        alert('Error saving field');
+        showToast('Error saving field');
     }
 };
 
@@ -760,7 +815,7 @@ function getCenter(geometry) {
 
 async function exportAllData(format = 'xlsx') {
     if (loadedFields.length === 0) {
-        alert(typeof _t === 'function' ? _t('no-fields-export') : "No fields to export.");
+        showToast(typeof _t === 'function' ? _t('no-fields-export') : "No fields to export.");
         return;
     }
 
@@ -807,13 +862,13 @@ async function exportAllData(format = 'xlsx') {
 
     if (format === 'xlsx') {
         if (wb.SheetNames.length === 0) {
-            alert("No records found for any field.");
+            showToast("No records found for any field.");
             return;
         }
         XLSX.writeFile(wb, "all_fields_records.xlsx");
     } else {
         if (allDataForCSV.length === 0) {
-            alert("No records found for any field.");
+            showToast("No records found for any field.");
             return;
         }
         const ws = XLSX.utils.json_to_sheet(allDataForCSV);
@@ -830,7 +885,7 @@ async function exportAllData(format = 'xlsx') {
 
 function exportISOXML() {
     if (loadedFields.length === 0) {
-        alert(_t('no-fields-export'));
+        showToast(_t('no-fields-export'));
         return;
     }
 
@@ -992,7 +1047,7 @@ async function handleShp(group) {
                 ? `Für den Import der Datei "${group.shp.name}" fehlen folgende Dateien: ${missing.join(', ')}.\n\nBitte wählen Sie alle zugehörigen Dateien (.shp, .dbf, .prj) zusammen aus oder verwenden Sie die Funktion "Ordner hochladen".\n\nOhne .dbf fehlen die Feldnamen, und ohne .prj kann die Position falsch sein.`
                 : `The following files are missing for importing "${group.shp.name}": ${missing.join(', ')}.\n\nPlease select all related files (.shp, .dbf, .prj) together or use the "Upload Folder" function.\n\nWithout .dbf, field names will be missing, and without .prj, the position might be incorrect.`;
 
-            alert(msg);
+            showToast(msg);
             return;
         }
 
@@ -1036,7 +1091,7 @@ async function handleShp(group) {
         await saveGeoJSONFeatures(geojson, group.shp.name.split('.')[0]);
     } catch (err) {
         console.error('Error parsing Shapefiles:', err);
-        alert('Error parsing Shapefiles: ' + err.message);
+        showToast('Error parsing Shapefiles: ' + err.message);
     }
 }
 

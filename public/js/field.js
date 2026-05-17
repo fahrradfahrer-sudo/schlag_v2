@@ -22,7 +22,7 @@ async function loadField() {
     currentField = await response.json();
 
     if (!currentField || currentField.error) {
-        alert("Field not found");
+        showToast("Field not found");
         window.location.href = 'index.html';
         return;
     }
@@ -40,11 +40,11 @@ async function loadField() {
     const getFieldStyle = (cropName) => {
         const c = (cropName || '').toLowerCase();
         let color = '#3388ff'; // Default Leaflet color
-        if (c.includes('potato') || c.includes('kartoffel')) color = 'brown';
-        else if (c.includes('vineyard') || c.includes('weinrebe') || c.includes('weinberg')) color = 'purple';
-        else if (c.includes('sugar beet') || c.includes('zuckerrübe')) color = 'white';
-        else if (c.includes('maize') || c.includes('mais')) color = 'yellow';
-        else if (c.includes('wheat') || c.includes('weizen')) color = 'green';
+        if (c.includes('kartoffel') || c.includes('soltu') || c.includes('potato')) color = 'brown';
+        else if (c.includes('zuckerrübe') || c.includes('beava') || c.includes('sugar beet')) color = 'white';
+        else if (c.includes('mais') || c.includes('zeamx') || c.includes('maize')) color = 'yellow';
+        else if (c.includes('winterweichweizen') || c.includes('trzaw') || c.includes('wheat')) color = 'green';
+        else if (c.includes('weinrebe') || c.includes('vitvi') || c.includes('vineyard') || c.includes('weinberg')) color = 'purple';
         return { color: color, fillOpacity: 0.2 };
     };
 
@@ -146,6 +146,9 @@ async function loadTasks() {
             html += `<ul style="margin: 5px 0; padding-left: 20px;">`;
             task.products.forEach(p => {
                 html += `<li><strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge} ${p.einheit}<br>`;
+                if (p.active_ingredients) {
+                    html += `<small><em>${p.active_ingredients}</em></small><br>`;
+                }
                 html += `<small>${p.schadorganismus} | ${p.verwendungszweck}</small></li>`;
             });
             html += `</ul>`;
@@ -185,6 +188,7 @@ async function loadTasks() {
 function toggleTaskFields() {
     const type = document.getElementById('task-type').value;
     document.getElementById('spraying-fields').style.display = (type === 'spraying') ? 'block' : 'none';
+    document.getElementById('fertilizing-fields').style.display = (type === 'fertilizing') ? 'block' : 'none';
     document.getElementById('weather-fields').style.display = (type === 'spraying') ? 'flex' : 'none';
     document.getElementById('irrigation-fields').style.display = (type === 'irrigation') ? 'block' : 'none';
     document.getElementById('bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
@@ -217,7 +221,9 @@ async function fetchWeather() {
         if (data.weather && data.weather.length > 0) {
             // Find closest hour or use the first one
             const weather = data.weather[0];
-            document.getElementById('task-wind').value = weather.wind_speed ? weather.wind_speed.toFixed(1) : '';
+            // Bright Sky returns wind_speed in km/h. Convert to m/s.
+            const windSpeedMs = weather.wind_speed ? (weather.wind_speed / 3.6).toFixed(1) : '';
+            document.getElementById('task-wind').value = windSpeedMs;
             document.getElementById('task-temp').value = weather.temperature ? weather.temperature.toFixed(1) : '';
         }
     } catch (e) {
@@ -250,13 +256,15 @@ function addProductToList() {
         unit = parts.slice(1).join(' ');
     }
 
+    const ingredientsEl = document.getElementById('psm-info-ingredients');
     const product = {
         mittelname: selectedPSM.mittel.mittelname,
         kennr: selectedPSM.mittel.kennr,
         schadorganismus: schadSelect.value || 'N/A',
         verwendungszweck: verwSelect.value || 'N/A',
         aufwandmenge: amount,
-        einheit: unit
+        einheit: unit,
+        active_ingredients: ingredientsEl.textContent
     };
 
     addedProducts.push(product);
@@ -336,13 +344,13 @@ async function addTask() {
     };
 
     if (!data.task_date) {
-        alert("Please select a date.");
+        showToast("Please select a date.");
         return;
     }
 
     if (taskType === 'spraying') {
         if (addedProducts.length === 0) {
-            alert("Please add at least one product for plant protection.");
+            showToast("Please add at least one product for plant protection.");
             return;
         }
     }
@@ -527,6 +535,57 @@ document.getElementById('field-crop').addEventListener('input', (e) => {
     updateBBCHEstimation();
 });
 
+let fertSearchResults = [];
+let selectedFert = null;
+
+async function searchFertilizer() {
+    const query = document.getElementById('fertilizer-search').value;
+    const datalist = document.getElementById('fertilizer-list');
+
+    const matched = fertSearchResults.find(f => f.name === query);
+    if (matched) {
+        onFertSelected(matched);
+        return;
+    }
+
+    if (query.length < 2) {
+        datalist.innerHTML = '';
+        return;
+    }
+
+    const response = await fetch(`api/fertilizer_proxy.php?q=${encodeURIComponent(query)}`);
+    const data = await response.json();
+    fertSearchResults = data;
+
+    datalist.innerHTML = '';
+    data.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f.name;
+        datalist.appendChild(opt);
+    });
+}
+
+function onFertSelected(f) {
+    selectedFert = f;
+    const infoDiv = document.getElementById('fertilizer-info');
+    infoDiv.style.display = 'block';
+    document.getElementById('fertilizer-name').textContent = f.name;
+    document.getElementById('fertilizer-ingredients').textContent = `N: ${f.n}%, P: ${f.p}%, K: ${f.k}%, S: ${f.s}% - ${f.description || ''}`;
+}
+
+function addFertilizerToContent() {
+    if (!selectedFert) return;
+    const content = document.getElementById('task-content');
+    const fertInfo = `${selectedFert.name} (N:${selectedFert.n} P:${selectedFert.p} K:${selectedFert.k} S:${selectedFert.s})`;
+    if (content.value) {
+        content.value += "\n" + fertInfo;
+    } else {
+        content.value = fertInfo;
+    }
+    document.getElementById('fertilizer-info').style.display = 'none';
+    document.getElementById('fertilizer-search').value = '';
+}
+
 let psmSearchTimeout = null;
 let psmSearchResults = [];
 
@@ -704,7 +763,7 @@ async function saveField() {
     const year = document.getElementById('mgmt-year-select').value;
 
     if (!fieldName) {
-        alert(_t('alert-name'));
+        showToast(_t('alert-name'));
         return;
     }
 
@@ -738,7 +797,7 @@ async function saveField() {
         body: JSON.stringify(recordData)
     });
 
-    alert(_t('btn-save-changes') + "!");
+    showToast(_t('btn-save-changes') + "!", 'success');
 }
 
 function getCenter(geometry) {
@@ -754,7 +813,7 @@ async function exportData(format = 'xlsx') {
     const records = await response.json();
 
     if (records.length === 0) {
-        alert("No records to export.");
+        showToast("No records to export.");
         return;
     }
 
