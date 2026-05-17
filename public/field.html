@@ -95,10 +95,45 @@
                             <input type="text" id="fertilizer-search" list="fertilizer-list" placeholder="Search fertilizer..." style="flex: 1;" oninput="searchFertilizer()">
                             <datalist id="fertilizer-list"></datalist>
                         </div>
-                        <div id="fertilizer-info" style="display: none; background: #f0f0f0; padding: 10px; border-radius: 4px; margin-bottom: 10px; font-size: 0.9em;">
+
+                        <div id="fertilizer-custom-fields" style="background: #f0f0f0; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+                            <div style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 60px;">
+                                    <label>N [%]</label>
+                                    <input type="number" step="0.1" id="fert-n" style="width: 100%;">
+                                </div>
+                                <div style="flex: 1; min-width: 60px;">
+                                    <label>P [%]</label>
+                                    <input type="number" step="0.1" id="fert-p" style="width: 100%;">
+                                </div>
+                                <div style="flex: 1; min-width: 60px;">
+                                    <label>K [%]</label>
+                                    <input type="number" step="0.1" id="fert-k" style="width: 100%;">
+                                </div>
+                                <div style="flex: 1; min-width: 60px;">
+                                    <label>S [%]</label>
+                                    <input type="number" step="0.1" id="fert-s" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label id="label-fert-rate">Rate (Aufwandmenge) [kg/ha]:</label>
+                                <input type="number" step="0.1" id="fert-rate" style="width: 100%;">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <input type="checkbox" id="save-custom-fert" style="width: auto;">
+                                <label for="save-custom-fert">Save for future use</label>
+                            </div>
+                            <button type="button" class="btn-success" onclick="addFertilizerToList()">Add Fertilizer to Task</button>
+                        </div>
+
+                        <div id="added-fertilizers-container" style="display: none; margin-bottom: 10px;">
+                            <h4 id="title-added-fertilizers">Added Fertilizers:</h4>
+                            <ul id="added-fertilizers-list" style="padding-left: 20px;"></ul>
+                        </div>
+
+                        <div id="fertilizer-info" style="display: none; background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 10px; font-size: 0.9em;">
                             <div id="fertilizer-name" style="font-weight: bold;"></div>
                             <div id="fertilizer-ingredients"></div>
-                            <button type="button" class="btn-success" onclick="addFertilizerToContent()" style="margin-top: 5px;">Add to Details</button>
                         </div>
                     </div>
 

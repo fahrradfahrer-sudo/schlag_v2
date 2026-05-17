@@ -91,6 +91,18 @@ function openBulkTaskModal() {
     document.getElementById('bulk-psm-api-selection').style.display = 'none';
     document.getElementById('bulk-psm-details').style.display = 'none';
 
+    // Reset fertilizer state
+    addedBulkFertilizers = [];
+    renderBulkAddedFertilizers();
+    document.getElementById('bulk-fertilizer-search').value = '';
+    document.getElementById('bulk-fert-n').value = '';
+    document.getElementById('bulk-fert-p').value = '';
+    document.getElementById('bulk-fert-k').value = '';
+    document.getElementById('bulk-fert-s').value = '';
+    document.getElementById('bulk-fert-rate').value = '';
+    document.getElementById('bulk-save-custom-fert').checked = false;
+    document.getElementById('bulk-fertilizer-info').style.display = 'none';
+
     // Ensure extra fields are toggled correctly for the initial selection
     toggleBulkExtraFields();
 
@@ -166,11 +178,77 @@ function toggleBulkExtraFields() {
     document.getElementById('bulk-weather-fields').style.display = (type === 'spraying') ? 'flex' : 'none';
     document.getElementById('bulk-irrigation-fields').style.display = (type === 'irrigation') ? 'block' : 'none';
     document.getElementById('bulk-bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
+
+    // Automatic prefill: only if all fields have the same crop
+    const selectedIds = getBulkSelectedFieldIds();
+    const selectedFields = loadedFields.filter(f => selectedIds.includes(String(f.id)));
+    const crops = [...new Set(selectedFields.map(f => (f.crop || '').toLowerCase()))];
+
+    if (crops.length === 1 && crops[0] !== '') {
+        // All fields have the same crop
+        if (type === 'spraying' || type === 'fertilizing') {
+            // BBCH Estimation logic (reused from field.js concept but simplified for app.js)
+            estimateBulkBBCH(crops[0]);
+        }
+    } else {
+        // Reset BBCH if mixed crops or no crop
+        document.getElementById('bulk-task-bbch').value = '';
+        document.getElementById('bulk-task-bbch-desc').value = '';
+    }
+
     fetchBulkWeather();
+}
+
+function estimateBulkBBCH(cropValue) {
+    const bbchInput = document.getElementById('bulk-task-bbch');
+    const bbchDescInput = document.getElementById('bulk-task-bbch-desc');
+
+    if (bbchInput.value) return; // Don't override manual entry
+
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    let estimation = "";
+    let bbch = "";
+
+    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
+        if (month < 4) { bbch = "00"; estimation = "Keimruhe / Vorbereitung"; }
+        else if (month === 4) { bbch = "01"; estimation = "Keimentwicklung"; }
+        else if (month === 5) { bbch = "10"; estimation = "Blattentwicklung"; }
+        else if (month === 6) { bbch = "31"; estimation = "Stängelwachstum"; }
+        else if (month === 7) { bbch = "51"; estimation = "Blüte"; }
+        else if (month === 8) { bbch = "71"; estimation = "Knollenreife"; }
+        else { bbch = "91"; estimation = "Absterben / Ernte"; }
+    } else if (cropValue.includes('wheat') || cropValue.includes('weizen')) {
+        if (month <= 3) { bbch = "21"; estimation = "Bestockung"; }
+        else if (month === 4) { bbch = "30"; estimation = "Schossen"; }
+        else if (month === 5) { bbch = "37"; estimation = "Fahnenblatt"; }
+        else if (month === 6) { bbch = "61"; estimation = "Blüte"; }
+        else if (month === 7) { bbch = "75"; estimation = "Reife"; }
+        else { bbch = "00"; estimation = "Keimung"; }
+    } else if (cropValue.includes('maize') || cropValue.includes('mais')) {
+        if (month === 5) { bbch = "00"; estimation = "Keimung"; }
+        else if (month === 6) { bbch = "30"; estimation = "Längenwachstum"; }
+        else if (month === 7) { bbch = "51"; estimation = "Blüte"; }
+        else if (month === 8) { bbch = "71"; estimation = "Reife"; }
+        else { bbch = "99"; estimation = "Ernte"; }
+    } else if (cropValue.includes('sugar beet') || cropValue.includes('zuckerrübe')) {
+        if (month === 4) { bbch = "00"; estimation = "Keimung"; }
+        else if (month === 5) { bbch = "10"; estimation = "Blattentwicklung"; }
+        else if (month === 6) { bbch = "31"; estimation = "Reihenschluss"; }
+        else { bbch = "41"; estimation = "Rübenentwicklung"; }
+    }
+
+    if (bbch) {
+        bbchInput.value = bbch;
+        bbchDescInput.value = estimation;
+    }
 }
 
 let bulkFertSearchResults = [];
 let selectedBulkFert = null;
+let addedBulkFertilizers = [];
 
 async function searchBulkFertilizer() {
     const query = document.getElementById('bulk-fertilizer-search').value;
@@ -205,19 +283,79 @@ function onBulkFertSelected(f) {
     infoDiv.style.display = 'block';
     document.getElementById('bulk-fertilizer-name').textContent = f.name;
     document.getElementById('bulk-fertilizer-ingredients').textContent = `N: ${f.n}%, P: ${f.p}%, K: ${f.k}%, S: ${f.s}% - ${f.description || ''}`;
+
+    // Prefill custom fields
+    document.getElementById('bulk-fert-n').value = f.n;
+    document.getElementById('bulk-fert-p').value = f.p;
+    document.getElementById('bulk-fert-k').value = f.k;
+    document.getElementById('bulk-fert-s').value = f.s;
 }
 
-function addBulkFertilizerToContent() {
-    if (!selectedBulkFert) return;
-    const content = document.getElementById('bulk-task-content');
-    const fertInfo = `${selectedBulkFert.name} (N:${selectedBulkFert.n} P:${selectedBulkFert.p} K:${selectedBulkFert.k} S:${selectedBulkFert.s})`;
-    if (content.value) {
-        content.value += "\n" + fertInfo;
-    } else {
-        content.value = fertInfo;
+async function addBulkFertilizerToList() {
+    const name = document.getElementById('bulk-fertilizer-search').value;
+    const n = document.getElementById('bulk-fert-n').value;
+    const p = document.getElementById('bulk-fert-p').value;
+    const k = document.getElementById('bulk-fert-k').value;
+    const s = document.getElementById('bulk-fert-s').value;
+    const rate = document.getElementById('bulk-fert-rate').value;
+    const saveCustom = document.getElementById('bulk-save-custom-fert').checked;
+
+    if (!name || !rate) {
+        showToast("Please enter fertilizer name and rate.");
+        return;
     }
-    document.getElementById('bulk-fertilizer-info').style.display = 'none';
+
+    if (saveCustom) {
+        await fetch('api/fertilizer_proxy.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, n, p, k, s, description: "Customized" })
+        });
+    }
+
+    const fert = {
+        mittelname: name,
+        n: n || 0,
+        p: p || 0,
+        k: k || 0,
+        s: s || 0,
+        aufwandmenge: rate,
+        einheit: 'kg/ha'
+    };
+
+    addedBulkFertilizers.push(fert);
+    renderBulkAddedFertilizers();
+
+    // Reset
     document.getElementById('bulk-fertilizer-search').value = '';
+    document.getElementById('bulk-fert-n').value = '';
+    document.getElementById('bulk-fert-p').value = '';
+    document.getElementById('bulk-fert-k').value = '';
+    document.getElementById('bulk-fert-s').value = '';
+    document.getElementById('bulk-fert-rate').value = '';
+    document.getElementById('bulk-save-custom-fert').checked = false;
+    document.getElementById('bulk-fertilizer-info').style.display = 'none';
+}
+
+function renderBulkAddedFertilizers() {
+    const container = document.getElementById('bulk-added-fertilizers-container');
+    const list = document.getElementById('bulk-added-fertilizers-list');
+    list.innerHTML = '';
+    if (addedBulkFertilizers.length > 0) {
+        container.style.display = 'block';
+        addedBulkFertilizers.forEach((f, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `${f.mittelname} - ${f.aufwandmenge} ${f.einheit} <button type="button" onclick="removeBulkFertilizer(${index})">x</button>`;
+            list.appendChild(li);
+        });
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function removeBulkFertilizer(index) {
+    addedBulkFertilizers.splice(index, 1);
+    renderBulkAddedFertilizers();
 }
 
 async function fetchBulkWeather() {
@@ -315,7 +453,7 @@ async function applyBulkTask() {
         bbch_description: document.getElementById('bulk-task-bbch-desc').value,
         water_rate: document.getElementById('bulk-task-water-rate').value,
         application_type: (taskType === 'spraying') ? document.getElementById('bulk-task-app-type').value : null,
-        products: (taskType === 'spraying') ? addedBulkProducts : [],
+        products: (taskType === 'spraying') ? addedBulkProducts : ((taskType === 'fertilizing') ? addedBulkFertilizers : []),
         wind_speed: (taskType === 'spraying') ? document.getElementById('bulk-task-wind').value : null,
         temperature: (taskType === 'spraying') ? document.getElementById('bulk-task-temp').value : null,
         irrigation_amount: (taskType === 'irrigation') ? document.getElementById('bulk-task-irrigation-amount').value : null
@@ -324,6 +462,11 @@ async function applyBulkTask() {
     if (taskType === 'spraying') {
         if (addedBulkProducts.length === 0) {
             showToast("Please add at least one product.");
+            return;
+        }
+    } else if (taskType === 'fertilizing') {
+        if (addedBulkFertilizers.length === 0) {
+            showToast("Please add at least one fertilizer.");
             return;
         }
     }

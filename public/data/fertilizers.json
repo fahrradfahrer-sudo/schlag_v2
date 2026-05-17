@@ -1,78 +1,86 @@
 [
-  {
-    "name": "Korn-Kali",
-    "n": 0,
-    "p": 0,
-    "k": 40,
-    "s": 5,
-    "mgo": 6,
-    "na": 4,
-    "description": "40% K2O, 6% MgO, 4% Na2O, 12.5% SO3 (5% S)"
-  },
-  {
-    "name": "Patentkali",
-    "n": 0,
-    "p": 0,
-    "k": 30,
-    "s": 17,
-    "mgo": 10,
-    "description": "30% K2O, 10% MgO, 42.5% SO3 (17% S)"
-  },
-  {
-    "name": "Nitro-Rot (13-13-21)",
-    "n": 13,
-    "p": 13,
-    "k": 21,
-    "s": 4.4,
-    "mgo": 2,
-    "description": "13% N, 13% P2O5, 21% K2O, 2% MgO, 11% SO3 (4.4% S)"
-  },
-  {
-    "name": "KAS (Kalkammonsalpeter)",
-    "n": 27,
-    "p": 0,
-    "k": 0,
-    "s": 0,
-    "description": "27% N"
-  },
-  {
-    "name": "DAP (Diammonphosphat)",
-    "n": 18,
-    "p": 46,
-    "k": 0,
-    "s": 0,
-    "description": "18% N, 46% P2O5"
-  },
-  {
-    "name": "Harnstoff (Urea)",
-    "n": 46,
-    "p": 0,
-    "k": 0,
-    "s": 0,
-    "description": "46% N"
-  },
-  {
-    "name": "ASS (Ammonsulfatsalpeter)",
-    "n": 26,
-    "p": 0,
-    "k": 0,
-    "s": 13,
-    "description": "26% N, 13% S (32.5% SO3)"
-  },
-  {
-    "name": "NPK 15-15-15",
-    "n": 15,
-    "p": 15,
-    "k": 15,
-    "s": 0,
-    "description": "15% N, 15% P2O5, 15% K2O"
-  },
-  {
-    "name": "Ahlmann-Dünger",
-    "n": 0,
-    "p": 0,
-    "k": 0,
-    "s": 0,
-    "description": "Generic fertilizer"
-  }
+    {
+        "name": "Korn-Kali",
+        "n": 0,
+        "p": 0,
+        "k": 40,
+        "s": 5,
+        "mgo": 6,
+        "na": 4,
+        "description": "40% K2O, 6% MgO, 4% Na2O, 12.5% SO3 (5% S)"
+    },
+    {
+        "name": "Patentkali",
+        "n": 0,
+        "p": 0,
+        "k": 30,
+        "s": 17,
+        "mgo": 10,
+        "description": "30% K2O, 10% MgO, 42.5% SO3 (17% S)"
+    },
+    {
+        "name": "Nitro-Rot (13-13-21)",
+        "n": 13,
+        "p": 13,
+        "k": 21,
+        "s": 4.4,
+        "mgo": 2,
+        "description": "13% N, 13% P2O5, 21% K2O, 2% MgO, 11% SO3 (4.4% S)"
+    },
+    {
+        "name": "KAS (Kalkammonsalpeter)",
+        "n": 27,
+        "p": 0,
+        "k": 0,
+        "s": 0,
+        "description": "27% N"
+    },
+    {
+        "name": "DAP (Diammonphosphat)",
+        "n": 18,
+        "p": 46,
+        "k": 0,
+        "s": 0,
+        "description": "18% N, 46% P2O5"
+    },
+    {
+        "name": "Harnstoff (Urea)",
+        "n": 46,
+        "p": 0,
+        "k": 0,
+        "s": 0,
+        "description": "46% N"
+    },
+    {
+        "name": "ASS (Ammonsulfatsalpeter)",
+        "n": 26,
+        "p": 0,
+        "k": 0,
+        "s": 13,
+        "description": "26% N, 13% S (32.5% SO3)"
+    },
+    {
+        "name": "NPK 15-15-15",
+        "n": 15,
+        "p": 15,
+        "k": 15,
+        "s": 0,
+        "description": "15% N, 15% P2O5, 15% K2O"
+    },
+    {
+        "name": "Ahlmann-D\u00fcnger",
+        "n": 0,
+        "p": 0,
+        "k": 0,
+        "s": 0,
+        "description": "Generic fertilizer"
+    },
+    {
+        "name": "Persistent Fert",
+        "n": 10.5,
+        "p": 5.2,
+        "k": 15.7,
+        "s": 2.1,
+        "description": "Customized"
+    }
 ]
