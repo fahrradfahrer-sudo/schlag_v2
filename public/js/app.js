@@ -162,7 +162,40 @@ function closeBulkModal() {
 function toggleBulkExtraFields() {
     const type = document.getElementById('bulk-task-type').value;
     document.getElementById('bulk-spraying-fields').style.display = (type === 'spraying') ? 'block' : 'none';
+    document.getElementById('bulk-weather-fields').style.display = (type === 'spraying') ? 'flex' : 'none';
+    document.getElementById('bulk-irrigation-fields').style.display = (type === 'irrigation') ? 'block' : 'none';
     document.getElementById('bulk-bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
+    fetchBulkWeather();
+}
+
+async function fetchBulkWeather() {
+    const type = document.getElementById('bulk-task-type').value;
+    if (type !== 'spraying') return;
+
+    const dateStr = document.getElementById('bulk-task-date').value;
+    const fieldIds = getBulkSelectedFieldIds();
+    if (!dateStr || fieldIds.length === 0) return;
+
+    // Use the first selected field for location
+    const field = loadedFields.find(f => String(f.id) === fieldIds[0]);
+    if (!field) return;
+
+    const date = new Date(dateStr);
+    const center = getCenter(field.geometry);
+
+    try {
+        const isoDate = date.toISOString().split('.')[0] + 'Z';
+        const response = await fetch(`https://api.brightsky.dev/weather?lat=${center.lat}&lon=${center.lng}&date=${isoDate}`);
+        const data = await response.json();
+
+        if (data.weather && data.weather.length > 0) {
+            const weather = data.weather[0];
+            document.getElementById('bulk-task-wind').value = weather.wind_speed ? weather.wind_speed.toFixed(1) : '';
+            document.getElementById('bulk-task-temp').value = weather.temperature ? weather.temperature.toFixed(1) : '';
+        }
+    } catch (e) {
+        console.error("Error fetching bulk weather:", e);
+    }
 }
 
 function onBulkBBCHManualChange() {
@@ -228,7 +261,10 @@ async function applyBulkTask() {
         bbch_description: document.getElementById('bulk-task-bbch-desc').value,
         water_rate: document.getElementById('bulk-task-water-rate').value,
         application_type: (taskType === 'spraying') ? document.getElementById('bulk-task-app-type').value : null,
-        products: (taskType === 'spraying') ? addedBulkProducts : []
+        products: (taskType === 'spraying') ? addedBulkProducts : [],
+        wind_speed: (taskType === 'spraying') ? document.getElementById('bulk-task-wind').value : null,
+        temperature: (taskType === 'spraying') ? document.getElementById('bulk-task-temp').value : null,
+        irrigation_amount: (taskType === 'irrigation') ? document.getElementById('bulk-task-irrigation-amount').value : null
     };
 
     if (taskType === 'spraying') {
@@ -1193,5 +1229,11 @@ document.addEventListener('DOMContentLoaded', () => {
             yearSelect.appendChild(opt);
         }
     }
+
+    const bulkDateInput = document.getElementById('bulk-task-date');
+    if (bulkDateInput) {
+        bulkDateInput.addEventListener('change', fetchBulkWeather);
+    }
+
     loadFields(true);
 });

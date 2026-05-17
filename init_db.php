@@ -89,7 +89,10 @@ try {
         'bbch_description' => 'TEXT',
         'water_rate' => 'REAL',
         'application_type' => 'TEXT',
-        'treated_area' => 'REAL'
+        'treated_area' => 'REAL',
+        'wind_speed' => 'REAL',
+        'temperature' => 'REAL',
+        'irrigation_amount' => 'REAL'
     ];
     foreach ($tasksColsToAdd as $col => $type) {
         try {

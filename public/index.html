@@ -177,6 +177,7 @@
                             <option value="spraying" id="opt-spraying">Plant Protection</option>
                             <option value="tilling" id="opt-tilling">Tilling</option>
                             <option value="harvesting" id="opt-harvesting">Harvesting</option>
+                            <option value="irrigation" id="opt-irrigation">Irrigation</option>
                         </select>
                     </div>
 
@@ -222,6 +223,24 @@
 
                         <div id="bulk-psm-details" style="background: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 5px; display: none; font-size: 0.9em;">
                             <div id="bulk-psm-info-name"></div>
+                        </div>
+                    </div>
+
+                    <div id="bulk-weather-fields" style="display: none; gap: 10px; margin-bottom: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label id="label-bulk-wind">Wind [m/s]:</label>
+                            <input type="number" step="0.1" id="bulk-task-wind">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label id="label-bulk-temperature">Temperature [°C]:</label>
+                            <input type="number" step="0.1" id="bulk-task-temp">
+                        </div>
+                    </div>
+
+                    <div id="bulk-irrigation-fields" style="display: none; margin-bottom: 10px;">
+                        <div class="form-group">
+                            <label id="label-bulk-irrigation-amount">Irrigation Amount [mm]:</label>
+                            <input type="number" step="0.1" id="bulk-task-irrigation-amount">
                         </div>
                     </div>
 

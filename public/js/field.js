@@ -32,6 +32,7 @@ async function loadField() {
     document.getElementById('field-name').value = currentField.name;
     document.getElementById('field-variety').value = currentField.variety || '';
     document.getElementById('task-treated-area').value = currentField.area;
+    document.getElementById('field-size-display').textContent = `${currentField.area} ha`;
 
     // Render Geometry
     const geojson = JSON.parse(currentField.geometry);
@@ -151,6 +152,12 @@ async function loadTasks() {
             if (task.water_rate) {
                 html += `<div><small>Water: ${task.water_rate} l/ha</small></div>`;
             }
+            if (task.wind_speed !== null || task.temperature !== null) {
+                html += `<div><small>Wind: ${task.wind_speed || '-'} m/s, Temp: ${task.temperature || '-'} °C</small></div>`;
+            }
+        } else if (task.task_type === 'irrigation') {
+            html += `<div>${_t('label-irrigation-amount')} ${task.irrigation_amount} mm</div>`;
+            if (task.content) html += `<span>${task.content}</span>`;
         } else {
             html += `<span>${task.content}</span>`;
         }
@@ -178,6 +185,8 @@ async function loadTasks() {
 function toggleTaskFields() {
     const type = document.getElementById('task-type').value;
     document.getElementById('spraying-fields').style.display = (type === 'spraying') ? 'block' : 'none';
+    document.getElementById('weather-fields').style.display = (type === 'spraying') ? 'flex' : 'none';
+    document.getElementById('irrigation-fields').style.display = (type === 'irrigation') ? 'block' : 'none';
     document.getElementById('bbch-group').style.display = (type === 'spraying' || type === 'fertilizing') ? 'block' : 'none';
 
     // Default date if empty
@@ -186,7 +195,37 @@ function toggleTaskFields() {
         const now = new Date();
         dateInput.value = now.toISOString().slice(0, 16);
     }
+    fetchWeather();
 }
+
+async function fetchWeather() {
+    const type = document.getElementById('task-type').value;
+    if (type !== 'spraying') return;
+
+    const dateStr = document.getElementById('task-date').value;
+    if (!dateStr || !currentField) return;
+
+    const date = new Date(dateStr);
+    const lat = getCenter(currentField.geometry).lat;
+    const lon = getCenter(currentField.geometry).lng;
+
+    try {
+        const isoDate = date.toISOString().split('.')[0] + 'Z';
+        const response = await fetch(`https://api.brightsky.dev/weather?lat=${lat}&lon=${lon}&date=${isoDate}`);
+        const data = await response.json();
+
+        if (data.weather && data.weather.length > 0) {
+            // Find closest hour or use the first one
+            const weather = data.weather[0];
+            document.getElementById('task-wind').value = weather.wind_speed ? weather.wind_speed.toFixed(1) : '';
+            document.getElementById('task-temp').value = weather.temperature ? weather.temperature.toFixed(1) : '';
+        }
+    } catch (e) {
+        console.error("Error fetching weather:", e);
+    }
+}
+
+document.getElementById('task-date').addEventListener('change', fetchWeather);
 
 let addedProducts = [];
 
@@ -290,7 +329,10 @@ async function addTask() {
         bbch_description: document.getElementById('task-bbch-desc').value,
         water_rate: document.getElementById('task-water-rate').value,
         application_type: (taskType === 'spraying') ? document.getElementById('task-app-type').value : null,
-        products: (taskType === 'spraying') ? addedProducts : []
+        products: (taskType === 'spraying') ? addedProducts : [],
+        wind_speed: (taskType === 'spraying') ? document.getElementById('task-wind').value : null,
+        temperature: (taskType === 'spraying') ? document.getElementById('task-temp').value : null,
+        irrigation_amount: (taskType === 'irrigation') ? document.getElementById('task-irrigation-amount').value : null
     };
 
     if (!data.task_date) {
@@ -317,6 +359,9 @@ async function addTask() {
     document.getElementById('task-bbch').value = '';
     document.getElementById('task-bbch-desc').value = '';
     document.getElementById('task-water-rate').value = '';
+    document.getElementById('task-wind').value = '';
+    document.getElementById('task-temp').value = '';
+    document.getElementById('task-irrigation-amount').value = '';
     addedProducts = [];
     renderAddedProducts();
 
