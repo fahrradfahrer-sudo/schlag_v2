@@ -157,3 +157,12 @@ button {
 .btn-group .dropdown {
     margin-bottom: 10px;
 }
+
+#field-size-display {
+    font-weight: bold;
+    color: #2c3e50;
+    background: #ecf0f1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}

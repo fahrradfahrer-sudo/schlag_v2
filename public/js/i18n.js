@@ -91,7 +91,11 @@ const translations = {
         'placeholder-task-comment': 'Task-specific comment...',
         'no-fields-found': 'No fields found.',
         'no-tasks-found': 'No tasks recorded for this year.',
-        'label-treated-area': 'Treated Area [ha]:'
+        'label-treated-area': 'Treated Area [ha]:',
+        'task-type-irrigation': 'Irrigation',
+        'label-irrigation-amount': 'Irrigation Amount [mm]:',
+        'label-wind': 'Wind [m/s]:',
+        'label-temperature': 'Temperature [°C]:'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -186,7 +190,11 @@ const translations = {
         'placeholder-task-comment': 'Aufgabenspezifischer Kommentar...',
         'no-fields-found': 'Keine Felder gefunden.',
         'no-tasks-found': 'Keine Aufgaben für dieses Jahr aufgezeichnet.',
-        'label-treated-area': 'Behandelte Fläche [ha]:'
+        'label-treated-area': 'Behandelte Fläche [ha]:',
+        'task-type-irrigation': 'Beregnung',
+        'label-irrigation-amount': 'Wassermenge [mm]:',
+        'label-wind': 'Wind [m/s]:',
+        'label-temperature': 'Temperatur [°C]:'
     }
 };
 
@@ -202,11 +210,16 @@ async function loadCropList() {
         const datalists = document.querySelectorAll('#crop-list');
         datalists.forEach(datalist => {
             datalist.innerHTML = '';
+            const uniqueCrops = new Set();
             cropList.forEach(crop => {
-                const option = document.createElement('option');
-                const displayName = currentLang === 'de' ? crop.name : crop.en;
-                option.value = `${displayName} (${crop.eppo})`;
-                datalist.appendChild(option);
+                const displayName = currentLang === 'de' ? crop.name : (crop.en || crop.name);
+                const value = `${displayName} ${crop.eppo}`;
+                if (!uniqueCrops.has(value)) {
+                    uniqueCrops.add(value);
+                    const option = document.createElement('option');
+                    option.value = value;
+                    datalist.appendChild(option);
+                }
             });
         });
     } catch (e) {
@@ -306,6 +319,7 @@ function applyTranslations() {
         'opt-task-spraying': t['task-type-spraying'],
         'opt-task-tilling': t['task-type-tilling'],
         'opt-task-harvesting': t['task-type-harvesting'],
+        'opt-task-irrigation': t['task-type-irrigation'],
         'label-task-date': t['label-task-date'],
         'label-task-content': t['label-task-content'],
         'label-task-comment': t['label-task-comment'],
@@ -314,7 +328,14 @@ function applyTranslations() {
         'btn-add-task': t['btn-add-task'],
         'tasks-title': t['tasks-title'],
         'label-task-treated-area': t['label-treated-area'],
-        'label-bulk-treated-area': t['label-treated-area']
+        'label-bulk-treated-area': t['label-treated-area'],
+        'label-irrigation-amount': t['label-irrigation-amount'],
+        'label-bulk-irrigation-amount': t['label-irrigation-amount'],
+        'label-wind': t['label-wind'],
+        'label-bulk-wind': t['label-wind'],
+        'label-temperature': t['label-temperature'],
+        'label-bulk-temperature': t['label-temperature'],
+        'opt-irrigation': t['task-type-irrigation']
     };
 
     for (let id in map) {
