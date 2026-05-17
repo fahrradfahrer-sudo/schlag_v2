@@ -95,7 +95,10 @@ const translations = {
         'task-type-irrigation': 'Irrigation',
         'label-irrigation-amount': 'Irrigation Amount [mm]:',
         'label-wind': 'Wind [m/s]:',
-        'label-temperature': 'Temperature [°C]:'
+        'label-temperature': 'Temperature [°C]:',
+        'task-applied-success': 'Task applied successfully to {count} fields.',
+        'fertilizer-search-placeholder': 'Search fertilizer...',
+        'btn-add-fertilizer': 'Add Fertilizer'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -194,7 +197,10 @@ const translations = {
         'task-type-irrigation': 'Beregnung',
         'label-irrigation-amount': 'Wassermenge [mm]:',
         'label-wind': 'Wind [m/s]:',
-        'label-temperature': 'Temperatur [°C]:'
+        'label-temperature': 'Temperatur [°C]:',
+        'task-applied-success': 'Aufgabe erfolgreich auf {count} Felder angewendet.',
+        'fertilizer-search-placeholder': 'Dünger suchen...',
+        'btn-add-fertilizer': 'Dünger hinzufügen'
     }
 };
 
@@ -392,4 +398,39 @@ function _t(key, replacements = {}) {
     return str;
 }
 
-document.addEventListener('DOMContentLoaded', applyTranslations);
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            if (toast.parentNode === container) {
+                container.removeChild(toast);
+            }
+        }, 500);
+    }, 5000);
+}
+
+// Override alert with showToast
+window.alert = function(msg) {
+    showToast(msg, 'info');
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyTranslations();
+
+    // Create toast container if not exists
+    if (!document.getElementById('toast-container')) {
+        const container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+});
