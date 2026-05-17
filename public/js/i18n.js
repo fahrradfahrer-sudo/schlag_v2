@@ -90,7 +90,8 @@ const translations = {
         'label-water-rate': 'Water Application Rate [l/ha] *:',
         'placeholder-task-comment': 'Task-specific comment...',
         'no-fields-found': 'No fields found.',
-        'no-tasks-found': 'No tasks recorded for this year.'
+        'no-tasks-found': 'No tasks recorded for this year.',
+        'label-treated-area': 'Treated Area [ha]:'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -184,7 +185,8 @@ const translations = {
         'label-water-rate': 'Wasseraufwandmenge [l/ha] *:',
         'placeholder-task-comment': 'Aufgabenspezifischer Kommentar...',
         'no-fields-found': 'Keine Felder gefunden.',
-        'no-tasks-found': 'Keine Aufgaben für dieses Jahr aufgezeichnet.'
+        'no-tasks-found': 'Keine Aufgaben für dieses Jahr aufgezeichnet.',
+        'label-treated-area': 'Behandelte Fläche [ha]:'
     }
 };
 
@@ -310,7 +312,9 @@ function applyTranslations() {
         'label-task-employee': t['label-task-employee'],
         'label-task-bbch': t['label-task-bbch'],
         'btn-add-task': t['btn-add-task'],
-        'tasks-title': t['tasks-title']
+        'tasks-title': t['tasks-title'],
+        'label-task-treated-area': t['label-treated-area'],
+        'label-bulk-treated-area': t['label-treated-area']
     };
 
     for (let id in map) {

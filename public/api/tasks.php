@@ -56,7 +56,7 @@ try {
             $data = json_decode(file_get_contents("php://input"), true);
             if (isset($data['bulk']) && is_array($data['field_ids'])) {
                 $pdo->beginTransaction();
-                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type, treated_area) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 foreach ($data['field_ids'] as $fid) {
                     $stmt->execute([
@@ -70,7 +70,8 @@ try {
                         $data['bbch'] ?? '',
                         $data['bbch_description'] ?? '',
                         $data['water_rate'] ?? null,
-                        $data['application_type'] ?? null
+                        $data['application_type'] ?? null,
+                        $data['treated_area'] ?? null
                     ]);
                     $taskId = $pdo->lastInsertId();
                     if (isset($data['products']) && is_array($data['products'])) {
@@ -91,7 +92,7 @@ try {
                 echo json_encode(["status" => "success", "count" => count($data['field_ids'])]);
             } else {
                 $pdo->beginTransaction();
-                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type, treated_area) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute([
                     $data['field_id'],
                     $data['year'],
@@ -103,7 +104,8 @@ try {
                     $data['bbch'] ?? '',
                     $data['bbch_description'] ?? '',
                     $data['water_rate'] ?? null,
-                    $data['application_type'] ?? null
+                    $data['application_type'] ?? null,
+                    $data['treated_area'] ?? null
                 ]);
                 $taskId = $pdo->lastInsertId();
                 if (isset($data['products']) && is_array($data['products'])) {
@@ -134,7 +136,7 @@ try {
                 break;
             }
             $pdo->beginTransaction();
-            $stmt = $pdo->prepare("UPDATE tasks SET task_date = ?, content = ?, comment = ?, employee = ?, bbch = ?, bbch_description = ?, water_rate = ?, application_type = ? WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE tasks SET task_date = ?, content = ?, comment = ?, employee = ?, bbch = ?, bbch_description = ?, water_rate = ?, application_type = ?, treated_area = ? WHERE id = ?");
             $stmt->execute([
                 $data['task_date'],
                 $data['content'] ?? '',
@@ -144,6 +146,7 @@ try {
                 $data['bbch_description'] ?? '',
                 $data['water_rate'] ?? null,
                 $data['application_type'] ?? null,
+                $data['treated_area'] ?? null,
                 $id
             ]);
 

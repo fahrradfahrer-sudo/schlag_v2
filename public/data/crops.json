@@ -1,248 +1,1563 @@
 [
   {
-    "name": "Winterweichweizen",
-    "en": "Winter Soft Wheat",
-    "eppo": "TRZAW",
-    "nc": "115"
+    "nc": "112",
+    "name": "ÖR 3 Agroforststreifen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Wintergerste",
-    "en": "Winter Barley",
-    "eppo": "HORVW",
-    "nc": "131"
+    "nc": "113",
+    "name": "Sommerdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Winterraps",
-    "en": "Winter Oilseed Rape",
-    "eppo": "BRSNW",
-    "nc": "311"
-  },
-  {
-    "name": "Körnermais",
-    "en": "Grain Maize",
-    "eppo": "ZEAMX",
-    "nc": "171"
-  },
-  {
-    "name": "Zuckerrüben",
-    "en": "Sugar Beet",
-    "eppo": "BEAVA",
-    "nc": "603"
-  },
-  {
-    "name": "Kartoffeln",
-    "en": "Potatoes",
-    "eppo": "SOLTU",
-    "nc": "602"
-  },
-  {
-    "name": "Sommergerste",
-    "en": "Spring Barley",
-    "eppo": "HORVS",
-    "nc": "132"
-  },
-  {
-    "name": "Sommerweichweizen",
-    "en": "Spring Soft Wheat",
-    "eppo": "TRZAS",
-    "nc": "116"
-  },
-  {
-    "name": "Winterroggen",
-    "en": "Winter Rye",
-    "eppo": "SECCW",
-    "nc": "121"
-  },
-  {
-    "name": "Hafer",
-    "en": "Oats",
-    "eppo": "AVESA",
-    "nc": "143"
-  },
-  {
-    "name": "Wintertriticale",
-    "en": "Winter Triticale",
-    "eppo": "TTLWI",
-    "nc": "156"
-  },
-  {
-    "name": "Ackerbohnen",
-    "en": "Field Beans",
-    "eppo": "VICFM",
-    "nc": "211"
-  },
-  {
-    "name": "Futtererbsen",
-    "en": "Field Peas",
-    "eppo": "PIBSA",
-    "nc": "221"
-  },
-  {
-    "name": "Sojabohnen",
-    "en": "Soybeans",
-    "eppo": "GLXMA",
-    "nc": "330"
-  },
-  {
-    "name": "Sonnenblumen",
-    "en": "Sunflowers",
-    "eppo": "HELAN",
-    "nc": "320"
-  },
-  {
-    "name": "Grünland (Wiesen)",
-    "en": "Grassland (Meadows)",
-    "eppo": "1GRAA",
-    "nc": "451"
-  },
-  {
-    "name": "Brache (Ackerland aus der Erzeugung)",
-    "en": "Fallow Land",
-    "eppo": "1FALL",
-    "nc": "062"
-  },
-  {
-    "name": "Silomais",
-    "en": "Silage Maize",
-    "eppo": "ZEAMX",
-    "nc": "411"
-  },
-  {
+    "nc": "114",
     "name": "Winter-Dinkel",
-    "en": "Winter Spelt",
-    "eppo": "TRZSP",
-    "nc": "114"
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Luzerne",
-    "en": "Alfalfa",
-    "eppo": "MEDSA",
-    "nc": "431"
+    "nc": "115",
+    "name": "Kartoffeln (Speise)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Rotklee",
-    "en": "Red Clover",
-    "eppo": "TRFPR",
-    "nc": "422"
+    "nc": "116",
+    "name": "Kohlrübe, Steckrübe",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Weißklee",
-    "en": "White Clover",
-    "eppo": "TRFRE",
-    "nc": "421"
+    "nc": "118",
+    "name": "Süßkartoffel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Leindotter",
-    "en": "Camelina",
-    "eppo": "CMASA",
-    "nc": "391"
+    "nc": "119",
+    "name": "Winterroggen, Winter-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Hanf",
-    "en": "Hemp",
-    "eppo": "CNISA",
-    "nc": "711"
+    "nc": "120",
+    "name": "Sommer-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Buchweizen",
-    "en": "Buckwheat",
-    "eppo": "FAGES",
-    "nc": "182"
+    "nc": "121",
+    "name": "Wintergerste",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Hirse",
-    "en": "Millet",
-    "eppo": "PANMI",
-    "nc": "173"
+    "nc": "122",
+    "name": "Sommerroggen, Sommer-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Sorghum",
-    "en": "Sorghum",
-    "eppo": "SORVU",
-    "nc": "174"
+    "nc": "125",
+    "name": "Wintermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Leinsamen",
-    "en": "Linseed / Flax",
-    "eppo": "LIUUT",
-    "nc": "341"
+    "nc": "131",
+    "name": "Bockshornklee, Schabziger Klee",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Blaue Lupine",
-    "en": "Blue Lupin",
-    "eppo": "LUPAN",
-    "nc": "231"
+    "nc": "132",
+    "name": "Legumi-",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Weiße Lupine",
-    "en": "White Lupin",
-    "eppo": "LUPAL",
-    "nc": "232"
+    "nc": "142",
+    "name": "1.14.14",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Gelbe Lupine",
-    "en": "Yellow Lupin",
-    "eppo": "LUPLU",
-    "nc": "233"
+    "nc": "143",
+    "name": "Sommermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Weinreben",
-    "en": "Wine Grapes",
-    "eppo": "VITVI",
-    "nc": "591"
+    "nc": "144",
+    "name": "Wintertriticale",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Weinreben (Tafeltrauben)",
-    "en": "Table Grapes",
-    "eppo": "VITVI",
-    "nc": "594"
+    "nc": "156",
+    "name": "Gartenrettiche (Weiße/rote Rettiche, schwarzer Winterrettich, Ölrettich, Radieschen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Weinreben (noch nicht im Ertrag)",
-    "en": "Vines (not yet bearing)",
-    "eppo": "VITVI",
-    "nc": "592"
+    "nc": "157",
+    "name": "Mais (ohne Silomais NC 411)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Rebschule",
-    "en": "Vine Nursery",
-    "eppo": "1VIGG",
-    "nc": "593"
+    "nc": "171",
+    "name": "Wiesen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Hopfengarten",
-    "en": "Hop Garden",
-    "eppo": "HUMPU",
-    "nc": "511"
+    "nc": "181",
+    "name": "Rispenhirse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Obstgarten",
-    "en": "Orchard",
-    "eppo": "1FRUG",
-    "nc": "551"
+    "nc": "182",
+    "name": "Auberginen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Sommertriticale",
-    "en": "Spring Triticale",
-    "eppo": "TTLWI",
-    "nc": "157"
+    "nc": "183",
+    "name": "Mohren-/Zuckerhirse (ohne Sudangras NC 803)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Mähweide",
-    "en": "Mowing Pasture",
-    "eppo": "1GRAA",
-    "nc": "452"
+    "nc": "186",
+    "name": "Amarant, Fuchsschwanz",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Winterdurum",
-    "en": "Winter Durum Wheat",
-    "eppo": "TRZDU",
-    "nc": "112"
+    "nc": "187",
+    "name": "Quinoa",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   },
   {
-    "name": "Sommerdurum",
-    "en": "Spring Durum Wheat",
-    "eppo": "TRZDU",
-    "nc": "113"
+    "nc": "210",
+    "name": "Erbsen (Markerbse, Schalerbse, Zuckererbse, Futtererbse, Peluschke)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "211",
+    "name": "Gemüseerbse (Markerbse, Schalerbse, Zuckererbse)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "212",
+    "name": "Platterbse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "220",
+    "name": "Nicht DZ-beihilfefähige Hutungen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "221",
+    "name": "Gattung: Vicia (",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "222",
+    "name": "Ackerbohne/Puffbohne/Pferdebohne/Dicke Bohne",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "230",
+    "name": "Allgeme",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "240",
+    "name": "Agroforststreifen ohne ÖR",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "250",
+    "name": "Winterdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "311",
+    "name": "ÖR 1b Blühstreifen auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "312",
+    "name": "ÖR 1b Blühfläche auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "315",
+    "name": "ÖR 1c Blühstreifen auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "316",
+    "name": "ÖR 1c Blühfläche auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "320",
+    "name": "ÖR 1d Altgrasstreifen / -flächen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "330",
+    "name": "ÖR 3 Agroforststreifen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "341",
+    "name": "Winterweichweizen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "392",
+    "name": "Sommerdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "393",
+    "name": "Winter-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "411",
+    "name": "Silomais (als Hauptfutter)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "413",
+    "name": "Futterrübe/Runkelrübe",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "414",
+    "name": "Süßkartoffel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "421",
+    "name": "Winterroggen, Winter-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "422",
+    "name": "Sommer-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "423",
+    "name": "Wintergerste",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "424",
+    "name": "Sommerroggen, Sommer-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "425",
+    "name": "Wintermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "426",
+    "name": "Bockshornklee, Schabziger Klee",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "427",
+    "name": "Legumi-",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "429",
+    "name": "1.14.14",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "430",
+    "name": "Sommermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "431",
+    "name": "Wintertriticale",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "432",
+    "name": "Gartenrettiche (Weiße/rote Rettiche, schwarzer Winterrettich, Ölrettich, Radieschen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "433",
+    "name": "Mais (ohne Silomais NC 411)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "434",
+    "name": "Wiesen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "451",
+    "name": "Rispenhirse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "452",
+    "name": "Auberginen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "453",
+    "name": "Mohren-/Zuckerhirse (ohne Sudangras NC 803)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "454",
+    "name": "Amarant, Fuchsschwanz",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "458",
+    "name": "Quinoa",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "459",
+    "name": "Erbsen (Markerbse, Schalerbse, Zuckererbse, Futtererbse, Peluschke)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "480",
+    "name": "Gemüseerbse (Markerbse, Schalerbse, Zuckererbse)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "481",
+    "name": "Platterbse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "490",
+    "name": "Nicht DZ-beihilfefähige Hutungen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "492",
+    "name": "Gattung: Vicia (",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "910",
+    "name": "Ackerbohne/Puffbohne/Pferdebohne/Dicke Bohne",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "911",
+    "name": "Allgeme",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "912",
+    "name": "Agroforststreifen ohne ÖR",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "913",
+    "name": "Winterdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "914",
+    "name": "ÖR 1b Blühstreifen auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "917",
+    "name": "ÖR 1b Blühfläche auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "919",
+    "name": "ÖR 1c Blühstreifen auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "564",
+    "name": "ÖR 1c Blühfläche auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "583",
+    "name": "ÖR 1d Altgrasstreifen / -flächen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "591",
+    "name": "ÖR 3 Agroforststreifen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "592",
+    "name": "Winterweichweizen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "593",
+    "name": "Sommerdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "601",
+    "name": "Winter-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "602",
+    "name": "Silomais (als Hauptfutter)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "603",
+    "name": "Futterrübe/Runkelrübe",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "604",
+    "name": "Süßkartoffel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "605",
+    "name": "Winterroggen, Winter-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "606",
+    "name": "Sommer-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "610",
+    "name": "Wintergerste",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "611",
+    "name": "Sommerroggen, Sommer-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "649",
+    "name": "Wintermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "613",
+    "name": "Bockshornklee, Schabziger Klee",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "614",
+    "name": "Legumi-",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "615",
+    "name": "1.14.14",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "616",
+    "name": "Sommermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "617",
+    "name": "Wintertriticale",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "618",
+    "name": "Gartenrettiche (Weiße/rote Rettiche, schwarzer Winterrettich, Ölrettich, Radieschen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "619",
+    "name": "Mais (ohne Silomais NC 411)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "620",
+    "name": "Wiesen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "622",
+    "name": "Rispenhirse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "623",
+    "name": "Auberginen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "624",
+    "name": "Mohren-/Zuckerhirse (ohne Sudangras NC 803)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "625",
+    "name": "Amarant, Fuchsschwanz",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "627",
+    "name": "Quinoa",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "628",
+    "name": "Erbsen (Markerbse, Schalerbse, Zuckererbse, Futtererbse, Peluschke)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "629",
+    "name": "Gemüseerbse (Markerbse, Schalerbse, Zuckererbse)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "630",
+    "name": "Platterbse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "631",
+    "name": "Nicht DZ-beihilfefähige Hutungen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "632",
+    "name": "Gattung: Vicia (",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "633",
+    "name": "Ackerbohne/Puffbohne/Pferdebohne/Dicke Bohne",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "634",
+    "name": "Allgeme",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "635",
+    "name": "Agroforststreifen ohne ÖR",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "636",
+    "name": "Winterdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "637",
+    "name": "ÖR 1b Blühstreifen auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "638",
+    "name": "ÖR 1b Blühfläche auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "639",
+    "name": "ÖR 1c Blühstreifen auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "640",
+    "name": "ÖR 1c Blühfläche auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "641",
+    "name": "ÖR 1d Altgrasstreifen / -flächen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "642",
+    "name": "ÖR 3 Agroforststreifen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "643",
+    "name": "Winterweichweizen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "644",
+    "name": "Sommerdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "645",
+    "name": "Winter-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "646",
+    "name": "Silomais (als Hauptfutter)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "647",
+    "name": "Futterrübe/Runkelrübe",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "648",
+    "name": "Süßkartoffel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "650",
+    "name": "Winterroggen, Winter-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "690",
+    "name": "Sommer-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "651",
+    "name": "Wintergerste",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "652",
+    "name": "Sommerroggen, Sommer-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "653",
+    "name": "Wintermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "654",
+    "name": "Bockshornklee, Schabziger Klee",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "655",
+    "name": "Legumi-",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "656",
+    "name": "1.14.14",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "657",
+    "name": "Sommermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "658",
+    "name": "Wintertriticale",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "659",
+    "name": "Gartenrettiche (Weiße/rote Rettiche, schwarzer Winterrettich, Ölrettich, Radieschen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "660",
+    "name": "Mais (ohne Silomais NC 411)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "661",
+    "name": "Wiesen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "662",
+    "name": "Rispenhirse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "663",
+    "name": "Auberginen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "664",
+    "name": "Mohren-/Zuckerhirse (ohne Sudangras NC 803)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "665",
+    "name": "Amarant, Fuchsschwanz",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "666",
+    "name": "Quinoa",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "667",
+    "name": "Erbsen (Markerbse, Schalerbse, Zuckererbse, Futtererbse, Peluschke)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "668",
+    "name": "Gemüseerbse (Markerbse, Schalerbse, Zuckererbse)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "669",
+    "name": "Platterbse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "670",
+    "name": "Nicht DZ-beihilfefähige Hutungen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "671",
+    "name": "Gattung: Vicia (",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "672",
+    "name": "Ackerbohne/Puffbohne/Pferdebohne/Dicke Bohne",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "673",
+    "name": "Allgeme",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "674",
+    "name": "Agroforststreifen ohne ÖR",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "675",
+    "name": "Winterdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "676",
+    "name": "ÖR 1b Blühstreifen auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "677",
+    "name": "ÖR 1b Blühfläche auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "678",
+    "name": "ÖR 1c Blühstreifen auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "679",
+    "name": "ÖR 1c Blühfläche auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "680",
+    "name": "ÖR 1d Altgrasstreifen / -flächen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "681",
+    "name": "ÖR 3 Agroforststreifen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "682",
+    "name": "Winterweichweizen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "683",
+    "name": "Sommerdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "684",
+    "name": "Winter-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "685",
+    "name": "Silomais (als Hauptfutter)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "686",
+    "name": "Futterrübe/Runkelrübe",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "701",
+    "name": "Süßkartoffel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "702",
+    "name": "Winterroggen, Winter-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "703",
+    "name": "Sommer-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "704",
+    "name": "Wintergerste",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "705",
+    "name": "Sommerroggen, Sommer-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "706",
+    "name": "Wintermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "707",
+    "name": "Bockshornklee, Schabziger Klee",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "708",
+    "name": "Legumi-",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "709",
+    "name": "1.14.14",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "710",
+    "name": "Sommermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "720",
+    "name": "Wintertriticale",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "718",
+    "name": "Gartenrettiche (Weiße/rote Rettiche, schwarzer Winterrettich, Ölrettich, Radieschen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "739",
+    "name": "Mais (ohne Silomais NC 411)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "777",
+    "name": "Wiesen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "786",
+    "name": "Rispenhirse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "801",
+    "name": "Auberginen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "802",
+    "name": "Mohren-/Zuckerhirse (ohne Sudangras NC 803)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "803",
+    "name": "Amarant, Fuchsschwanz",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "804",
+    "name": "Quinoa",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "805",
+    "name": "Erbsen (Markerbse, Schalerbse, Zuckererbse, Futtererbse, Peluschke)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "852",
+    "name": "Gemüseerbse (Markerbse, Schalerbse, Zuckererbse)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "853",
+    "name": "Platterbse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "854",
+    "name": "Nicht DZ-beihilfefähige Hutungen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "866",
+    "name": "Gattung: Vicia (",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "825",
+    "name": "Ackerbohne/Puffbohne/Pferdebohne/Dicke Bohne",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "826",
+    "name": "Allgeme",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "827",
+    "name": "Agroforststreifen ohne ÖR",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "828",
+    "name": "Winterdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "829",
+    "name": "ÖR 1b Blühstreifen auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "833",
+    "name": "ÖR 1b Blühfläche auf AL",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "834",
+    "name": "ÖR 1c Blühstreifen auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "838",
+    "name": "ÖR 1c Blühfläche auf DK",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "839",
+    "name": "ÖR 1d Altgrasstreifen / -flächen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "840",
+    "name": "ÖR 3 Agroforststreifen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "841",
+    "name": "Winterweichweizen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "843",
+    "name": "Sommerdurum (Hartweizen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "844",
+    "name": "Winter-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "845",
+    "name": "Silomais (als Hauptfutter)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "848",
+    "name": "Futterrübe/Runkelrübe",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "849",
+    "name": "Süßkartoffel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "850",
+    "name": "Winterroggen, Winter-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "851",
+    "name": "Sommer-Dinkel",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "855",
+    "name": "Wintergerste",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "856",
+    "name": "Sommerroggen, Sommer-Waldstaudenroggen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "859",
+    "name": "Wintermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "860",
+    "name": "Bockshornklee, Schabziger Klee",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "861",
+    "name": "Legumi-",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "865",
+    "name": "1.14.14",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "574",
+    "name": "Sommermenggetreide",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "575",
+    "name": "Wintertriticale",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "590",
+    "name": "Gartenrettiche (Weiße/rote Rettiche, schwarzer Winterrettich, Ölrettich, Radieschen)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "886",
+    "name": "Mais (ohne Silomais NC 411)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "887",
+    "name": "Wiesen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "888",
+    "name": "Rispenhirse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "952",
+    "name": "Auberginen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "960",
+    "name": "Mohren-/Zuckerhirse (ohne Sudangras NC 803)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "981",
+    "name": "Amarant, Fuchsschwanz",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "982",
+    "name": "Quinoa",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "983",
+    "name": "Erbsen (Markerbse, Schalerbse, Zuckererbse, Futtererbse, Peluschke)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "990",
+    "name": "Gemüseerbse (Markerbse, Schalerbse, Zuckererbse)",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "995",
+    "name": "Platterbse",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
+  },
+  {
+    "nc": "999",
+    "name": "Nicht DZ-beihilfefähige Hutungen",
+    "en": "",
+    "eppo": "",
+    "synonyms": ""
   }
 ]

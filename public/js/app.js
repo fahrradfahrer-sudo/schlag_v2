@@ -68,6 +68,17 @@ function selectFieldsByCrop(crop) {
 function openBulkTaskModal() {
     document.getElementById('bulk-task-modal').style.display = 'block';
 
+    // Set default treated area if only one field is selected
+    const selectedIds = getSelectedFieldIds();
+    if (selectedIds.length === 1) {
+        const field = loadedFields.find(f => String(f.id) === selectedIds[0]);
+        if (field) {
+            document.getElementById('bulk-task-treated-area').value = field.area || calculateArea(JSON.parse(field.geometry));
+        }
+    } else {
+        document.getElementById('bulk-task-treated-area').value = '';
+    }
+
     // Set default date
     const now = new Date();
     const currentDateTime = now.toISOString().slice(0, 16);
@@ -212,6 +223,7 @@ async function applyBulkTask() {
         content: document.getElementById('bulk-task-content').value,
         comment: document.getElementById('bulk-task-comment').value,
         employee: document.getElementById('bulk-task-employee').value,
+        treated_area: document.getElementById('bulk-task-treated-area').value,
         bbch: document.getElementById('bulk-task-bbch').value,
         bbch_description: document.getElementById('bulk-task-bbch-desc').value,
         water_rate: document.getElementById('bulk-task-water-rate').value,
@@ -450,7 +462,20 @@ async function loadFields(autoZoom = false) {
             }
 
             console.log('Adding field to map:', field.name, field.id);
+
+            const getFieldStyle = (cropName) => {
+                const c = (cropName || '').toLowerCase();
+                let color = '#3388ff'; // Default Leaflet color
+                if (c.includes('potato') || c.includes('kartoffel')) color = 'brown';
+                else if (c.includes('vineyard') || c.includes('weinrebe') || c.includes('weinberg')) color = 'purple';
+                else if (c.includes('sugar beet') || c.includes('zuckerrübe')) color = 'white';
+                else if (c.includes('maize') || c.includes('mais')) color = 'yellow';
+                else if (c.includes('wheat') || c.includes('weizen')) color = 'green';
+                return { color: color, fillOpacity: 0.2 };
+            };
+
             L.geoJSON(geojson, {
+                style: getFieldStyle(crop),
                 onEachFeature: (feature, layer) => {
                     layer.fieldData = field;
 
@@ -1095,16 +1120,31 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
         if (geometry) {
             const props = item.properties || {};
 
-            // Uncode NC if present
+            // Uncode NC or match by name/synonym if present
             let rawCrop = props.KTA_VJ || props.NC || props.NutzCode || props.NC_CODE || props.KULTUR_KOD || props.KULTUR || props.Nutzung || '';
             let finalCrop = rawCrop;
             if (rawCrop) {
-                // Remove leading zeros for matching if it's a numeric string
-                const cleanNC = String(rawCrop).replace(/^0+/, '');
-                const matched = list.find(c => String(c.nc) === cleanNC || String(c.nc) === String(rawCrop));
+                const cleanVal = String(rawCrop).toLowerCase().trim();
+                const cleanNC = cleanVal.replace(/^0+/, '');
+
+                // 1. Try matching by NC
+                let matched = list.find(c => c.nc && (String(c.nc) === cleanNC || String(c.nc) === cleanVal));
+
+                // 2. If no NC match, try matching by Name or Synonym
+                if (!matched) {
+                    matched = list.find(c => {
+                        if (c.name.toLowerCase() === cleanVal || (c.en && c.en.toLowerCase() === cleanVal)) return true;
+                        if (c.synonyms) {
+                            return c.synonyms.split(',').some(s => s.trim().toLowerCase() === cleanVal);
+                        }
+                        return false;
+                    });
+                }
+
                 if (matched) {
                     const lang = (typeof currentLang !== 'undefined') ? currentLang : 'de';
-                    finalCrop = `${lang === 'de' ? matched.name : matched.en} (${matched.eppo})`;
+                    const displayName = lang === 'de' ? matched.name : (matched.en || matched.name);
+                    finalCrop = `${displayName} (${matched.eppo})`;
                 }
             }
 
@@ -1123,8 +1163,25 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
     }
 }
 
+function handleCropNCAutoMatch(input) {
+    const val = input.value.trim();
+    if (val.length === 3 && /^\d{3}$/.test(val)) {
+        const matched = cropList.find(c => String(c.nc) === val);
+        if (matched) {
+            const lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
+            const displayName = lang === 'de' ? matched.name : matched.en;
+            input.value = `${displayName} (${matched.eppo})`;
+        }
+    }
+}
+
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
+    const cropInput = document.getElementById('field-crop');
+    if (cropInput) {
+        cropInput.addEventListener('input', (e) => handleCropNCAutoMatch(e.target));
+    }
+
     const yearSelect = document.getElementById('mgmt-year-select');
     if (yearSelect) {
         const currentYearNum = new Date().getFullYear();
