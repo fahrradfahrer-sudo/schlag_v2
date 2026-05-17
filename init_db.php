@@ -88,7 +88,8 @@ try {
     $tasksColsToAdd = [
         'bbch_description' => 'TEXT',
         'water_rate' => 'REAL',
-        'application_type' => 'TEXT'
+        'application_type' => 'TEXT',
+        'treated_area' => 'REAL'
     ];
     foreach ($tasksColsToAdd as $col => $type) {
         try {

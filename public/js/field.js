@@ -31,10 +31,25 @@ async function loadField() {
     document.getElementById('field-id').value = currentField.id;
     document.getElementById('field-name').value = currentField.name;
     document.getElementById('field-variety').value = currentField.variety || '';
+    document.getElementById('task-treated-area').value = currentField.area;
 
     // Render Geometry
     const geojson = JSON.parse(currentField.geometry);
-    const layer = L.geoJSON(geojson).addTo(drawnItems);
+
+    const getFieldStyle = (cropName) => {
+        const c = (cropName || '').toLowerCase();
+        let color = '#3388ff'; // Default Leaflet color
+        if (c.includes('potato') || c.includes('kartoffel')) color = 'brown';
+        else if (c.includes('vineyard') || c.includes('weinrebe') || c.includes('weinberg')) color = 'purple';
+        else if (c.includes('sugar beet') || c.includes('zuckerrübe')) color = 'white';
+        else if (c.includes('maize') || c.includes('mais')) color = 'yellow';
+        else if (c.includes('wheat') || c.includes('weizen')) color = 'green';
+        return { color: color, fillOpacity: 0.2 };
+    };
+
+    const layer = L.geoJSON(geojson, {
+        style: getFieldStyle(currentField.crop)
+    }).addTo(drawnItems);
     map.fitBounds(layer.getBounds());
 
     // Initialize Year Selector
@@ -270,6 +285,7 @@ async function addTask() {
         content: document.getElementById('task-content').value,
         comment: document.getElementById('task-comment').value,
         employee: document.getElementById('task-employee').value,
+        treated_area: document.getElementById('task-treated-area').value,
         bbch: document.getElementById('task-bbch').value,
         bbch_description: document.getElementById('task-bbch-desc').value,
         water_rate: document.getElementById('task-water-rate').value,
@@ -446,8 +462,25 @@ function onBBCHManualChange() {
     }
 }
 
+function handleCropNCAutoMatch(input) {
+    const val = input.value.trim();
+    if (val.length === 3 && /^\d{3}$/.test(val)) {
+        if (typeof cropList === 'undefined' || cropList.length === 0) return;
+        const matched = cropList.find(c => String(c.nc) === val);
+        if (matched) {
+            const lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
+            const displayName = lang === 'de' ? matched.name : matched.en;
+            input.value = `${displayName} (${matched.eppo})`;
+            updateBBCHEstimation();
+        }
+    }
+}
+
 document.getElementById('field-crop').addEventListener('change', updateBBCHEstimation);
-document.getElementById('field-crop').addEventListener('input', updateBBCHEstimation);
+document.getElementById('field-crop').addEventListener('input', (e) => {
+    handleCropNCAutoMatch(e.target);
+    updateBBCHEstimation();
+});
 
 let psmSearchTimeout = null;
 let psmSearchResults = [];
