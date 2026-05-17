@@ -115,9 +115,18 @@ try {
     )");
 
     // Add new columns to task_products if they don't exist
-    try {
-        $pdo->exec("ALTER TABLE task_products ADD COLUMN active_ingredients TEXT");
-    } catch (PDOException $e) {}
+    $taskProductsColsToAdd = [
+        'active_ingredients' => 'TEXT',
+        'n' => 'REAL',
+        'p' => 'REAL',
+        'k' => 'REAL',
+        's' => 'REAL'
+    ];
+    foreach ($taskProductsColsToAdd as $col => $type) {
+        try {
+            $pdo->exec("ALTER TABLE task_products ADD COLUMN $col $type");
+        } catch (PDOException $e) {}
+    }
 
     // Migration: Move existing data from field_records to tasks if tasks table is empty
     $count = $pdo->query("SELECT COUNT(*) FROM tasks")->fetchColumn();

@@ -57,7 +57,7 @@ try {
             if (isset($data['bulk']) && is_array($data['field_ids'])) {
                 $pdo->beginTransaction();
                 $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type, treated_area, wind_speed, temperature, irrigation_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 foreach ($data['field_ids'] as $fid) {
                     $stmt->execute([
                         $fid,
@@ -87,7 +87,11 @@ try {
                                 $p['verwendungszweck'] ?? '',
                                 $p['aufwandmenge'] ?? null,
                                 $p['einheit'] ?? '',
-                                $p['active_ingredients'] ?? ''
+                                $p['active_ingredients'] ?? '',
+                                $p['n'] ?? null,
+                                $p['p'] ?? null,
+                                $p['k'] ?? null,
+                                $p['s'] ?? null
                             ]);
                         }
                     }
@@ -116,7 +120,7 @@ try {
                 ]);
                 $taskId = $pdo->lastInsertId();
                 if (isset($data['products']) && is_array($data['products'])) {
-                    $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     foreach ($data['products'] as $p) {
                         $prodStmt->execute([
                             $taskId,
@@ -126,7 +130,11 @@ try {
                             $p['verwendungszweck'] ?? '',
                             $p['aufwandmenge'] ?? null,
                             $p['einheit'] ?? '',
-                            $p['active_ingredients'] ?? ''
+                            $p['active_ingredients'] ?? '',
+                            $p['n'] ?? null,
+                            $p['p'] ?? null,
+                            $p['k'] ?? null,
+                            $p['s'] ?? null
                         ]);
                     }
                 }
@@ -164,7 +172,7 @@ try {
             // Update products (delete and re-insert for simplicity)
             $pdo->prepare("DELETE FROM task_products WHERE task_id = ?")->execute([$id]);
             if (isset($data['products']) && is_array($data['products'])) {
-                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 foreach ($data['products'] as $p) {
                     $prodStmt->execute([
                         $id,
@@ -174,7 +182,11 @@ try {
                         $p['verwendungszweck'] ?? '',
                         $p['aufwandmenge'] ?? null,
                         $p['einheit'] ?? '',
-                        $p['active_ingredients'] ?? ''
+                        $p['active_ingredients'] ?? '',
+                        $p['n'] ?? null,
+                        $p['p'] ?? null,
+                        $p['k'] ?? null,
+                        $p['s'] ?? null
                     ]);
                 }
             }

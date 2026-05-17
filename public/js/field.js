@@ -142,22 +142,28 @@ async function loadTasks() {
 
         let html = `<strong>${translatedType}</strong> - ${task.task_date}<br>`;
 
-        if (task.task_type === 'spraying' && task.products && task.products.length > 0) {
+        if ((task.task_type === 'spraying' || task.task_type === 'fertilizing') && task.products && task.products.length > 0) {
             html += `<ul style="margin: 5px 0; padding-left: 20px;">`;
             task.products.forEach(p => {
-                html += `<li><strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge} ${p.einheit}<br>`;
-                if (p.active_ingredients) {
-                    html += `<small><em>${p.active_ingredients}</em></small><br>`;
+                if (task.task_type === 'spraying') {
+                    html += `<li><strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge} ${p.einheit}<br>`;
+                    if (p.active_ingredients) {
+                        html += `<small><em>${p.active_ingredients}</em></small><br>`;
+                    }
+                    html += `<small>${p.schadorganismus} | ${p.verwendungszweck}</small></li>`;
+                } else {
+                    html += `<li><strong>${p.mittelname}</strong> - ${p.aufwandmenge} ${p.einheit}<br>`;
+                    html += `<small>N:${p.n}% P:${p.p}% K:${p.k}% S:${p.s}%</small></li>`;
                 }
-                html += `<small>${p.schadorganismus} | ${p.verwendungszweck}</small></li>`;
             });
             html += `</ul>`;
             if (task.water_rate) {
                 html += `<div><small>Water: ${task.water_rate} l/ha</small></div>`;
             }
-            if (task.wind_speed !== null || task.temperature !== null) {
+            if (task.task_type === 'spraying' && (task.wind_speed !== null || task.temperature !== null)) {
                 html += `<div><small>Wind: ${task.wind_speed || '-'} m/s, Temp: ${task.temperature || '-'} °C</small></div>`;
             }
+            if (task.content) html += `<span>${task.content}</span>`;
         } else if (task.task_type === 'irrigation') {
             html += `<div>${_t('label-irrigation-amount')} ${task.irrigation_amount} mm</div>`;
             if (task.content) html += `<span>${task.content}</span>`;
@@ -337,7 +343,7 @@ async function addTask() {
         bbch_description: document.getElementById('task-bbch-desc').value,
         water_rate: document.getElementById('task-water-rate').value,
         application_type: (taskType === 'spraying') ? document.getElementById('task-app-type').value : null,
-        products: (taskType === 'spraying') ? addedProducts : [],
+        products: (taskType === 'spraying') ? addedProducts : ((taskType === 'fertilizing') ? addedFertilizers : []),
         wind_speed: (taskType === 'spraying') ? document.getElementById('task-wind').value : null,
         temperature: (taskType === 'spraying') ? document.getElementById('task-temp').value : null,
         irrigation_amount: (taskType === 'irrigation') ? document.getElementById('task-irrigation-amount').value : null
@@ -351,6 +357,11 @@ async function addTask() {
     if (taskType === 'spraying') {
         if (addedProducts.length === 0) {
             showToast("Please add at least one product for plant protection.");
+            return;
+        }
+    } else if (taskType === 'fertilizing') {
+        if (addedFertilizers.length === 0) {
+            showToast("Please add at least one fertilizer.");
             return;
         }
     }
@@ -371,7 +382,9 @@ async function addTask() {
     document.getElementById('task-temp').value = '';
     document.getElementById('task-irrigation-amount').value = '';
     addedProducts = [];
+    addedFertilizers = [];
     renderAddedProducts();
+    renderAddedFertilizers();
 
     loadTasks();
 }
@@ -537,6 +550,7 @@ document.getElementById('field-crop').addEventListener('input', (e) => {
 
 let fertSearchResults = [];
 let selectedFert = null;
+let addedFertilizers = [];
 
 async function searchFertilizer() {
     const query = document.getElementById('fertilizer-search').value;
@@ -571,19 +585,92 @@ function onFertSelected(f) {
     infoDiv.style.display = 'block';
     document.getElementById('fertilizer-name').textContent = f.name;
     document.getElementById('fertilizer-ingredients').textContent = `N: ${f.n}%, P: ${f.p}%, K: ${f.k}%, S: ${f.s}% - ${f.description || ''}`;
+
+    // Prefill custom fields
+    document.getElementById('fert-n').value = f.n;
+    document.getElementById('fert-p').value = f.p;
+    document.getElementById('fert-k').value = f.k;
+    document.getElementById('fert-s').value = f.s;
 }
 
-function addFertilizerToContent() {
-    if (!selectedFert) return;
-    const content = document.getElementById('task-content');
-    const fertInfo = `${selectedFert.name} (N:${selectedFert.n} P:${selectedFert.p} K:${selectedFert.k} S:${selectedFert.s})`;
-    if (content.value) {
-        content.value += "\n" + fertInfo;
-    } else {
-        content.value = fertInfo;
+async function addFertilizerToList() {
+    const name = document.getElementById('fertilizer-search').value;
+    const n = document.getElementById('fert-n').value;
+    const p = document.getElementById('fert-p').value;
+    const k = document.getElementById('fert-k').value;
+    const s = document.getElementById('fert-s').value;
+    const rate = document.getElementById('fert-rate').value;
+    const saveCustom = document.getElementById('save-custom-fert').checked;
+
+    if (!name || !rate) {
+        showToast("Please enter fertilizer name and rate.");
+        return;
     }
-    document.getElementById('fertilizer-info').style.display = 'none';
+
+    if (saveCustom) {
+        await fetch('api/fertilizer_proxy.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, n, p, k, s, description: "Customized" })
+        });
+    }
+
+    const fert = {
+        mittelname: name,
+        n: n || 0,
+        p: p || 0,
+        k: k || 0,
+        s: s || 0,
+        aufwandmenge: rate,
+        einheit: 'kg/ha'
+    };
+
+    addedFertilizers.push(fert);
+    renderAddedFertilizers();
+
+    // Reset
     document.getElementById('fertilizer-search').value = '';
+    document.getElementById('fert-n').value = '';
+    document.getElementById('fert-p').value = '';
+    document.getElementById('fert-k').value = '';
+    document.getElementById('fert-s').value = '';
+    document.getElementById('fert-rate').value = '';
+    document.getElementById('save-custom-fert').checked = false;
+    document.getElementById('fertilizer-info').style.display = 'none';
+}
+
+function renderAddedFertilizers() {
+    const container = document.getElementById('added-fertilizers-container');
+    const list = document.getElementById('added-fertilizers-list');
+    list.innerHTML = '';
+
+    if (addedFertilizers.length > 0) {
+        container.style.display = 'block';
+        addedFertilizers.forEach((f, index) => {
+            const li = document.createElement('li');
+            li.style.marginBottom = '5px';
+            li.style.padding = '5px';
+            li.style.background = '#f9f9f9';
+            li.style.border = '1px solid #eee';
+            li.style.borderRadius = '4px';
+            li.style.listStyle = 'none';
+
+            let html = `<strong>${f.mittelname}</strong> - ${f.aufwandmenge} ${f.einheit}`;
+            html += `<br><small>N:${f.n}% P:${f.p}% K:${f.k}% S:${f.s}%</small>`;
+            html += ` <button type="button" class="btn-danger" style="padding: 0 5px; float: right;" onclick="removeFertilizer(${index})">x</button>`;
+            html += `<div style="clear: both;"></div>`;
+
+            li.innerHTML = html;
+            list.appendChild(li);
+        });
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function removeFertilizer(index) {
+    addedFertilizers.splice(index, 1);
+    renderAddedFertilizers();
 }
 
 let psmSearchTimeout = null;
