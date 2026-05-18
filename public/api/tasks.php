@@ -57,8 +57,15 @@ try {
             if (isset($data['bulk']) && is_array($data['field_ids'])) {
                 $pdo->beginTransaction();
                 $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type, treated_area, wind_speed, temperature, irrigation_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $areaStmt = $pdo->prepare("SELECT area FROM fields WHERE id = ?");
                 $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 foreach ($data['field_ids'] as $fid) {
+                    $treated_area = $data['treated_area'] ?? null;
+                    if (!$treated_area || $treated_area === '') {
+                        $areaStmt->execute([$fid]);
+                        $treated_area = $areaStmt->fetchColumn();
+                    }
+
                     $stmt->execute([
                         $fid,
                         $data['year'],
@@ -71,7 +78,7 @@ try {
                         $data['bbch_description'] ?? '',
                         $data['water_rate'] ?? null,
                         $data['application_type'] ?? null,
-                        $data['treated_area'] ?? null,
+                        $treated_area,
                         $data['wind_speed'] ?? null,
                         $data['temperature'] ?? null,
                         $data['irrigation_amount'] ?? null
@@ -100,6 +107,13 @@ try {
                 echo json_encode(["status" => "success", "count" => count($data['field_ids'])]);
             } else {
                 $pdo->beginTransaction();
+                $treated_area = $data['treated_area'] ?? null;
+                if (!$treated_area || $treated_area === '') {
+                    $areaStmt = $pdo->prepare("SELECT area FROM fields WHERE id = ?");
+                    $areaStmt->execute([$data['field_id']]);
+                    $treated_area = $areaStmt->fetchColumn();
+                }
+
                 $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type, treated_area, wind_speed, temperature, irrigation_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute([
                     $data['field_id'],
@@ -113,7 +127,7 @@ try {
                     $data['bbch_description'] ?? '',
                     $data['water_rate'] ?? null,
                     $data['application_type'] ?? null,
-                    $data['treated_area'] ?? null,
+                    $treated_area,
                     $data['wind_speed'] ?? null,
                     $data['temperature'] ?? null,
                     $data['irrigation_amount'] ?? null
