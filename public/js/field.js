@@ -896,38 +896,129 @@ function getCenter(geometry) {
 }
 
 async function exportData(format = 'xlsx') {
-    const response = await fetch(`api/records.php?field_id=${currentField.id}`);
-    const records = await response.json();
+    const recordsResp = await fetch(`api/records.php?field_id=${currentField.id}`);
+    const records = await recordsResp.json();
 
-    if (records.length === 0) {
-        showToast("No records to export.");
+    const tasksResp = await fetch(`api/tasks.php?field_id=${currentField.id}`);
+    const tasks = await tasksResp.json();
+
+    if (tasks.length === 0 && records.length === 0) {
+        showToast("No data to export.");
         return;
     }
 
     const center = getCenter(currentField.geometry);
+    const flattenedData = [];
 
-    const data = records.map(r => ({
-        "Field Name": currentField.name,
-        "Year": r.year,
-        "Crop": r.crop,
-        "Seeding Date": r.seeding_date,
-        "Seeding": r.seeding,
-        "Fertilizing Date": r.fertilizing_date,
-        "Fertilizing": r.fertilizing,
-        "Spraying Date": r.spraying_date,
-        "Spraying": r.spraying,
-        "Employee": r.spraying_employee,
-        "BBCH": r.bbch,
-        "Tilling Date": r.tilling_date,
-        "Tilling": r.tilling,
-        "Harvesting Date": r.harvesting_date,
-        "Harvesting": r.harvesting,
-        "Notes": r.notes,
-        "Latitude": center.lat,
-        "Longitude": center.lng
-    }));
+    // Create a lookup for yearly records (crop, variety, etc.)
+    const recordLookup = {};
+    records.forEach(r => { recordLookup[r.year] = r; });
 
-    const ws = XLSX.utils.json_to_sheet(data);
+    const allYears = new Set([...Object.keys(recordLookup), ...tasks.map(t => String(t.year))]);
+
+    allYears.forEach(yearStr => {
+        const year = parseInt(yearStr);
+        const record = recordLookup[year] || {};
+        const yearTasks = tasks.filter(t => t.year === year);
+
+        if (yearTasks.length > 0) {
+            yearTasks.forEach(task => {
+                const baseData = {
+                    "Field Name": currentField.name,
+                    "Field Size [ha]": currentField.area,
+                    "Year": task.year,
+                    "Crop": record.crop || '',
+                    "Variety": record.variety || '',
+                    "Task Type": (typeof _t === 'function') ? _t(`task-type-${task.task_type}`) : task.task_type,
+                    "Task Date": task.task_date,
+                    "Treated Area [ha]": task.treated_area,
+                    "Employee": task.employee,
+                    "BBCH": task.bbch,
+                    "BBCH Description": task.bbch_description,
+                    "Water Rate [l/ha]": task.water_rate,
+                    "Application Type": task.application_type,
+                    "Wind [m/s]": task.wind_speed,
+                    "Temp [°C]": task.temperature,
+                    "Irrigation [mm]": task.irrigation_amount,
+                    "Task Content": task.content,
+                    "Task Comment": task.comment,
+                    "Latitude": center.lat,
+                    "Longitude": center.lng
+                };
+
+                if (task.products && task.products.length > 0) {
+                    task.products.forEach(p => {
+                        flattenedData.push({
+                            ...baseData,
+                            "Product Name": p.mittelname,
+                            "Reg No (Kennr)": p.kennr,
+                            "Target Organism": p.schadorganismus,
+                            "Purpose": p.verwendungszweck,
+                            "App Rate": p.aufwandmenge,
+                            "Unit": p.einheit,
+                            "Active Ingredients": p.active_ingredients,
+                            "N [%]": p.n,
+                            "P [%]": p.p,
+                            "K [%]": p.k,
+                            "S [%]": p.s
+                        });
+                    });
+                } else {
+                    flattenedData.push({
+                        ...baseData,
+                        "Product Name": "",
+                        "Reg No (Kennr)": "",
+                        "Target Organism": "",
+                        "Purpose": "",
+                        "App Rate": "",
+                        "Unit": "",
+                        "Active Ingredients": "",
+                        "N [%]": "",
+                        "P [%]": "",
+                        "K [%]": "",
+                        "S [%]": ""
+                    });
+                }
+            });
+        } else if (record.id) {
+            // Year has a record but no tasks
+            flattenedData.push({
+                "Field Name": currentField.name,
+                "Field Size [ha]": currentField.area,
+                "Year": year,
+                "Crop": record.crop || '',
+                "Variety": record.variety || '',
+                "Task Type": (typeof _t === 'function') ? _t('record-info') : "Record Info",
+                "Task Date": "",
+                "Treated Area [ha]": "",
+                "Employee": "",
+                "BBCH": "",
+                "BBCH Description": "",
+                "Water Rate [l/ha]": "",
+                "Application Type": "",
+                "Wind [m/s]": "",
+                "Temp [°C]": "",
+                "Irrigation [mm]": "",
+                "Task Content": record.notes || '',
+                "Task Comment": "",
+                "Latitude": center.lat,
+                "Longitude": center.lng,
+                "Product Name": "",
+                "Reg No (Kennr)": "",
+                "Target Organism": "",
+                "Purpose": "",
+                "App Rate": "",
+                "Unit": "",
+                "Active Ingredients": "",
+                "N [%]": "",
+                "P [%]": "",
+                "K [%]": "",
+                "S [%]": ""
+            });
+        }
+    });
+
+    const ws = XLSX.utils.json_to_sheet(flattenedData);
 
     if (format === 'xlsx') {
         const wb = XLSX.utils.book_new();

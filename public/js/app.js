@@ -68,17 +68,6 @@ function selectFieldsByCrop(crop) {
 function openBulkTaskModal() {
     document.getElementById('bulk-task-modal').style.display = 'block';
 
-    // Set default treated area if only one field is selected
-    const selectedIds = getSelectedFieldIds();
-    if (selectedIds.length === 1) {
-        const field = loadedFields.find(f => String(f.id) === selectedIds[0]);
-        if (field) {
-            document.getElementById('bulk-task-treated-area').value = field.area || calculateArea(JSON.parse(field.geometry));
-        }
-    } else {
-        document.getElementById('bulk-task-treated-area').value = '';
-    }
-
     // Set default date
     const now = new Date();
     const currentDateTime = now.toISOString().slice(0, 16);
@@ -107,6 +96,27 @@ function openBulkTaskModal() {
     toggleBulkExtraFields();
 
     populateBulkFieldList();
+    updateBulkTreatedAreaState();
+}
+
+function updateBulkTreatedAreaState() {
+    const selectedIds = getBulkSelectedFieldIds();
+    const input = document.getElementById('bulk-task-treated-area');
+    if (selectedIds.length === 1) {
+        input.disabled = false;
+        const field = loadedFields.find(f => String(f.id) === selectedIds[0]);
+        if (field) {
+            input.value = field.area || calculateArea(JSON.parse(field.geometry));
+        }
+    } else {
+        input.disabled = true;
+        input.value = '';
+        if (selectedIds.length > 1) {
+            input.placeholder = "Multiple fields - auto-filled by size";
+        } else {
+            input.placeholder = "";
+        }
+    }
 }
 
 function populateBulkFieldList() {
@@ -137,7 +147,7 @@ function populateBulkFieldList() {
         const isChecked = selectedIds.includes(String(field.id));
 
         row.innerHTML = `
-            <td><input type="checkbox" class="bulk-field-checkbox" value="${field.id}" ${isChecked ? 'checked' : ''}></td>
+            <td><input type="checkbox" class="bulk-field-checkbox" value="${field.id}" ${isChecked ? 'checked' : ''} onchange="updateBulkTreatedAreaState(); toggleBulkExtraFields();"></td>
             <td>${field.name}</td>
             <td>${field.crop || ''}</td>
             <td>${area}</td>
@@ -165,6 +175,8 @@ function toggleBulkSelection(checked) {
             cb.checked = checked;
         }
     });
+    updateBulkTreatedAreaState();
+    toggleBulkExtraFields();
 }
 
 function closeBulkModal() {
@@ -966,52 +978,143 @@ async function exportAllData(format = 'xlsx') {
     let allDataForCSV = [];
 
     for (const field of loadedFields) {
-        const response = await fetch(`api/records.php?field_id=${field.id}`);
-        const records = await response.json();
+        const recordsResp = await fetch(`api/records.php?field_id=${field.id}`);
+        const records = await recordsResp.json();
+
+        const tasksResp = await fetch(`api/tasks.php?field_id=${field.id}`);
+        const tasks = await tasksResp.json();
+
+        if (tasks.length === 0 && records.length === 0) continue;
+
         const center = getCenter(field.geometry);
+        const flattenedData = [];
+        const recordLookup = {};
+        records.forEach(r => { recordLookup[r.year] = r; });
 
-        if (records.length > 0) {
-            const data = records.map(r => ({
-                "Field Name": field.name,
-                "Year": r.year,
-                "Crop": r.crop,
-                "Seeding Date": r.seeding_date,
-                "Seeding": r.seeding,
-                "Fertilizing Date": r.fertilizing_date,
-                "Fertilizing": r.fertilizing,
-                "Spraying Date": r.spraying_date,
-                "Spraying": r.spraying,
-                "Employee": r.spraying_employee,
-                "BBCH": r.bbch,
-                "Tilling Date": r.tilling_date,
-                "Tilling": r.tilling,
-                "Harvesting Date": r.harvesting_date,
-                "Harvesting": r.harvesting,
-                "Notes": r.notes,
-                "Latitude": center.lat,
-                "Longitude": center.lng
-            }));
+        const allYears = new Set([...Object.keys(recordLookup), ...tasks.map(t => String(t.year))]);
 
+        allYears.forEach(yearStr => {
+            const year = parseInt(yearStr);
+            const record = recordLookup[year] || {};
+            const yearTasks = tasks.filter(t => t.year === year);
+
+            if (yearTasks.length > 0) {
+                yearTasks.forEach(task => {
+                    const baseData = {
+                        "Field Name": field.name,
+                        "Field Size [ha]": field.area,
+                        "Year": task.year,
+                        "Crop": record.crop || '',
+                        "Variety": record.variety || '',
+                        "Task Type": (typeof _t === 'function') ? _t(`task-type-${task.task_type}`) : task.task_type,
+                        "Task Date": task.task_date,
+                        "Treated Area [ha]": task.treated_area,
+                        "Employee": task.employee,
+                        "BBCH": task.bbch,
+                        "BBCH Description": task.bbch_description,
+                        "Water Rate [l/ha]": task.water_rate,
+                        "Application Type": task.application_type,
+                        "Wind [m/s]": task.wind_speed,
+                        "Temp [°C]": task.temperature,
+                        "Irrigation [mm]": task.irrigation_amount,
+                        "Task Content": task.content,
+                        "Task Comment": task.comment,
+                        "Latitude": center.lat,
+                        "Longitude": center.lng
+                    };
+
+                    if (task.products && task.products.length > 0) {
+                        task.products.forEach(p => {
+                            flattenedData.push({
+                                ...baseData,
+                                "Product Name": p.mittelname,
+                                "Reg No (Kennr)": p.kennr,
+                                "Target Organism": p.schadorganismus,
+                                "Purpose": p.verwendungszweck,
+                                "App Rate": p.aufwandmenge,
+                                "Unit": p.einheit,
+                                "Active Ingredients": p.active_ingredients,
+                                "N [%]": p.n,
+                                "P [%]": p.p,
+                                "K [%]": p.k,
+                                "S [%]": p.s
+                            });
+                        });
+                    } else {
+                        flattenedData.push({
+                            ...baseData,
+                            "Product Name": "",
+                            "Reg No (Kennr)": "",
+                            "Target Organism": "",
+                            "Purpose": "",
+                            "App Rate": "",
+                            "Unit": "",
+                            "Active Ingredients": "",
+                            "N [%]": "",
+                            "P [%]": "",
+                            "K [%]": "",
+                            "S [%]": ""
+                        });
+                    }
+                });
+            } else if (record.id) {
+                // Year has a record but no tasks
+                flattenedData.push({
+                    "Field Name": field.name,
+                    "Field Size [ha]": field.area,
+                    "Year": year,
+                    "Crop": record.crop || '',
+                    "Variety": record.variety || '',
+                    "Task Type": (typeof _t === 'function') ? _t('record-info') : "Record Info",
+                    "Task Date": "",
+                    "Treated Area [ha]": "",
+                    "Employee": "",
+                    "BBCH": "",
+                    "BBCH Description": "",
+                    "Water Rate [l/ha]": "",
+                    "Application Type": "",
+                    "Wind [m/s]": "",
+                    "Temp [°C]": "",
+                    "Irrigation [mm]": "",
+                    "Task Content": record.notes || '',
+                    "Task Comment": "",
+                    "Latitude": center.lat,
+                    "Longitude": center.lng,
+                    "Product Name": "",
+                    "Reg No (Kennr)": "",
+                    "Target Organism": "",
+                    "Purpose": "",
+                    "App Rate": "",
+                    "Unit": "",
+                    "Active Ingredients": "",
+                    "N [%]": "",
+                    "P [%]": "",
+                    "K [%]": "",
+                    "S [%]": ""
+                });
+            }
+        });
+
+        if (flattenedData.length > 0) {
             if (format === 'xlsx') {
-                const ws = XLSX.utils.json_to_sheet(data);
-                // Sheet name max length 31 chars. Ensure uniqueness by using ID.
+                const ws = XLSX.utils.json_to_sheet(flattenedData);
                 let sheetName = `${field.id}_${field.name}`.substring(0, 31);
                 XLSX.utils.book_append_sheet(wb, ws, sheetName);
             } else {
-                allDataForCSV = allDataForCSV.concat(data);
+                allDataForCSV = allDataForCSV.concat(flattenedData);
             }
         }
     }
 
     if (format === 'xlsx') {
         if (wb.SheetNames.length === 0) {
-            showToast("No records found for any field.");
+            showToast("No data found for any field.");
             return;
         }
-        XLSX.writeFile(wb, "all_fields_records.xlsx");
+        XLSX.writeFile(wb, "all_fields_data.xlsx");
     } else {
         if (allDataForCSV.length === 0) {
-            showToast("No records found for any field.");
+            showToast("No data found for any field.");
             return;
         }
         const ws = XLSX.utils.json_to_sheet(allDataForCSV);
@@ -1020,7 +1123,7 @@ async function exportAllData(format = 'xlsx') {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = "all_fields_records.csv";
+        a.download = "all_fields_data.csv";
         a.click();
         URL.revokeObjectURL(url);
     }
