@@ -1,6 +1,17 @@
 // Initialize Map
 const map = L.map('map').setView([51.1657, 10.4515], 6); // Germany center
 
+// Function to update field label visibility based on zoom
+function updateFieldLabelVisibility() {
+    const zoom = map.getZoom();
+    const labels = document.querySelectorAll('.field-label');
+    labels.forEach(label => {
+        label.style.display = (zoom >= 15) ? 'block' : 'none';
+    });
+}
+
+map.on('zoomend', updateFieldLabelVisibility);
+
 // Google Hybrid Basemap (Satellite with labels)
 const googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
     maxZoom: 20,
@@ -724,6 +735,23 @@ async function loadFields(autoZoom = false) {
                 style: getFieldStyle(crop),
                 onEachFeature: (feature, layer) => {
                     layer.fieldData = field;
+                    const fieldId = field.id;
+
+                    layer.on('mouseover', function() {
+                        const style = getFieldStyle(crop);
+                        this.setStyle({
+                            weight: (style.weight || 3) + 2,
+                            fillOpacity: style.fillOpacity + 0.3
+                        });
+                        const row = document.querySelector(`#field-row-${fieldId}`);
+                        if (row) row.classList.add('field-sidebar-highlight');
+                    });
+
+                    layer.on('mouseout', function() {
+                        this.setStyle(getFieldStyle(crop));
+                        const row = document.querySelector(`#field-row-${fieldId}`);
+                        if (row) row.classList.remove('field-sidebar-highlight');
+                    });
 
                     const popupContent = document.createElement('div');
                     const b = document.createElement('b');
@@ -739,6 +767,13 @@ async function loadFields(autoZoom = false) {
                     popupContent.appendChild(document.createTextNode(field.notes || ''));
                     layer.bindPopup(popupContent);
 
+                    // Add permanent tooltip for field name
+                    layer.bindTooltip(field.name, {
+                        permanent: true,
+                        direction: 'center',
+                        className: 'field-label'
+                    });
+
                     // Add to the group
                     drawnItems.addLayer(layer);
                 }
@@ -746,7 +781,28 @@ async function loadFields(autoZoom = false) {
 
             // Add to Sidebar Table
             const row = document.createElement('tr');
+            row.id = `field-row-${field.id}`;
             row.dataset.crop = crop;
+
+            row.addEventListener('mouseover', () => {
+                drawnItems.eachLayer(layer => {
+                    if (layer.fieldData && layer.fieldData.id === field.id) {
+                        const style = getFieldStyle(crop);
+                        layer.setStyle({
+                            weight: (style.weight || 3) + 2,
+                            fillOpacity: style.fillOpacity + 0.3
+                        });
+                    }
+                });
+            });
+
+            row.addEventListener('mouseout', () => {
+                drawnItems.eachLayer(layer => {
+                    if (layer.fieldData && layer.fieldData.id === field.id) {
+                        layer.setStyle(getFieldStyle(crop));
+                    }
+                });
+            });
 
             let lastTaskText = '-';
             if (field.last_task) {
@@ -791,6 +847,7 @@ async function loadFields(autoZoom = false) {
         if (autoZoom && fields.length > 0) {
             zoomToAllFields();
         }
+        updateFieldLabelVisibility();
     } catch (err) {
         console.error('Error loading fields:', err);
     }
@@ -1512,8 +1569,48 @@ function handleCropNCAutoMatch(input) {
     }
 }
 
+// Resizer Logic
+function initResizer() {
+    const resizer = document.getElementById('resizer');
+    const sidebar = document.getElementById('sidebar');
+    const container = document.getElementById('container');
+
+    // Load saved width
+    const savedWidth = localStorage.getItem('sidebarWidth');
+    if (savedWidth) {
+        sidebar.style.width = savedWidth;
+    } else {
+        sidebar.style.width = '50%';
+    }
+
+    resizer.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+        document.body.style.cursor = 'col-resize';
+    });
+
+    function handleMouseMove(e) {
+        const containerWidth = container.offsetWidth;
+        const newWidth = (e.clientX / containerWidth) * 100;
+
+        if (newWidth > 10 && newWidth < 90) {
+            sidebar.style.width = `${newWidth}%`;
+            map.invalidateSize();
+        }
+    }
+
+    function handleMouseUp() {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        document.body.style.cursor = 'default';
+        localStorage.setItem('sidebarWidth', sidebar.style.width);
+    }
+}
+
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
+    initResizer();
     const cropInput = document.getElementById('field-crop');
     if (cropInput) {
         cropInput.addEventListener('input', (e) => handleCropNCAutoMatch(e.target));
