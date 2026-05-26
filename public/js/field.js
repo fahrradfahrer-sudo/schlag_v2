@@ -69,6 +69,7 @@ function initYearSelector() {
         select.appendChild(option);
     }
     loadYearlyRecord();
+    toggleTaskFields();
 }
 
 function changeYear(year) {
@@ -146,7 +147,11 @@ async function loadTasks() {
             html += `<ul style="margin: 5px 0; padding-left: 20px;">`;
             task.products.forEach(p => {
                 if (task.task_type === 'spraying') {
-                    html += `<li><strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge} ${p.einheit}<br>`;
+                    html += `<li><strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge} ${p.einheit}`;
+                    if (p.wartezeit) {
+                        html += ` | Wartezeit: ${p.wartezeit}`;
+                    }
+                    html += `<br>`;
                     if (p.active_ingredients) {
                         html += `<small><em>${p.active_ingredients}</em></small><br>`;
                     }
@@ -203,7 +208,12 @@ function toggleTaskFields() {
     const dateInput = document.getElementById('task-date');
     if (!dateInput.value) {
         const now = new Date();
-        dateInput.value = now.toISOString().slice(0, 16);
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        dateInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
     }
     fetchWeather();
 }
@@ -246,6 +256,7 @@ function addProductToList() {
     const schadSelect = document.getElementById('psm-schadorg-select');
     const verwSelect = document.getElementById('psm-verw-select');
     const rateInput = document.getElementById('psm-rate-input');
+    const wartezeitSelect = document.getElementById('psm-wartezeit-select');
     const appTypeSelect = document.getElementById('psm-app-type');
 
     if (!selectedPSM || !awgSelect.value) {
@@ -270,6 +281,7 @@ function addProductToList() {
         verwendungszweck: verwSelect.value || 'N/A',
         aufwandmenge: amount,
         einheit: unit,
+        wartezeit: wartezeitSelect.value || 'N/A',
         active_ingredients: ingredientsEl.textContent
     };
 
@@ -299,6 +311,9 @@ function renderAddedProducts() {
             li.style.listStyle = 'none';
 
             let html = `<strong>${p.mittelname}</strong> (${p.kennr}) - ${p.aufwandmenge || ''} ${p.einheit}`;
+            if (p.wartezeit) {
+                html += ` | Wartezeit: ${p.wartezeit}`;
+            }
             html += `<br><small>${p.schadorganismus} | ${p.verwendungszweck}</small>`;
             html += ` <button type="button" class="btn-danger" style="padding: 0 5px; float: right;" onclick="removeProduct(${index})">x</button>`;
             html += `<div style="clear: both;"></div>`;
@@ -397,7 +412,7 @@ async function deleteTask(id) {
 }
 
 function updateBBCHEstimation() {
-    const cropValue = document.getElementById('field-crop').value.toLowerCase();
+    const cropValue = document.getElementById('field-crop').value;
     const bbchInput = document.getElementById('task-bbch');
     const explanationText = document.getElementById('bbch-explanation-text');
 
@@ -406,77 +421,7 @@ function updateBBCHEstimation() {
         return;
     }
 
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-
-    let estimation = "";
-    let bbch = "";
-
-    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
-        if (month < 4) {
-            bbch = "00";
-            estimation = currentLang === 'de' ? "Keimruhe / Vorbereitung" : "Dormancy / Preparation";
-        } else if (month === 4) {
-            bbch = "01-09";
-            estimation = currentLang === 'de' ? "Keimentwicklung" : "Sprout development";
-        } else if (month === 5) {
-            if (day < 15) {
-                bbch = "10-19";
-                estimation = currentLang === 'de' ? "Blattentwicklung" : "Leaf development";
-            } else {
-                bbch = "21-29";
-                estimation = currentLang === 'de' ? "Bildung von Seitensprossen" : "Formation of side shoots";
-            }
-        } else if (month === 6) {
-            if (day < 15) {
-                bbch = "31-39";
-                estimation = currentLang === 'de' ? "Längenwachstum der Hauptstängel / Reihenschluss" : "Stem elongation / Crop cover";
-            } else {
-                bbch = "41-48";
-                estimation = currentLang === 'de' ? "Knollenbildung" : "Tuber formation";
-            }
-        } else if (month === 7) {
-            bbch = "51-69";
-            estimation = currentLang === 'de' ? "Blütenknospenentwicklung bis Ende der Blüte" : "Inflorescence emergence to end of flowering";
-        } else if (month === 8) {
-            bbch = "71-89";
-            estimation = currentLang === 'de' ? "Beerenentwicklung bis Reife der Knollen" : "Development of fruit to ripening of tubers";
-        } else {
-            bbch = "91-99";
-            estimation = currentLang === 'de' ? "Absterben der Pflanze / Ernte" : "Senescence / Harvest";
-        }
-    } else if (cropValue.includes('wheat') || cropValue.includes('weizen')) {
-        if (month <= 3) { bbch = "21-29"; estimation = currentLang === 'de' ? "Bestockung" : "Tillering"; }
-        else if (month === 4) { bbch = "30-32"; estimation = currentLang === 'de' ? "Schossen" : "Stem elongation"; }
-        else if (month === 5) { bbch = "37-51"; estimation = currentLang === 'de' ? "Fahnenblatt bis Ährenschieben" : "Flag leaf to ear emergence"; }
-        else if (month === 6) { bbch = "61-71"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
-        else if (month === 7) { bbch = "75-89"; estimation = currentLang === 'de' ? "Milchreife bis Totreife" : "Milk to full ripeness"; }
-        else { bbch = "00-11"; estimation = currentLang === 'de' ? "Keimung" : "Germination"; }
-    } else if (cropValue.includes('maize') || cropValue.includes('mais')) {
-        if (month === 5) { bbch = "00-19"; estimation = currentLang === 'de' ? "Keimung bis Blattentwicklung" : "Germination to leaf development"; }
-        else if (month === 6) { bbch = "30-39"; estimation = currentLang === 'de' ? "Längenwachstum" : "Stem elongation"; }
-        else if (month === 7) { bbch = "51-69"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
-        else if (month === 8) { bbch = "71-89"; estimation = currentLang === 'de' ? "Fruchtentwicklung bis Reife" : "Fruit development to ripeness"; }
-        else { bbch = "99"; estimation = currentLang === 'de' ? "Ernte" : "Harvest"; }
-    } else if (cropValue.includes('barley') || cropValue.includes('gerste')) {
-        if (month <= 3) { bbch = "21-29"; estimation = currentLang === 'de' ? "Bestockung" : "Tillering"; }
-        else if (month === 4) { bbch = "31-39"; estimation = currentLang === 'de' ? "Schossen" : "Stem elongation"; }
-        else if (month === 5) { bbch = "49-59"; estimation = currentLang === 'de' ? "Grannenspitzen bis Ährenschieben" : "Awns visible to ear emergence"; }
-        else if (month === 6) { bbch = "61-71"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
-        else { bbch = "87-99"; estimation = currentLang === 'de' ? "Reife / Ernte" : "Ripeness / Harvest"; }
-    } else if (cropValue.includes('rapeseed') || cropValue.includes('raps')) {
-        if (month <= 3) { bbch = "19-30"; estimation = currentLang === 'de' ? "Rosettenstadium bis Schossen" : "Rosette stage to stem elongation"; }
-        else if (month === 4) { bbch = "50-59"; estimation = currentLang === 'de' ? "Knospenentwicklung" : "Inflorescence emergence"; }
-        else if (month === 5) { bbch = "60-69"; estimation = currentLang === 'de' ? "Blüte" : "Flowering"; }
-        else if (month === 6) { bbch = "71-79"; estimation = currentLang === 'de' ? "Schotenentwicklung" : "Development of fruit"; }
-        else { bbch = "80-99"; estimation = currentLang === 'de' ? "Reife / Ernte" : "Ripeness / Harvest"; }
-    } else if (cropValue.includes('sugar beet') || cropValue.includes('zuckerrübe')) {
-        if (month === 4) { bbch = "00-09"; estimation = currentLang === 'de' ? "Keimung" : "Germination"; }
-        else if (month === 5) { bbch = "10-19"; estimation = currentLang === 'de' ? "Blattentwicklung" : "Leaf development"; }
-        else if (month === 6) { bbch = "31-39"; estimation = currentLang === 'de' ? "Reihenschluss" : "Crop cover"; }
-        else { bbch = "41-49"; estimation = currentLang === 'de' ? "Rübenentwicklung" : "Development of beet root"; }
-    }
+    const { bbch, estimation } = getBBCHEstimation(cropValue, currentLang);
 
     if (bbch && !bbchInput.value) {
         bbchInput.placeholder = `e.g. ${bbch}`;
@@ -491,37 +436,10 @@ function updateBBCHEstimation() {
 
 function onBBCHManualChange() {
     const bbchValue = document.getElementById('task-bbch').value;
+    const cropValue = document.getElementById('field-crop').value;
     if (!bbchValue) return;
 
-    // Simplified BBCH description lookup
-    const cropValue = document.getElementById('field-crop').value.toLowerCase();
-    let desc = "";
-
-    const bbchNum = parseInt(bbchValue);
-    if (isNaN(bbchNum)) return;
-
-    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
-        if (bbchNum === 0) desc = currentLang === 'de' ? "Keimruhe" : "Dormancy";
-        else if (bbchNum < 10) desc = currentLang === 'de' ? "Keimentwicklung" : "Sprout development";
-        else if (bbchNum < 20) desc = currentLang === 'de' ? "Blattentwicklung" : "Leaf development";
-        else if (bbchNum < 30) desc = currentLang === 'de' ? "Seitensprossbildung" : "Side shoot formation";
-        else if (bbchNum < 40) desc = currentLang === 'de' ? "Stängelwachstum" : "Stem elongation";
-        else if (bbchNum < 50) desc = currentLang === 'de' ? "Knollenbildung" : "Tuber formation";
-        else if (bbchNum < 70) desc = currentLang === 'de' ? "Blüte" : "Flowering";
-        else if (bbchNum < 90) desc = currentLang === 'de' ? "Beerenentwicklung" : "Fruit development";
-        else desc = currentLang === 'de' ? "Absterben / Ernte" : "Senescence / Harvest";
-    } else if (cropValue.includes('wheat') || cropValue.includes('weizen') || cropValue.includes('barley') || cropValue.includes('gerste')) {
-        if (bbchNum < 10) desc = currentLang === 'de' ? "Keimung" : "Germination";
-        else if (bbchNum < 20) desc = currentLang === 'de' ? "Blattentwicklung" : "Leaf development";
-        else if (bbchNum < 30) desc = currentLang === 'de' ? "Bestockung" : "Tillering";
-        else if (bbchNum < 40) desc = currentLang === 'de' ? "Schossen" : "Stem elongation";
-        else if (bbchNum < 50) desc = currentLang === 'de' ? "Ährenschwellen" : "Booting";
-        else if (bbchNum < 60) desc = currentLang === 'de' ? "Ährenschieben" : "Ear emergence";
-        else if (bbchNum < 70) desc = currentLang === 'de' ? "Blüte" : "Flowering";
-        else if (bbchNum < 80) desc = currentLang === 'de' ? "Milchreife" : "Milk development";
-        else if (bbchNum < 90) desc = currentLang === 'de' ? "Teigreife" : "Dough development";
-        else desc = currentLang === 'de' ? "Reife / Ernte" : "Ripening / Harvest";
-    }
+    const desc = getBBCHDescription(cropValue, bbchValue, currentLang);
 
     if (desc) {
         document.getElementById('task-bbch-desc').value = desc;
@@ -840,6 +758,24 @@ function onAWGSelected() {
     if (awg.aufwand.length > 0) {
         document.getElementById('psm-rate-input').value = `${awg.aufwand[0].m_aufwand} ${awg.aufwand[0].m_aufwand_einheit}`;
     }
+
+    // Wartezeit
+    const wartezeitSelect = document.getElementById('psm-wartezeit-select');
+    wartezeitSelect.innerHTML = '';
+    if (awg.wartezeit && awg.wartezeit.length > 0) {
+        awg.wartezeit.forEach(w => {
+            const opt = document.createElement('option');
+            const val = w.wartezeit_tage ? `${w.wartezeit_tage} days` : (w.wartezeit_ausgen_text || 'F');
+            opt.value = val;
+            opt.textContent = `${val} (${w.kultur})`;
+            wartezeitSelect.appendChild(opt);
+        });
+    } else {
+        const opt = document.createElement('option');
+        opt.value = 'N/A';
+        opt.textContent = 'N/A';
+        wartezeitSelect.appendChild(opt);
+    }
 }
 
 
@@ -956,6 +892,7 @@ async function exportData(format = 'xlsx') {
                             "Purpose": p.verwendungszweck,
                             "App Rate": p.aufwandmenge,
                             "Unit": p.einheit,
+                            "Waiting Period": p.wartezeit,
                             "Active Ingredients": p.active_ingredients,
                             "N [%]": p.n,
                             "P [%]": p.p,

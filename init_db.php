@@ -120,7 +120,8 @@ try {
         'n' => 'REAL',
         'p' => 'REAL',
         'k' => 'REAL',
-        's' => 'REAL'
+        's' => 'REAL',
+        'wartezeit' => 'TEXT'
     ];
     foreach ($taskProductsColsToAdd as $col => $type) {
         try {

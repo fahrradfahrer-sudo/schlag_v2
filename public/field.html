@@ -62,7 +62,7 @@
                     <div style="display: flex; gap: 10px;">
                         <div class="form-group" style="flex: 1;">
                             <label id="label-crop">Crop:</label>
-                            <input type="text" id="field-crop" list="crop-list" placeholder="Search crop or EPPO code...">
+                            <input type="text" id="field-crop" list="crop-list" placeholder="z.B. Weizen, Mais">
                             <datalist id="crop-list"></datalist>
                         </div>
                         <div class="form-group" style="flex: 1;">
@@ -164,6 +164,10 @@
                                 <label id="label-psm-rate">Rate (Aufwandmenge):</label>
                                 <input type="text" id="psm-rate-input" list="psm-rate-list" style="width: 100%;">
                                 <datalist id="psm-rate-list"></datalist>
+                            </div>
+                            <div class="form-group">
+                                <label id="label-psm-wartezeit">Waiting Period (Wartezeit):</label>
+                                <select id="psm-wartezeit-select" style="width: 100%;"></select>
                             </div>
                             <button type="button" class="btn-success" onclick="addProductToList()">Add Product to Task</button>
                         </div>
