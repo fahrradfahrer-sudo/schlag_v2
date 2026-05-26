@@ -242,10 +242,18 @@
                                 <label id="label-bulk-psm-awg">Application (AWG):</label>
                                 <select id="bulk-psm-awg-select" onchange="onBulkAWGSelected()" style="width: 100%;"></select>
                             </div>
+                            <div class="form-group" id="bulk-psm-schadorg-group" style="display: none;">
+                                <label id="label-bulk-psm-schadorg">Target Organism (Schadorganismus):</label>
+                                <select id="bulk-psm-schadorg-select" style="width: 100%;"></select>
+                            </div>
                             <div class="form-group">
                                 <label id="label-bulk-psm-rate">Rate (Aufwandmenge):</label>
                                 <input type="text" id="bulk-psm-rate-input" list="bulk-psm-rate-list" style="width: 100%;">
                                 <datalist id="bulk-psm-rate-list"></datalist>
+                            </div>
+                            <div class="form-group">
+                                <label id="label-bulk-psm-wartezeit">Waiting Period (Wartezeit):</label>
+                                <select id="bulk-psm-wartezeit-select" style="width: 100%;"></select>
                             </div>
                             <button type="button" class="btn-success" onclick="addBulkProductToList()">Add Product</button>
                         </div>
@@ -342,7 +350,7 @@
                 </div>
                 <div class="form-group">
                     <label id="label-crop">Crop:</label>
-                    <input type="text" id="field-crop" list="crop-list" placeholder="Search crop or EPPO code...">
+                    <input type="text" id="field-crop" list="crop-list" placeholder="z.B. Weizen, Mais">
                     <datalist id="crop-list"></datalist>
                 </div>
                 <div class="form-group">

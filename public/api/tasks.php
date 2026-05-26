@@ -58,7 +58,7 @@ try {
                 $pdo->beginTransaction();
                 $stmt = $pdo->prepare("INSERT INTO tasks (field_id, year, task_type, task_date, content, comment, employee, bbch, bbch_description, water_rate, application_type, treated_area, wind_speed, temperature, irrigation_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $areaStmt = $pdo->prepare("SELECT area FROM fields WHERE id = ?");
-                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s, wartezeit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 foreach ($data['field_ids'] as $fid) {
                     $treated_area = $data['treated_area'] ?? null;
                     if (!$treated_area || $treated_area === '') {
@@ -98,7 +98,8 @@ try {
                                 $p['n'] ?? null,
                                 $p['p'] ?? null,
                                 $p['k'] ?? null,
-                                $p['s'] ?? null
+                                $p['s'] ?? null,
+                                $p['wartezeit'] ?? null
                             ]);
                         }
                     }
@@ -134,7 +135,7 @@ try {
                 ]);
                 $taskId = $pdo->lastInsertId();
                 if (isset($data['products']) && is_array($data['products'])) {
-                    $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s, wartezeit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     foreach ($data['products'] as $p) {
                         $prodStmt->execute([
                             $taskId,
@@ -148,7 +149,8 @@ try {
                             $p['n'] ?? null,
                             $p['p'] ?? null,
                             $p['k'] ?? null,
-                            $p['s'] ?? null
+                            $p['s'] ?? null,
+                            $p['wartezeit'] ?? null
                         ]);
                     }
                 }
@@ -186,7 +188,7 @@ try {
             // Update products (delete and re-insert for simplicity)
             $pdo->prepare("DELETE FROM task_products WHERE task_id = ?")->execute([$id]);
             if (isset($data['products']) && is_array($data['products'])) {
-                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $prodStmt = $pdo->prepare("INSERT INTO task_products (task_id, mittelname, kennr, schadorganismus, verwendungszweck, aufwandmenge, einheit, active_ingredients, n, p, k, s, wartezeit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 foreach ($data['products'] as $p) {
                     $prodStmt->execute([
                         $id,
@@ -200,7 +202,8 @@ try {
                         $p['n'] ?? null,
                         $p['p'] ?? null,
                         $p['k'] ?? null,
-                        $p['s'] ?? null
+                        $p['s'] ?? null,
+                        $p['wartezeit'] ?? null
                     ]);
                 }
             }

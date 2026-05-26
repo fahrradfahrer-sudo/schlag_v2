@@ -74,6 +74,7 @@ if ($kennr) {
             $schadorg = fetch_api($base_url . "awg_schadorg/?q=" . $q_awg);
             $verw = fetch_api($base_url . "awg_verwendungszweck/?q=" . $q_awg);
             $kultur = fetch_api($base_url . "awg_kultur/?q=" . $q_awg);
+            $wartezeit = fetch_api($base_url . "awg_wartezeit/?q=" . $q_awg);
 
             $awg_details[] = [
                 "awg_id" => $awg_id,
@@ -83,7 +84,8 @@ if ($kennr) {
                 "aufwand" => $aufwand['items'] ?? [],
                 "schadorg" => $schadorg['items'] ?? [],
                 "verwendung" => $verw['items'] ?? [],
-                "kultur" => $kultur['items'] ?? []
+                "kultur" => $kultur['items'] ?? [],
+                "wartezeit" => $wartezeit['items'] ?? []
             ];
         }
     }

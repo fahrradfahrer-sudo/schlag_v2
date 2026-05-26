@@ -81,7 +81,12 @@ function openBulkTaskModal() {
 
     // Set default date
     const now = new Date();
-    const currentDateTime = now.toISOString().slice(0, 16);
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
     document.getElementById('bulk-task-date').value = currentDateTime;
 
     // Reset plant protection state
@@ -103,11 +108,11 @@ function openBulkTaskModal() {
     document.getElementById('bulk-save-custom-fert').checked = false;
     document.getElementById('bulk-fertilizer-info').style.display = 'none';
 
-    // Ensure extra fields are toggled correctly for the initial selection
-    toggleBulkExtraFields();
-
     populateBulkFieldList();
     updateBulkTreatedAreaState();
+
+    // Ensure extra fields are toggled correctly for the initial selection
+    toggleBulkExtraFields();
 }
 
 function updateBulkTreatedAreaState() {
@@ -228,43 +233,10 @@ function estimateBulkBBCH(cropValue) {
 
     if (bbchInput.value) return; // Don't override manual entry
 
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-
-    let estimation = "";
-    let bbch = "";
-
-    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
-        if (month < 4) { bbch = "00"; estimation = "Keimruhe / Vorbereitung"; }
-        else if (month === 4) { bbch = "01"; estimation = "Keimentwicklung"; }
-        else if (month === 5) { bbch = "10"; estimation = "Blattentwicklung"; }
-        else if (month === 6) { bbch = "31"; estimation = "Stängelwachstum"; }
-        else if (month === 7) { bbch = "51"; estimation = "Blüte"; }
-        else if (month === 8) { bbch = "71"; estimation = "Knollenreife"; }
-        else { bbch = "91"; estimation = "Absterben / Ernte"; }
-    } else if (cropValue.includes('wheat') || cropValue.includes('weizen')) {
-        if (month <= 3) { bbch = "21"; estimation = "Bestockung"; }
-        else if (month === 4) { bbch = "30"; estimation = "Schossen"; }
-        else if (month === 5) { bbch = "37"; estimation = "Fahnenblatt"; }
-        else if (month === 6) { bbch = "61"; estimation = "Blüte"; }
-        else if (month === 7) { bbch = "75"; estimation = "Reife"; }
-        else { bbch = "00"; estimation = "Keimung"; }
-    } else if (cropValue.includes('maize') || cropValue.includes('mais')) {
-        if (month === 5) { bbch = "00"; estimation = "Keimung"; }
-        else if (month === 6) { bbch = "30"; estimation = "Längenwachstum"; }
-        else if (month === 7) { bbch = "51"; estimation = "Blüte"; }
-        else if (month === 8) { bbch = "71"; estimation = "Reife"; }
-        else { bbch = "99"; estimation = "Ernte"; }
-    } else if (cropValue.includes('sugar beet') || cropValue.includes('zuckerrübe')) {
-        if (month === 4) { bbch = "00"; estimation = "Keimung"; }
-        else if (month === 5) { bbch = "10"; estimation = "Blattentwicklung"; }
-        else if (month === 6) { bbch = "31"; estimation = "Reihenschluss"; }
-        else { bbch = "41"; estimation = "Rübenentwicklung"; }
-    }
+    const { bbch, estimation } = getBBCHEstimation(cropValue, currentLang);
 
     if (bbch) {
-        bbchInput.value = bbch;
+        bbchInput.value = bbch.split('-')[0];
         bbchDescInput.value = estimation;
     }
 }
@@ -416,23 +388,28 @@ async function fetchBulkWeather() {
 function onBulkBBCHManualChange() {
     const bbchValue = document.getElementById('bulk-task-bbch').value;
     if (!bbchValue) return;
-    const bbchNum = parseInt(bbchValue);
-    if (isNaN(bbchNum)) return;
 
-    // Simple heuristic for bulk description
-    let desc = "";
-    if (bbchNum < 10) desc = "Keimung";
-    else if (bbchNum < 20) desc = "Blattentwicklung";
-    else if (bbchNum < 30) desc = "Bestockung / Seitensprosse";
-    else if (bbchNum < 40) desc = "Schossen";
-    else if (bbchNum < 60) desc = "Ährenschwellen / Ährenschieben";
-    else if (bbchNum < 70) desc = "Blüte";
-    else if (bbchNum < 90) desc = "Reife";
-    else desc = "Ernte";
+    // Get crop from selected fields if they all share the same crop
+    const selectedIds = getBulkSelectedFieldIds();
+    const selectedFields = loadedFields.filter(f => selectedIds.includes(String(f.id)));
+    const crops = [...new Set(selectedFields.map(f => (f.crop || '').toLowerCase()))];
+    const cropValue = crops.length === 1 ? crops[0] : "";
 
-    // Since we don't have a single crop in bulk, we provide a generic description
+    const desc = getBBCHDescription(cropValue, bbchValue, currentLang);
+
     if (desc) {
         document.getElementById('bulk-task-bbch-desc').value = desc;
+    } else {
+        // Fallback to a very simple generic description if no crop match
+        const bbchNum = parseInt(bbchValue);
+        if (isNaN(bbchNum)) return;
+        let genericDesc = "";
+        if (bbchNum < 10) genericDesc = currentLang === 'de' ? "Keimung" : "Germination";
+        else if (bbchNum < 20) genericDesc = currentLang === 'de' ? "Blattentwicklung" : "Leaf development";
+        else if (bbchNum < 40) genericDesc = currentLang === 'de' ? "Schossen" : "Stem elongation";
+        else if (bbchNum < 70) genericDesc = currentLang === 'de' ? "Blüte" : "Flowering";
+        else genericDesc = currentLang === 'de' ? "Reife / Ernte" : "Ripening / Harvest";
+        document.getElementById('bulk-task-bbch-desc').value = genericDesc;
     }
 }
 
@@ -574,6 +551,28 @@ function onBulkAWGSelected() {
     const awg = selectedBulkPSM.awg.find(a => a.awg_id === awgId);
     if (!awg) return;
 
+    // Schadorganismus: Only show if only one crop is selected
+    const selectedIds = getBulkSelectedFieldIds();
+    const selectedFields = loadedFields.filter(f => selectedIds.includes(String(f.id)));
+    const crops = [...new Set(selectedFields.map(f => (f.crop || '').toLowerCase()))];
+    const schadorgGroup = document.getElementById('bulk-psm-schadorg-group');
+    const schadSelect = document.getElementById('bulk-psm-schadorg-select');
+    schadSelect.innerHTML = '';
+
+    if (crops.length === 1 && crops[0] !== '') {
+        schadorgGroup.style.display = 'block';
+        if (awg.schadorg) {
+            awg.schadorg.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.schadorg;
+                opt.textContent = s.schadorg;
+                schadSelect.appendChild(opt);
+            });
+        }
+    } else {
+        schadorgGroup.style.display = 'none';
+    }
+
     const rateList = document.getElementById('bulk-psm-rate-list');
     rateList.innerHTML = '';
     awg.aufwand.forEach(r => {
@@ -585,13 +584,33 @@ function onBulkAWGSelected() {
     if (awg.aufwand.length > 0) {
         document.getElementById('bulk-psm-rate-input').value = `${awg.aufwand[0].m_aufwand} ${awg.aufwand[0].m_aufwand_einheit}`;
     }
+
+    // Wartezeit
+    const wartezeitSelect = document.getElementById('bulk-psm-wartezeit-select');
+    wartezeitSelect.innerHTML = '';
+    if (awg.wartezeit && awg.wartezeit.length > 0) {
+        awg.wartezeit.forEach(w => {
+            const opt = document.createElement('option');
+            const val = w.wartezeit_tage ? `${w.wartezeit_tage} days` : (w.wartezeit_ausgen_text || 'F');
+            opt.value = val;
+            opt.textContent = `${val} (${w.kultur})`;
+            wartezeitSelect.appendChild(opt);
+        });
+    } else {
+        const opt = document.createElement('option');
+        opt.value = 'N/A';
+        opt.textContent = 'N/A';
+        wartezeitSelect.appendChild(opt);
+    }
 }
 
 let addedBulkProducts = [];
 
 function addBulkProductToList() {
     const awgSelect = document.getElementById('bulk-psm-awg-select');
+    const schadSelect = document.getElementById('bulk-psm-schadorg-select');
     const rateInput = document.getElementById('bulk-psm-rate-input');
+    const wartezeitSelect = document.getElementById('bulk-psm-wartezeit-select');
     if (!selectedBulkPSM || !awgSelect.value) return;
 
     let amount = rateInput.value;
@@ -605,10 +624,11 @@ function addBulkProductToList() {
     const product = {
         mittelname: selectedBulkPSM.mittel.mittelname,
         kennr: selectedBulkPSM.mittel.kennr,
-        schadorganismus: 'N/A',
+        schadorganismus: schadSelect.value || 'N/A',
         verwendungszweck: 'N/A',
         aufwandmenge: amount,
         einheit: unit,
+        wartezeit: wartezeitSelect.value || 'N/A',
         active_ingredients: selectedBulkPSM.wirkstoffe ? selectedBulkPSM.wirkstoffe.map(w => `${w.name} (${w.amount} ${w.unit})`).join(", ") : ''
     };
 
@@ -626,7 +646,7 @@ function renderBulkAddedProducts() {
         container.style.display = 'block';
         addedBulkProducts.forEach((p, index) => {
             const li = document.createElement('li');
-            li.innerHTML = `${p.mittelname} (${p.kennr}) - ${p.aufwandmenge} ${p.einheit} <button type="button" onclick="removeBulkProduct(${index})">x</button>`;
+            li.innerHTML = `${p.mittelname} (${p.kennr}) - ${p.aufwandmenge} ${p.einheit} | Wartezeit: ${p.wartezeit || 'N/A'} <button type="button" onclick="removeBulkProduct(${index})">x</button>`;
             list.appendChild(li);
         });
     } else {
@@ -833,13 +853,15 @@ async function loadFields(autoZoom = false) {
 
         // Update crop dropdown
         const cropSelect = document.getElementById('bulk-select-crop');
-        cropSelect.innerHTML = '<option value="">-- All --</option>';
-        Array.from(crops).sort().forEach(c => {
-            const opt = document.createElement('option');
-            opt.value = c;
-            opt.textContent = c;
-            cropSelect.appendChild(opt);
-        });
+        if (cropSelect) {
+            cropSelect.innerHTML = '<option value="">-- All --</option>';
+            Array.from(crops).sort().forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c;
+                opt.textContent = c;
+                cropSelect.appendChild(opt);
+            });
+        }
 
         const totalAreaText = (typeof _t === 'function') ? _t('total-area', {area: totalArea.toFixed(2)}) : `Total Area: ${totalArea.toFixed(2)} ha`;
         document.getElementById('total-area-display').textContent = totalAreaText;
@@ -1090,6 +1112,7 @@ async function exportAllData(format = 'xlsx') {
                                 "Purpose": p.verwendungszweck,
                                 "App Rate": p.aufwandmenge,
                                 "Unit": p.einheit,
+                                "Waiting Period": p.wartezeit,
                                 "Active Ingredients": p.active_ingredients,
                                 "N [%]": p.n,
                                 "P [%]": p.p,
@@ -1498,49 +1521,12 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
         features = [geojson];
     }
 
-    // Load crops for NC uncoding if not already present
-    if (typeof cropList === 'undefined' || cropList.length === 0) {
-        try {
-            const resp = await fetch('data/crops.json');
-            window.cropList = await resp.json();
-        } catch (e) {
-            console.error("Failed to load crops for uncoding", e);
-        }
-    }
-    const list = window.cropList || [];
-
     for (const item of features) {
         let geometry = item.geometry || (item.type === 'Polygon' || item.type === 'MultiPolygon' ? item : null);
         if (geometry) {
             const props = item.properties || {};
 
-            // Uncode NC or match by name/synonym if present
-            let rawCrop = props.KTA_VJ || props.NC || props.NutzCode || props.NC_CODE || props.KULTUR_KOD || props.KULTUR || props.Nutzung || '';
-            let finalCrop = rawCrop;
-            if (rawCrop) {
-                const cleanVal = String(rawCrop).toLowerCase().trim();
-                const cleanNC = cleanVal.replace(/^0+/, '');
-
-                // 1. Try matching by NC
-                let matched = list.find(c => c.nc && (String(c.nc) === cleanNC || String(c.nc) === cleanVal));
-
-                // 2. If no NC match, try matching by Name or Synonym
-                if (!matched) {
-                    matched = list.find(c => {
-                        if (c.name.toLowerCase() === cleanVal || (c.en && c.en.toLowerCase() === cleanVal)) return true;
-                        if (c.synonyms) {
-                            return c.synonyms.split(',').some(s => s.trim().toLowerCase() === cleanVal);
-                        }
-                        return false;
-                    });
-                }
-
-                if (matched) {
-                    const lang = (typeof currentLang !== 'undefined') ? currentLang : 'de';
-                    const displayName = lang === 'de' ? matched.name : (matched.en || matched.name);
-                    finalCrop = `${displayName} (${matched.eppo})`;
-                }
-            }
+            let finalCrop = props.KULTUR || props.Nutzung || '';
 
             await fetch('api/fields.php', {
                 method: 'POST',

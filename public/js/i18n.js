@@ -98,7 +98,8 @@ const translations = {
         'label-temperature': 'Temperature [°C]:',
         'task-applied-success': 'Task applied successfully to {count} fields.',
         'fertilizer-search-placeholder': 'Search fertilizer...',
-        'btn-add-fertilizer': 'Add Fertilizer'
+        'btn-add-fertilizer': 'Add Fertilizer',
+        'psm-wartezeit': 'Waiting Period (Wartezeit):'
     },
     de: {
         'page-title': 'AgriField Manager - Übersicht',
@@ -200,38 +201,12 @@ const translations = {
         'label-temperature': 'Temperatur [°C]:',
         'task-applied-success': 'Aufgabe erfolgreich auf {count} Felder angewendet.',
         'fertilizer-search-placeholder': 'Dünger suchen...',
-        'btn-add-fertilizer': 'Dünger hinzufügen'
+        'btn-add-fertilizer': 'Dünger hinzufügen',
+        'psm-wartezeit': 'Wartezeit:'
     }
 };
 
 let currentLang = localStorage.getItem('language') || 'en';
-let cropList = [];
-
-async function loadCropList() {
-    try {
-        if (cropList.length === 0) {
-            const response = await fetch('data/crops.json');
-            cropList = await response.json();
-        }
-        const datalists = document.querySelectorAll('#crop-list');
-        datalists.forEach(datalist => {
-            datalist.innerHTML = '';
-            const uniqueCrops = new Set();
-            cropList.forEach(crop => {
-                const displayName = currentLang === 'de' ? crop.name : (crop.en || crop.name);
-                const value = `${displayName} ${crop.eppo}`;
-                if (!uniqueCrops.has(value)) {
-                    uniqueCrops.add(value);
-                    const option = document.createElement('option');
-                    option.value = value;
-                    datalist.appendChild(option);
-                }
-            });
-        });
-    } catch (e) {
-        console.error("Error loading crop list:", e);
-    }
-}
 
 function setLanguage(lang) {
     currentLang = lang;
@@ -303,6 +278,8 @@ function applyTranslations() {
         'label-bulk-task-bbch': t['label-task-bbch'],
         'label-bbch-desc': t['label-bbch-desc'],
         'label-bulk-psm-awg': t['label-psm-awg'],
+        'label-psm-wartezeit': t['psm-wartezeit'],
+        'label-bulk-psm-wartezeit': t['psm-wartezeit'],
         'label-bulk-psm-rate': t['label-psm-rate'],
         'title-bulk-added-products': t['title-added-products'],
         'label-bulk-water-rate': t['label-water-rate'],
@@ -357,8 +334,6 @@ function applyTranslations() {
     cropInputs.forEach(input => {
         input.placeholder = t['placeholder-crop'];
     });
-
-    loadCropList();
 
     const psmSearchInput = document.getElementById('psm-search');
     if (psmSearchInput) psmSearchInput.placeholder = t['psm-search-placeholder'];
@@ -427,6 +402,113 @@ function showToast(message, type = 'success') {
 window.alert = function(msg) {
     showToast(msg, 'info');
 };
+
+function getBBCHEstimation(cropValue, lang) {
+    cropValue = (cropValue || '').toLowerCase();
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    let estimation = "";
+    let bbch = "";
+
+    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
+        if (month < 4) {
+            bbch = "00";
+            estimation = lang === 'de' ? "Keimruhe / Vorbereitung" : "Dormancy / Preparation";
+        } else if (month === 4) {
+            bbch = "01-09";
+            estimation = lang === 'de' ? "Keimentwicklung" : "Sprout development";
+        } else if (month === 5) {
+            if (day < 15) {
+                bbch = "10-19";
+                estimation = lang === 'de' ? "Blattentwicklung" : "Leaf development";
+            } else {
+                bbch = "21-29";
+                estimation = lang === 'de' ? "Bildung von Seitensprossen" : "Formation of side shoots";
+            }
+        } else if (month === 6) {
+            if (day < 15) {
+                bbch = "31-39";
+                estimation = lang === 'de' ? "Längenwachstum der Hauptstängel / Reihenschluss" : "Stem elongation / Crop cover";
+            } else {
+                bbch = "41-48";
+                estimation = lang === 'de' ? "Knollenbildung" : "Tuber formation";
+            }
+        } else if (month === 7) {
+            bbch = "51-69";
+            estimation = lang === 'de' ? "Blütenknospenentwicklung bis Ende der Blüte" : "Inflorescence emergence to end of flowering";
+        } else if (month === 8) {
+            bbch = "71-89";
+            estimation = lang === 'de' ? "Beerenentwicklung bis Reife der Knollen" : "Development of fruit to ripening of tubers";
+        } else {
+            bbch = "91-99";
+            estimation = lang === 'de' ? "Absterben der Pflanze / Ernte" : "Senescence / Harvest";
+        }
+    } else if (cropValue.includes('wheat') || cropValue.includes('weizen')) {
+        if (month <= 3) { bbch = "21-29"; estimation = lang === 'de' ? "Bestockung" : "Tillering"; }
+        else if (month === 4) { bbch = "30-32"; estimation = lang === 'de' ? "Schossen" : "Stem elongation"; }
+        else if (month === 5) { bbch = "37-51"; estimation = lang === 'de' ? "Fahnenblatt bis Ährenschieben" : "Flag leaf to ear emergence"; }
+        else if (month === 6) { bbch = "61-71"; estimation = lang === 'de' ? "Blüte" : "Flowering"; }
+        else if (month === 7) { bbch = "75-89"; estimation = lang === 'de' ? "Milchreife bis Totreife" : "Milk to full ripeness"; }
+        else { bbch = "00-11"; estimation = lang === 'de' ? "Keimung" : "Germination"; }
+    } else if (cropValue.includes('maize') || cropValue.includes('mais')) {
+        if (month === 5) { bbch = "00-19"; estimation = lang === 'de' ? "Keimung bis Blattentwicklung" : "Germination to leaf development"; }
+        else if (month === 6) { bbch = "30-39"; estimation = lang === 'de' ? "Längenwachstum" : "Stem elongation"; }
+        else if (month === 7) { bbch = "51-69"; estimation = lang === 'de' ? "Blüte" : "Flowering"; }
+        else if (month === 8) { bbch = "71-89"; estimation = lang === 'de' ? "Fruchtentwicklung bis Reife" : "Fruit development to ripeness"; }
+        else { bbch = "99"; estimation = lang === 'de' ? "Ernte" : "Harvest"; }
+    } else if (cropValue.includes('barley') || cropValue.includes('gerste')) {
+        if (month <= 3) { bbch = "21-29"; estimation = lang === 'de' ? "Bestockung" : "Tillering"; }
+        else if (month === 4) { bbch = "31-39"; estimation = lang === 'de' ? "Schossen" : "Stem elongation"; }
+        else if (month === 5) { bbch = "49-59"; estimation = lang === 'de' ? "Grannenspitzen bis Ährenschieben" : "Awns visible to ear emergence"; }
+        else if (month === 6) { bbch = "61-71"; estimation = lang === 'de' ? "Blüte" : "Flowering"; }
+        else { bbch = "87-99"; estimation = lang === 'de' ? "Reife / Ernte" : "Ripeness / Harvest"; }
+    } else if (cropValue.includes('rapeseed') || cropValue.includes('raps')) {
+        if (month <= 3) { bbch = "19-30"; estimation = lang === 'de' ? "Rosettenstadium bis Schossen" : "Rosette stage to stem elongation"; }
+        else if (month === 4) { bbch = "50-59"; estimation = lang === 'de' ? "Knospenentwicklung" : "Inflorescence emergence"; }
+        else if (month === 5) { bbch = "60-69"; estimation = lang === 'de' ? "Blüte" : "Flowering"; }
+        else if (month === 6) { bbch = "71-79"; estimation = lang === 'de' ? "Schotenentwicklung" : "Development of fruit"; }
+        else { bbch = "80-99"; estimation = lang === 'de' ? "Reife / Ernte" : "Ripeness / Harvest"; }
+    } else if (cropValue.includes('sugar beet') || cropValue.includes('zuckerrübe')) {
+        if (month === 4) { bbch = "00-09"; estimation = lang === 'de' ? "Keimung" : "Germination"; }
+        else if (month === 5) { bbch = "10-19"; estimation = lang === 'de' ? "Blattentwicklung" : "Leaf development"; }
+        else if (month === 6) { bbch = "31-39"; estimation = lang === 'de' ? "Reihenschluss" : "Crop cover"; }
+        else { bbch = "41-49"; estimation = lang === 'de' ? "Rübenentwicklung" : "Development of beet root"; }
+    }
+    return { bbch, estimation };
+}
+
+function getBBCHDescription(cropValue, bbchValue, lang) {
+    cropValue = (cropValue || '').toLowerCase();
+    const bbchNum = parseInt(bbchValue);
+    if (isNaN(bbchNum)) return "";
+
+    let desc = "";
+    if (cropValue.includes('potato') || cropValue.includes('kartoffel')) {
+        if (bbchNum === 0) desc = lang === 'de' ? "Keimruhe" : "Dormancy";
+        else if (bbchNum < 10) desc = lang === 'de' ? "Keimentwicklung" : "Sprout development";
+        else if (bbchNum < 20) desc = lang === 'de' ? "Blattentwicklung" : "Leaf development";
+        else if (bbchNum < 30) desc = lang === 'de' ? "Seitensprossbildung" : "Side shoot formation";
+        else if (bbchNum < 40) desc = lang === 'de' ? "Stängelwachstum" : "Stem elongation";
+        else if (bbchNum < 50) desc = lang === 'de' ? "Knollenbildung" : "Tuber formation";
+        else if (bbchNum < 70) desc = lang === 'de' ? "Blüte" : "Flowering";
+        else if (bbchNum < 90) desc = lang === 'de' ? "Beerenentwicklung" : "Fruit development";
+        else desc = lang === 'de' ? "Absterben / Ernte" : "Senescence / Harvest";
+    } else if (cropValue.includes('wheat') || cropValue.includes('weizen') || cropValue.includes('barley') || cropValue.includes('gerste')) {
+        if (bbchNum < 10) desc = lang === 'de' ? "Keimung" : "Germination";
+        else if (bbchNum < 20) desc = lang === 'de' ? "Blattentwicklung" : "Leaf development";
+        else if (bbchNum < 30) desc = lang === 'de' ? "Bestockung" : "Tillering";
+        else if (bbchNum < 40) desc = lang === 'de' ? "Schossen" : "Stem elongation";
+        else if (bbchNum < 50) desc = lang === 'de' ? "Ährenschwellen" : "Booting";
+        else if (bbchNum < 60) desc = lang === 'de' ? "Ährenschieben" : "Ear emergence";
+        else if (bbchNum < 70) desc = lang === 'de' ? "Blüte" : "Flowering";
+        else if (bbchNum < 80) desc = lang === 'de' ? "Milchreife" : "Milk development";
+        else if (bbchNum < 90) desc = lang === 'de' ? "Teigreife" : "Dough development";
+        else desc = lang === 'de' ? "Reife / Ernte" : "Ripening / Harvest";
+    }
+    return desc;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     applyTranslations();
