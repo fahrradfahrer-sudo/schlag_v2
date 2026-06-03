@@ -1,0 +1,7212 @@
+[
+  {
+    "nc": "826",
+    "name": "Lupinen (Süßlupine, weiße Lupine, blaue/schmalblättrige Lupine, gelbe Lupine, Anden-Lupine)",
+    "eppo": "LUPLU",
+    "en": "Lupine, Gelbe",
+    "synonyms": []
+  },
+  {
+    "nc": "827",
+    "name": "Gartenbohne (Gartenbohne/Buschbohne/Stangenbohne, Feuerbohne/Prunkbohne)",
+    "eppo": "PHSVN",
+    "en": "dwarf French bean",
+    "synonyms": []
+  },
+  {
+    "nc": "828",
+    "name": "Sonnenhut (Schmalblättriger Sonnenhut, Purpur-Sonnenhut)",
+    "eppo": "ECEAN",
+    "en": "narrow-leaved coneflower",
+    "synonyms": []
+  },
+  {
+    "nc": "829",
+    "name": "Lattich (Garten-Salat/Lattich, Lollo Rosso, Romana-Salat/Römischer Salat)",
+    "eppo": "LACSR",
+    "en": "Salat, Römischer",
+    "synonyms": []
+  },
+  {
+    "nc": "833",
+    "name": "Kamillen (Echte Kamille)",
+    "eppo": "MATCH",
+    "en": "Echte Kamille; Kamille",
+    "synonyms": []
+  },
+  {
+    "nc": "834",
+    "name": "Winterrübsen (Rübsen, Rübsamen, Rübsaat)",
+    "eppo": "BRSRO",
+    "en": "turnip rape",
+    "synonyms": []
+  },
+  {
+    "nc": "838",
+    "name": "Nicht landwirtschaftliche, aber §11 (1) Nr.3 Bst. c) der GAPDZV förderfähige Fläche (Aufforstungsv",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "839",
+    "name": "Nicht landwirtschaftliche, aber nach §11 (1) Nr.3 Bst. d der GAPDZV förderfähige Fläche (Stilllegun",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "840",
+    "name": "Ackerland aus der Erzeugung genommen",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "112",
+    "name": "Winter-Dinkel",
+    "eppo": "TRZSP",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "841",
+    "name": "Dauergrünland aus der Erzeugung genommen",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "113",
+    "name": "Sommerdurum (Hartweizen)",
+    "eppo": "TRZSS",
+    "en": "wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "843",
+    "name": "Zichorien/Wegwarten (Chicorée, Radicchio, krausblättrige Endivie, ganzblättrige Endivie, Zichorie)",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "114",
+    "name": "Winter-Dinkel",
+    "eppo": "TRZSP",
+    "en": "Spelzweizen",
+    "synonyms": []
+  },
+  {
+    "nc": "844",
+    "name": "Unbestockte Rebfläche",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "115",
+    "name": "Winterweichweizen",
+    "eppo": "TRZAW",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "845",
+    "name": "Engelwurzen (Arznei-Engelwurz, Echter Engelwurz)",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "116",
+    "name": "Sommerweichweizen",
+    "eppo": "TRZAS",
+    "en": "spring soft wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "848",
+    "name": "Futterrübe/Runkelrübe",
+    "eppo": "BEAVC",
+    "en": "Runkelrübe",
+    "synonyms": []
+  },
+  {
+    "nc": "118",
+    "name": "Winter-Emmer/-Einkorn",
+    "eppo": "TRZDI",
+    "en": "emmer",
+    "synonyms": []
+  },
+  {
+    "nc": "849",
+    "name": "Fenchel (Gemüsefenchel, Körnerfenchel)",
+    "eppo": "FOEVA",
+    "en": "Italian fennel",
+    "synonyms": []
+  },
+  {
+    "nc": "119",
+    "name": "Sommer-Emmer/-Einkorn",
+    "eppo": "TRZDI",
+    "en": "emmer",
+    "synonyms": []
+  },
+  {
+    "nc": "850",
+    "name": "beetweiser Anbau von Küchenkräuter/Heil-und Gewürzpflanzen ab 5 Kulturen",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "120",
+    "name": "Sommer-Dinkel",
+    "eppo": "TRZSP",
+    "en": "Spelzweizen",
+    "synonyms": []
+  },
+  {
+    "nc": "851",
+    "name": "beetweiser Anbau von Küchenkräuter/Heil-und Gewürzpflanzen bis 4 Kulturen",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "121",
+    "name": "Winterroggen, Winter-Waldstaudenroggen",
+    "eppo": "SECCW",
+    "en": "winter rye",
+    "synonyms": []
+  },
+  {
+    "nc": "855",
+    "name": "Dauerkultur einer Gattung/Art, die in der aktuellen Liste nicht aufgeführt ist",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "122",
+    "name": "Sommerroggen, Sommer-Waldstaudenroggen",
+    "eppo": "SECCS",
+    "en": "spring rye",
+    "synonyms": []
+  },
+  {
+    "nc": "856",
+    "name": "Kerbel (Kerbel/echter Kerbel, Wiesenkerbel)",
+    "eppo": "ANRCE",
+    "en": "Kerbel, Gewuerz",
+    "synonyms": []
+  },
+  {
+    "nc": "125",
+    "name": "Wintermenggetreide",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "859",
+    "name": "Gemüserübsen (Stoppelrübe, Weiße Rübe, Bayerische Rübe, Mairübe, Chinakohl, Pak-Choi, Teltow",
+    "eppo": "BRSRO",
+    "en": "turnip rape",
+    "synonyms": []
+  },
+  {
+    "nc": "131",
+    "name": "Wintergerste",
+    "eppo": "HORVW",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "860",
+    "name": "Gemüsekohl (Kopfkohl, Wirsing, Rot-/Weißkohl, Spitzkohl, Grünkohl, Kohlrabi, Markstammkohl, Blu",
+    "eppo": "BRSOM",
+    "en": "Kuhkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "132",
+    "name": "Sommergerste",
+    "eppo": "HORVS",
+    "en": "spring barley",
+    "synonyms": []
+  },
+  {
+    "nc": "861",
+    "name": "Hornklee, Hornschotenklee",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "142",
+    "name": "Winterhafer",
+    "eppo": "AVESW",
+    "en": "winter oats",
+    "synonyms": []
+  },
+  {
+    "nc": "865",
+    "name": "Schwarzkümmel (Echter Schwarzkümmel, Jungfer im Grünen)",
+    "eppo": "CRYCA",
+    "en": "common caraway",
+    "synonyms": []
+  },
+  {
+    "nc": "143",
+    "name": "Sommerhafer",
+    "eppo": "AVESA",
+    "en": "common oats",
+    "synonyms": []
+  },
+  {
+    "nc": "574",
+    "name": "Färberkrapp (Rubia tinctorum)",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "144",
+    "name": "Sommermenggetreide",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "575",
+    "name": "beetweiser Anbau Zierpflanzen ab 5 Kulturen",
+    "eppo": "NNNZZ",
+    "en": "ornamentals",
+    "synonyms": []
+  },
+  {
+    "nc": "156",
+    "name": "Wintertriticale",
+    "eppo": "TTLWI",
+    "en": "winter triticale",
+    "synonyms": []
+  },
+  {
+    "nc": "590",
+    "name": "Gartenrettiche (Weiße/rote Rettiche, schwarzer Winterrettich, Ölrettich, Radieschen)",
+    "eppo": "RAPSN",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "157",
+    "name": "Sommertriticale",
+    "eppo": "TTLSO",
+    "en": "spring triticale",
+    "synonyms": []
+  },
+  {
+    "nc": "886",
+    "name": "Weißer Senf, Gelber Senf",
+    "eppo": "SINAL",
+    "en": "Senf, Weißer",
+    "synonyms": []
+  },
+  {
+    "nc": "171",
+    "name": "Mais (ohne Silomais NC 411)",
+    "eppo": "ZEAMX",
+    "en": "maize",
+    "synonyms": []
+  },
+  {
+    "nc": "887",
+    "name": "Phacelia (als Hauptkultur z.B. Saatgutvermehrung)",
+    "eppo": "PHCTA",
+    "en": "Büschelschön, Rainfarnblättriges;",
+    "synonyms": []
+  },
+  {
+    "nc": "181",
+    "name": "Rispenhirse",
+    "eppo": "PANMI",
+    "en": "common millet",
+    "synonyms": []
+  },
+  {
+    "nc": "888",
+    "name": "Salbei (Küchen-/Heilsalbei, Buntschopf-Salbei)",
+    "eppo": "SALOF",
+    "en": "Salbei, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "182",
+    "name": "Buchweizen",
+    "eppo": "FAGES",
+    "en": "buckwheat",
+    "synonyms": []
+  },
+  {
+    "nc": "952",
+    "name": "Energiepflanze einer Gattung/Art, die in der aktuellen Liste nicht aufgeführt ist",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "183",
+    "name": "Mohren-/Zuckerhirse (ohne Sudangras NC 803)",
+    "eppo": "PPPPP",
+    "en": "Hirse-Arten",
+    "synonyms": []
+  },
+  {
+    "nc": "960",
+    "name": "Oregano (Echter Majoran, Oregano/Dost/Wilder Majoran)",
+    "eppo": "ORIVU",
+    "en": "wild majoram",
+    "synonyms": []
+  },
+  {
+    "nc": "186",
+    "name": "Amarant, Fuchsschwanz",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "981",
+    "name": "Schwarze Tollkirsche",
+    "eppo": "ATRBE",
+    "en": "great morel",
+    "synonyms": []
+  },
+  {
+    "nc": "187",
+    "name": "Quinoa",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "982",
+    "name": "Gurke (Salatgurke, Einlegegurke)",
+    "eppo": "CUMSA",
+    "en": "cucumber",
+    "synonyms": []
+  },
+  {
+    "nc": "210",
+    "name": "Erbsen (Markerbse, Schalerbse, Zuckererbse, Futtererbse, Peluschke)",
+    "eppo": "PIBSA",
+    "en": "Peluschke",
+    "synonyms": []
+  },
+  {
+    "nc": "983",
+    "name": "Verbenen (Echtes Eisenkraut)",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "211",
+    "name": "Gemüseerbse (Markerbse, Schalerbse, Zuckererbse)",
+    "eppo": "PIBST",
+    "en": "Gartenerbse",
+    "synonyms": []
+  },
+  {
+    "nc": "990",
+    "name": "Lavendel (Echter Lavendel, Speik-Lavendel, Hybrid-Lavendel)",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "212",
+    "name": "Platterbse",
+    "eppo": "LTHSA",
+    "en": "chickling pea",
+    "synonyms": []
+  },
+  {
+    "nc": "995",
+    "name": "Gartenkürbis (Gartenkürbis, Steirischer Kürbis, Zucchini, Spaghettikürbis, Zierkürbis)",
+    "eppo": "CUUPG",
+    "en": "zucchini",
+    "synonyms": []
+  },
+  {
+    "nc": "220",
+    "name": "Ackerbohne/Puffbohne/Pferdebohne/Dicke Bohne",
+    "eppo": "VICFM",
+    "en": "Ackerbohne, Kleine; Feldbohne",
+    "synonyms": []
+  },
+  {
+    "nc": "999",
+    "name": "Ackerkultur einer Gattung/Art, die in der aktuellen Liste nicht aufgeführt ist",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "221",
+    "name": "Wicken (Pannonische Wicke, Zottelwicke, Saatwicke)",
+    "eppo": "VICSS",
+    "en": "vetch species",
+    "synonyms": []
+  },
+  {
+    "nc": "866",
+    "name": "Winterlauch (Speise-Zwiebel, Schalotte, Lauch, Knoblauch, Schnittlauch, Bärlauch)",
+    "eppo": "ALLSA",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "222",
+    "name": "Linsen",
+    "eppo": "",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "825",
+    "name": "Sommerlauch (Speise-Zwiebel, Schalotte, Lauch, Knoblauch, Schnittlauch, Bärlauch)",
+    "eppo": "ALLSA",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "411",
+    "name": "Silomais",
+    "eppo": "ZEAMX",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "603",
+    "name": "Kartoffeln",
+    "eppo": "SOLTU",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "592",
+    "name": "Zuckerrüben",
+    "eppo": "BEAVA",
+    "en": "",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ackerbaukulturen",
+    "eppo": "NNNAC",
+    "en": "field crops",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brassica-Arten (Ackerbaukulturen)",
+    "eppo": "BRSAB",
+    "en": "1",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kohlrübe",
+    "eppo": "BRSNA",
+    "en": "Steckrübe; Unterkohlrabi; Wrucke",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerraps",
+    "eppo": "BRSNS",
+    "en": "spring oilseed rape",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterraps",
+    "eppo": "BRSNW",
+    "en": "winter oilseed rape",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterrübsen",
+    "eppo": "BRSSA",
+    "en": "winter turnip rape",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speiserüben (Stoppelrübe, Mairübe etc.)",
+    "eppo": "BRSRR",
+    "en": "Herbstrübe; Kleine Speiserübe; Mairübe;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Durchwachsene Silphie",
+    "eppo": "SIPPE",
+    "en": "cup plant",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Futterleguminosen",
+    "eppo": "NNNLF",
+    "en": "fodder legumes",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Einjährige Platterbse",
+    "eppo": "LTHAN",
+    "en": "annual yellow vetchling",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Esparsette",
+    "eppo": "ONBVI",
+    "en": "esparcet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Klee-Arten",
+    "eppo": "NNNLK",
+    "en": "clover species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Alexandrinerklee",
+    "eppo": "TRFAL",
+    "en": "berseem clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hornklee-Arten",
+    "eppo": "LOTSS",
+    "en": "bird's-foot trefoil species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Inkarnatklee",
+    "eppo": "TRFIN",
+    "en": "carnation clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Persischer Klee",
+    "eppo": "TRFRS",
+    "en": "Persian clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rotklee",
+    "eppo": "TRFPR",
+    "en": "red clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwedenklee",
+    "eppo": "TRFHY",
+    "en": "Bastardklee",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weißklee",
+    "eppo": "TRFRE",
+    "en": "white clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lupine-Arten",
+    "eppo": "LUPSS",
+    "en": "lupin species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blaue Lupine",
+    "eppo": "LUPAN",
+    "en": "blue lupin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Luzerne-Arten",
+    "eppo": "MEDSS",
+    "en": "alfalfa species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Luzerne",
+    "eppo": "MEDSA",
+    "en": "alfalfa",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Serradella",
+    "eppo": "OROSA",
+    "en": "Vogelfuß, Großer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weißer Steinklee",
+    "eppo": "MEUAL",
+    "en": "sweet white clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerwicke",
+    "eppo": "VICSA",
+    "en": "common vetch",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zottelwicke",
+    "eppo": "VICVI",
+    "en": "Wicke, Zottige",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Getreide (Gerste, Hafer, Roggen, Triticale, Weizen)",
+    "eppo": "NNNGE",
+    "en": "1",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "wheat)",
+    "eppo": "HORVX",
+    "en": "Gerste, Mehrzeilige",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hafer",
+    "eppo": "AVESS",
+    "en": "oats",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rauhhafer",
+    "eppo": "AVESG",
+    "en": "small oat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Triticale",
+    "eppo": "TTLSS",
+    "en": "triticale",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerdinkel",
+    "eppo": "3SPSC",
+    "en": "spelt (spring)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterdinkel",
+    "eppo": "3SPWC",
+    "en": "spelt (winter)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hartweizen",
+    "eppo": "TRZDU",
+    "en": "Durum-Weizen",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "winter durum wheat",
+    "eppo": "TRZDW",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Khorasan-Weizen",
+    "eppo": "TRZTN",
+    "en": "Khorasan wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tritordeum",
+    "eppo": "TTOSS",
+    "en": "Tritordeum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weichweizen",
+    "eppo": "TRZAX",
+    "en": "Brotweizen; Nacktweizen",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Getreidestoppel",
+    "eppo": "YSTEG",
+    "en": "cereal stubble",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echtes Glanzgras",
+    "eppo": "PHACA",
+    "en": "Canary grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Glatthafer",
+    "eppo": "ARREL",
+    "en": "Glatthafer, Hoher",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Goldhafer",
+    "eppo": "TRXFL",
+    "en": "golden oat grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Knaulgras",
+    "eppo": "DACGL",
+    "en": "Knäulgras, Gemeines",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lieschgras-Arten",
+    "eppo": "PHLSS",
+    "en": "cat's tail",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenlieschgras",
+    "eppo": "PHLPR",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeines Rispengras",
+    "eppo": "POATR",
+    "en": "rough meadow grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesen-Rispengras",
+    "eppo": "POAPR",
+    "en": "smooth-stalked meadow grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwingel-Arten",
+    "eppo": "FESSS",
+    "en": "fescue species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rohrschwingel",
+    "eppo": "FESAR",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rot-Schwingel",
+    "eppo": "FESRU",
+    "en": "Schwingel, Roter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schaf-Schwingel",
+    "eppo": "FESOV",
+    "en": "sheep's fescue",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenschwingel",
+    "eppo": "FESPR",
+    "en": "meadow fescue",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Straussgras-Arten",
+    "eppo": "AGSSS",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rotes Straussgras",
+    "eppo": "AGSTE",
+    "en": "Straussgras, Rotes",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weidelgras-Arten",
+    "eppo": "LOLSS",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bastard-Weidelgras",
+    "eppo": "LOLBO",
+    "en": "hybrid ryegrass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Deutsches Weidelgras",
+    "eppo": "LOLPE",
+    "en": "perennial ryegrass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenfuchsschwanz",
+    "eppo": "ALOPR",
+    "en": "meadow foxtail",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hackfrucht",
+    "eppo": "NNNHP",
+    "en": "root crop",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hanf",
+    "eppo": "CNISA",
+    "en": "Hanf, Gewöhnlicher",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hanfeibisch",
+    "eppo": "HIBCA",
+    "en": "1",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kolbenhirse",
+    "eppo": "SETIT",
+    "en": "foxtail millet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleegras",
+    "eppo": "NNKGS",
+    "en": "clover-grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krambe",
+    "eppo": "CRMAB",
+    "en": "Abessinischer Meerkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kreuzblättrige Wolfsmilch",
+    "eppo": "EPHLA",
+    "en": "mole plant",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lein",
+    "eppo": "LIUUT",
+    "en": "Flachs; Lein, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Leindotter",
+    "eppo": "CMASA",
+    "en": "gold-of-pleasure",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Maisstoppel",
+    "eppo": "YSTZE",
+    "en": "maize stubble",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Miscanthus",
+    "eppo": "MISSS",
+    "en": "Chinaschilf",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mohn",
+    "eppo": "PAPSO",
+    "en": "opium poppy",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Oelrettich",
+    "eppo": "RAPSO",
+    "en": "oil radish",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ölkürbis",
+    "eppo": "CUUPO",
+    "en": "oil pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pappel",
+    "eppo": "POPSS",
+    "en": "1",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rainfarnblättriges Büschelschön",
+    "eppo": "GUIAB",
+    "en": "niger",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rapsstoppel",
+    "eppo": "YSTBN",
+    "en": "rape stubble",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Reseda",
+    "eppo": "RESLT",
+    "en": "Färberwau",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rispen-Amarant",
+    "eppo": "AMACR",
+    "en": "Ausgebreiteter Amarant; Rispiger Amarant",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Russischer Löwenzahn",
+    "eppo": "TARKS",
+    "en": "Russian dandelion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Saflor",
+    "eppo": "CAUTI",
+    "en": "Färberdistel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Senf-Arten",
+    "eppo": "SINSS",
+    "en": "mustard species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sareptasenf",
+    "eppo": "BRSJU",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sesam",
+    "eppo": "SEGIN",
+    "en": "Gemeiner Sesam",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sida",
+    "eppo": "SIDHM",
+    "en": "Virginia fan petals",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sojabohne",
+    "eppo": "GLXMA",
+    "en": "soya bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sonnenblume",
+    "eppo": "HELAN",
+    "en": "Sonnenblume, Gemeine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Staudenknöterich",
+    "eppo": "REYSA",
+    "en": "giant knotweed",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stilllegungsflächen",
+    "eppo": "YSTIL",
+    "en": "unproductive areas",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tabak",
+    "eppo": "NIOTA",
+    "en": "Tabak, Virginischer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Teff",
+    "eppo": "ERATF",
+    "en": "teff",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Topinambur",
+    "eppo": "HELTU",
+    "en": "topinambur",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiden-Arten",
+    "eppo": "SAXSS",
+    "en": "willow species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wilder Indigo",
+    "eppo": "BAPTI",
+    "en": "Färberginster",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wurzelzichorie",
+    "eppo": "CICIS",
+    "en": "1",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Forstpflanzen",
+    "eppo": "NNNWW",
+    "en": "Mischwald; Wald",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Acer campestre",
+    "eppo": "ACRCA",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine; Weißbuche",
+    "eppo": "QUESS",
+    "en": "Eiche",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Erle",
+    "eppo": "ALUSS",
+    "en": "alder",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Fagus-Arten",
+    "eppo": "FAUSS",
+    "en": "Buche",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rotbuche",
+    "eppo": "FAUSY",
+    "en": "European beech",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lagerholz",
+    "eppo": "YLAGX",
+    "en": "timber in open storage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Einzelstämme",
+    "eppo": "YLAGE",
+    "en": "logs",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schichtholzpolter",
+    "eppo": "YLAGS",
+    "en": "timber storage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pappel",
+    "eppo": "POPSS",
+    "en": "poplar",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nadelholz",
+    "eppo": "NNNWN",
+    "en": "conifers",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Douglasie",
+    "eppo": "PSTME",
+    "en": "Douglas fir",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Fichte",
+    "eppo": "PIESS",
+    "en": "spruce",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blaufichte",
+    "eppo": "PIEPU",
+    "en": "Stechfichte",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lagerholz",
+    "eppo": "YLAGX",
+    "en": "timber in open storage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Einzelstämme",
+    "eppo": "YLAGE",
+    "en": "logs",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Langholzpolter",
+    "eppo": "YLAGL",
+    "en": "timber storage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schichtholzpolter",
+    "eppo": "YLAGS",
+    "en": "timber storage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lärche",
+    "eppo": "LAXSS",
+    "en": "European larch",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tanne",
+    "eppo": "ABISS",
+    "en": "fir",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nobilistanne",
+    "eppo": "ABIPR",
+    "en": "noble fir",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nordmann-Tanne",
+    "eppo": "ABINO",
+    "en": "Kaukasische Tanne; Nordmanns Tanne",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemüsekulturen",
+    "eppo": "NNNVV",
+    "en": "vegetables",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Arzneipflanzen",
+    "eppo": "NNNAP",
+    "en": "medicinal plants",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Anis",
+    "eppo": "PIMAN",
+    "en": "anise",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Arnika",
+    "eppo": "ARXMO",
+    "en": "arnica",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Artischocke",
+    "eppo": "CYUSC",
+    "en": "artichoke",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Baldrian",
+    "eppo": "VALOF",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beifuß-Arten",
+    "eppo": "ARTSS",
+    "en": "wormwood species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eberraute",
+    "eppo": "ARTAT",
+    "en": "Zitronenkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Estragon",
+    "eppo": "ARTDR",
+    "en": "estragon",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Beifuß",
+    "eppo": "ARTVU",
+    "en": "common mugwort",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wermut",
+    "eppo": "ARTAB",
+    "en": "Absinth",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bockshornklee",
+    "eppo": "TRKFG",
+    "en": "fenugreek, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brennnessel-Arten",
+    "eppo": "URTSS",
+    "en": "nettle species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Große Brennnessel",
+    "eppo": "URTDI",
+    "en": "common nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dorniger Hauhechel",
+    "eppo": "ONOSP",
+    "en": "spiny restharrow",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echte Engelwurz",
+    "eppo": "ANKAR",
+    "en": "Angelika",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echte Goldrute",
+    "eppo": "SOOVI",
+    "en": "common golden rod",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echtes Herzgespann",
+    "eppo": "LECCA",
+    "en": "Löwenschwanz",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Efeu",
+    "eppo": "HEEHE",
+    "en": "Ivy",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ehrenpreis-Arten",
+    "eppo": "VERSS",
+    "en": "speedwell",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Fingerhut-Arten",
+    "eppo": "DIKSS",
+    "en": "foxglove species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Roter Fingerhut",
+    "eppo": "DIKPU",
+    "en": "purple foxglove",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wolliger Fingerhut",
+    "eppo": "DIKLA",
+    "en": "Fingerhut, Wolliger",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gartenraute",
+    "eppo": "RUAGR",
+    "en": "Weinraute",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gelber Enzian",
+    "eppo": "GETLU",
+    "en": "yellow gentian",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gelber Steinklee",
+    "eppo": "MEUOF",
+    "en": "Echter Seinklee",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Mariendistel",
+    "eppo": "SLYMA",
+    "en": "holy thistle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Nachtkerze",
+    "eppo": "OEOBI",
+    "en": "common evening primrose",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Ringelblume",
+    "eppo": "CLDOF",
+    "en": "pot marigold",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Schafgarbe",
+    "eppo": "ACHMI",
+    "en": "Schafgarbe, Gemeine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Frauenmantel",
+    "eppo": "ALCVU",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Huflattich",
+    "eppo": "TUSFA",
+    "en": "coltsfoot",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewöhnlicher Odermenning",
+    "eppo": "AGIEU",
+    "en": "Ackerkraut; Fünffingerkraut; Kleiner",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürzfenchel",
+    "eppo": "FOEVD",
+    "en": "Körnerfenchel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "ginkgo",
+    "eppo": "GIKBI",
+    "en": "Ginkgo",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Amerikanischer Ginseng",
+    "eppo": "PNXQU",
+    "en": "American ginseng",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Asiatischer Ginseng",
+    "eppo": "PNXGI",
+    "en": "Asiatic ginseng",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Große Klette",
+    "eppo": "ARFLA",
+    "en": "greater burdock",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Großes Schöllkraut",
+    "eppo": "CHQMA",
+    "en": "tetterwort",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hanf",
+    "eppo": "CNISA",
+    "en": "Hanf, Gewöhnlicher",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Himbeere",
+    "eppo": "RUBID",
+    "en": "raspberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hopfen",
+    "eppo": "HUMLU",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johanniskraut",
+    "eppo": "HYPSS",
+    "en": "hypericum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tüpfel-Johanniskraut",
+    "eppo": "HYPPE",
+    "en": "Tüpfelhartheu",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kalmus",
+    "eppo": "ACSCA",
+    "en": "calamus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kamille-Arten",
+    "eppo": "MATSS",
+    "en": "chamomille species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Färberkamille",
+    "eppo": "ANTTI",
+    "en": "Hundskamille",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Römische Kamille",
+    "eppo": "ANTNO",
+    "en": "noble chamomile",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kapuzinerkresse",
+    "eppo": "TOPMA",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kardobenediktenkraut",
+    "eppo": "CXDBE",
+    "en": "Benediktendistel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Bibernelle",
+    "eppo": "PIMSA",
+    "en": "Bibernelle, Kleine; Pimpinelle, Kleine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Königskerze",
+    "eppo": "VESSS",
+    "en": "mullein",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kornblume",
+    "eppo": "CENCY",
+    "en": "cornflower",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krappwurzel",
+    "eppo": "RBITI",
+    "en": "Färberröte",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krauser Ampfer",
+    "eppo": "RUMCR",
+    "en": "Roter Heinrich",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lein",
+    "eppo": "LIUUT",
+    "en": "Flachs; Lein, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Liebstöckel",
+    "eppo": "LEWOF",
+    "en": "lovage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Linden-Arten",
+    "eppo": "TILSS",
+    "en": "lime species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "dandelion",
+    "eppo": "TARSS",
+    "en": "Löwenzahn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Medizinal-Rhabarber",
+    "eppo": "RHEPA",
+    "en": "Turkey rhubarb",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Meerrettich",
+    "eppo": "ARWLA",
+    "en": "Kren; Meerrettich, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melisse",
+    "eppo": "MLSOF",
+    "en": "Zitronenmelisse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grüne Minze",
+    "eppo": "MENSP",
+    "en": "spearmint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krause Minze",
+    "eppo": "MENSC",
+    "en": "curled mint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfefferminze",
+    "eppo": "MENPI",
+    "en": "peppermint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mönchspfeffer",
+    "eppo": "VIXAC",
+    "en": "Keuschbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Muskatsalbei",
+    "eppo": "SALSC",
+    "en": "clary sage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mutterkraut",
+    "eppo": "CHYPA",
+    "en": "Fieberkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ölkürbis",
+    "eppo": "CUUPO",
+    "en": "oil pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pontischer Rhabarber",
+    "eppo": "RHERP",
+    "en": "false rhubarb",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rauschhanf",
+    "eppo": "CNISI",
+    "en": "Indian hemp",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosenwurz",
+    "eppo": "RDORO",
+    "en": "rose-root",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sanddorn",
+    "eppo": "HIORH",
+    "en": "buckthorn, sea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "garden parsley",
+    "eppo": "PARCR",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Johannisbeere",
+    "eppo": "RIBNI",
+    "en": "Johannisbeere, Schwarze;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzer Holunder",
+    "eppo": "SAMNI",
+    "en": "Holunder, Schwarzer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sonnenhut-Arten",
+    "eppo": "ECESS",
+    "en": "echinacea species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blasser Sonnenhut",
+    "eppo": "ECEPA",
+    "en": "pale echinacea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Roter Sonnenhut",
+    "eppo": "RUDPU",
+    "en": "purple coneflower",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Thymian, Gemeiner",
+    "eppo": "THYVU",
+    "en": "thyme, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Topinambur",
+    "eppo": "HELTU",
+    "en": "topinambur",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Traubensilberkerze",
+    "eppo": "CIMRA",
+    "en": "black snakeroot",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Walnuss",
+    "eppo": "IUGRE",
+    "en": "Walnussbaum, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiden-Arten",
+    "eppo": "SAXSS",
+    "en": "willow species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wurzelpetersilie",
+    "eppo": "PARCT",
+    "en": "turnip-rooted parsley",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ysop",
+    "eppo": "HYSOF",
+    "en": "hyssop",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zweigriffliger Weißdorn",
+    "eppo": "CSCOX",
+    "en": "Rotdorn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blatt- und Stielgemüse",
+    "eppo": "NNNVL",
+    "en": "leafy and stem vegetables",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blattgemüse und frische Kräuter",
+    "eppo": "NNNVK",
+    "en": "leafy vegetables and fresh herbs",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blattgemüse",
+    "eppo": "NNNVB",
+    "en": "leafy vegetables",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Chicoree",
+    "eppo": "CICSS",
+    "en": "witloof",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Salat-Arten",
+    "eppo": "NNNSS",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Endivien",
+    "eppo": "CICEN",
+    "en": "endives",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Breitblättrige Endivie",
+    "eppo": "CICEL",
+    "en": "Endivie, Breitblättrige; Eskariol",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krause Winterendivie",
+    "eppo": "CICEC",
+    "en": "6",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Feldsalat",
+    "eppo": "VLLLO",
+    "en": "Ackersalat; Feldsalat, Gemeiner; Mausohr;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Löwenzahn",
+    "eppo": "TARSS",
+    "en": "dandelion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Löwenzahn, Gemeiner",
+    "eppo": "TAROF",
+    "en": "6",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rucola-Arten",
+    "eppo": "NNNRA",
+    "en": "rocket species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Falsche Rauke",
+    "eppo": "DIPER",
+    "en": "Doppelsame, raukenähnlicher",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mauerrauke",
+    "eppo": "DIPMU",
+    "en": "stinkweed",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ölrauke",
+    "eppo": "ERUVE",
+    "en": "6",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Salate",
+    "eppo": "LACSS",
+    "en": "lettuce",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bindesalat",
+    "eppo": "LACSO",
+    "en": "Salat, Binde",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kopfsalate",
+    "eppo": "NNNKS",
+    "en": "head lettuce",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eissalat",
+    "eppo": "LACSA",
+    "en": "Eisbergsalat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kopfsalat",
+    "eppo": "LACSC",
+    "en": "head lettuce",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterportulak",
+    "eppo": "CLAPE",
+    "en": "Kubaspinat; Posteleinsalat; Tellerkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wollfrüchtiger Feldsalat",
+    "eppo": "VLLER",
+    "en": "hairy-fruited corn salad",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Salzaster",
+    "eppo": "ASTTR",
+    "en": "sea aster",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Shungiku",
+    "eppo": "CHYCO",
+    "en": "Goldblume; Kronen-Wucherblume",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spinat und verwandte Arten",
+    "eppo": "NNNSA",
+    "en": "spinach and related species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beten (Rote, Gelbe, Weiße Bete)",
+    "eppo": "BEAVX",
+    "en": "beta beets (red, yellow, white beet)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gelber Portulak",
+    "eppo": "POROL",
+    "en": "common purslane",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Queller, Gemeiner",
+    "eppo": "SAAEU",
+    "en": "marsh samphire",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schnittmangold",
+    "eppo": "BEAVV",
+    "en": "Beißkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerportulak",
+    "eppo": "POROS",
+    "en": "garden purslane",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spinat",
+    "eppo": "SPQOL",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "spinach beet",
+    "eppo": "BEAVF",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wirtelmalve",
+    "eppo": "MALVE",
+    "en": "Krause Malve; Quirlmalve",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brunnenkresse",
+    "eppo": "NAASS",
+    "en": "watercress",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "frische Kräuter",
+    "eppo": "NNNKF",
+    "en": "fresh herbs",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Agastache-Arten",
+    "eppo": "AJTSS",
+    "en": "Agastache species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bärlauch",
+    "eppo": "ALLUR",
+    "en": "bear's garlic",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Basilikum-Arten",
+    "eppo": "OCISS",
+    "en": "basil species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Estragon",
+    "eppo": "ARTDR",
+    "en": "estragon",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Beifuß",
+    "eppo": "ARTVU",
+    "en": "common mugwort",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wermut",
+    "eppo": "ARTAB",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bockshornklee",
+    "eppo": "TRKFG",
+    "en": "fenugreek, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bohnenkraut",
+    "eppo": "STIHO",
+    "en": "summer savory",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Borretsch",
+    "eppo": "BOROF",
+    "en": "common borage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Große Brennnessel",
+    "eppo": "URTDI",
+    "en": "common nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Brennnessel",
+    "eppo": "URTUR",
+    "en": "small nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dill",
+    "eppo": "AFEGR",
+    "en": "dill",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dost",
+    "eppo": "ORISS",
+    "en": "Oregano",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gelber Steinklee",
+    "eppo": "MEUOF",
+    "en": "Echter Seinklee",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Ringelblume",
+    "eppo": "CLDOF",
+    "en": "pot marigold",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kapuzinerkresse",
+    "eppo": "TOPMA",
+    "en": "nasturtium, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Koriander",
+    "eppo": "CORSA",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Liebstöckel",
+    "eppo": "LEWOF",
+    "en": "lovage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lorbeer",
+    "eppo": "LURNO",
+    "en": "sweet bay",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melisse",
+    "eppo": "MLSOF",
+    "en": "Zitronenmelisse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Minze-Arten",
+    "eppo": "MENSS",
+    "en": "mint species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grüne Minze",
+    "eppo": "MENSP",
+    "en": "spearmint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krause Minze",
+    "eppo": "MENSC",
+    "en": "curled mint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfefferminze",
+    "eppo": "MENPI",
+    "en": "peppermint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Muskatsalbei",
+    "eppo": "SALSC",
+    "en": "clary sage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mutterkraut",
+    "eppo": "CHYPA",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pelargonium-Arten",
+    "eppo": "PELSS",
+    "en": "Pelargonie",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pelargonium peltatum",
+    "eppo": "PELPE",
+    "en": "pelargonium, ivy-leaved",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosmarin",
+    "eppo": "RMSOF",
+    "en": "rosemary, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sauerampfer",
+    "eppo": "RUMAC",
+    "en": "dock, sour",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gartensauerampfer",
+    "eppo": "RUMAH",
+    "en": "garden sorrel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schnittpetersilie",
+    "eppo": "PARCR",
+    "en": "garden parsley",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schnittsellerie",
+    "eppo": "APUGS",
+    "en": "cutting celery",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Shungiku",
+    "eppo": "CHYCO",
+    "en": "Goldblume; Kronen-Wucherblume",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Thymian, Gemeiner",
+    "eppo": "THYVU",
+    "en": "thyme, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Waldmeister",
+    "eppo": "GALOD",
+    "en": "woodruff",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenknopf",
+    "eppo": "SANSS",
+    "en": "Pimpinellearten",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gartenpimpinelle",
+    "eppo": "SANMI",
+    "en": "salad burnet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Großer Wiesenknopf",
+    "eppo": "SANOF",
+    "en": "Große Bibernelle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterbohnenkraut",
+    "eppo": "STIMO",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wirtelmalve",
+    "eppo": "MALVE",
+    "en": "Krause Malve; Quirlmalve",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ysop",
+    "eppo": "HYSOF",
+    "en": "hyssop",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kresse",
+    "eppo": "LEPSA",
+    "en": "cress",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kohlgemüse",
+    "eppo": "BRSOX",
+    "en": "Gemüsekohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blattkohle",
+    "eppo": "NNNKB",
+    "en": "leafy brassicas",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Chinakohl",
+    "eppo": "BRSPK",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Choy Sum",
+    "eppo": "BRSPA",
+    "en": "Chinesischer Blütenkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Frühes Barbarakraut",
+    "eppo": "BARVE",
+    "en": "land cress",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grünkohl",
+    "eppo": "BRSOC",
+    "en": "curly kale",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Komatsuna",
+    "eppo": "BRSPE",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pak Choi",
+    "eppo": "BRSCH",
+    "en": "Chinesischer Senfkohl; Paksoi; Tatsoi",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Palmkohl",
+    "eppo": "BRSOI",
+    "en": "lacinato kale",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sareptasenf",
+    "eppo": "BRSJU",
+    "en": "Amchoi; Blattsenf",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Staudenkohl",
+    "eppo": "BRSOA",
+    "en": "collard",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stielmus",
+    "eppo": "BRSRE",
+    "en": "Rübstiel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brokkoli",
+    "eppo": "BRSOK",
+    "en": "Spargelkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Chinesischer Broccoli",
+    "eppo": "BRSAG",
+    "en": "Chinesischer Broccoli; Kailaan",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kohlrabi",
+    "eppo": "BRSOG",
+    "en": "kohlrabi",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kopfkohle (Weiß-, Rot-, Spitz-, Rosen- und Wirsingkohl)",
+    "eppo": "NNNKK",
+    "en": "headed brassicas (white, red,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kopfkohl (Rot-, Weiß-, Spitz- und Wirsingkohl)",
+    "eppo": "NNNKO",
+    "en": "headed cabbage (white, red,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rotkohl",
+    "eppo": "BRSOR",
+    "en": "Blaukraut; Rotkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spitzkohl",
+    "eppo": "BRSON",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weißkohl",
+    "eppo": "BRSOL",
+    "en": "white cabbage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wirsing",
+    "eppo": "BRSOS",
+    "en": "Welschkohl; Wirsingkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosenkohl",
+    "eppo": "BRSOF",
+    "en": "Brussels sprouts",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kalettes",
+    "eppo": "BRSSG",
+    "en": "flower sprout",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "artichoke",
+    "eppo": "CYUSC",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bleichsellerie",
+    "eppo": "APUGD",
+    "en": "Stangensellerie",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Porree",
+    "eppo": "ALLPO",
+    "en": "leek",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rhabarber",
+    "eppo": "RHERH",
+    "en": "Rhabarber, Krauser",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spargel",
+    "eppo": "ASPOF",
+    "en": "asparagus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bleichspargel",
+    "eppo": "ASPOB",
+    "en": "white asparagus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zwiebelgemüse",
+    "eppo": "NNNSZ",
+    "en": "bulb crops",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Perlzwiebel",
+    "eppo": "ALLAH",
+    "en": "pearl onion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schalotte",
+    "eppo": "ALLAS",
+    "en": "shallot",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speisezwiebel",
+    "eppo": "ALLCE",
+    "en": "onion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterheckenzwiebel",
+    "eppo": "ALLFI",
+    "en": "Welsh onion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Flaschenkürbis",
+    "eppo": "LGNSI",
+    "en": "Kalebassenkürbis",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Garten-Kürbis",
+    "eppo": "CUUPE",
+    "en": "pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemüsepaprika (inkl. Peperoni und Chili)",
+    "eppo": "CPSAN",
+    "en": "sweet pepper (incl. peperoni and",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Goji-Beeren (Lycium-Arten)",
+    "eppo": "LYUSS",
+    "en": "matrimony vine (Lycium spec.)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hülsengemüse",
+    "eppo": "NNNLG",
+    "en": "legume vegetable crops",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dicke Bohne",
+    "eppo": "VICFJ",
+    "en": "Puffbohne; Saubohne",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Markerbse",
+    "eppo": "PIBSM",
+    "en": "wrinkled pea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Palerbse",
+    "eppo": "PIBSV",
+    "en": "Schalerbse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Java Bohne",
+    "eppo": "PHSLU",
+    "en": "Burma bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kichererbse",
+    "eppo": "CIEAR",
+    "en": "chickpea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwertbohne",
+    "eppo": "CNAGL",
+    "en": "horse bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sojabohne",
+    "eppo": "GLXMA",
+    "en": "soya bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speiselinse",
+    "eppo": "LENCU",
+    "en": "lentil",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stangenbohne",
+    "eppo": "PHSVV",
+    "en": "climbing French bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melone",
+    "eppo": "CUMME",
+    "en": "Zuckermelone",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Okra",
+    "eppo": "ABMES",
+    "en": "Okra",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pepino",
+    "eppo": "SOLMU",
+    "en": "Birnenmelone",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Physalis-Arten",
+    "eppo": "PHYSS",
+    "en": "Blasenkirsche; Judenkirsche;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Riesenkürbis",
+    "eppo": "CUUMX",
+    "en": "giant pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wassermelone",
+    "eppo": "CITLA",
+    "en": "cantaloupe",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zier/Wildkürbis (Cucurbita texana)",
+    "eppo": "CUUTX",
+    "en": "texanischer Wildkürbis",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürzkräuter",
+    "eppo": "NNNAK",
+    "en": "aromatic herbs",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Anis",
+    "eppo": "PIMAN",
+    "en": "anise",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bockshornklee",
+    "eppo": "TRKFG",
+    "en": "fenugreek, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dill",
+    "eppo": "AFEGR",
+    "en": "dill",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemüsepaprika (inkl. Peperoni und Chili)",
+    "eppo": "CPSAN",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürzfenchel",
+    "eppo": "FOEVD",
+    "en": "Körnerfenchel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Koriander",
+    "eppo": "CORSA",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Liebstöckel",
+    "eppo": "LEWOF",
+    "en": "lovage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "cutting celery",
+    "eppo": "APUGS",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzkümmel",
+    "eppo": "NIGSA",
+    "en": "Echter Schwarzkümmel; Nigella",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wacholder",
+    "eppo": "IUPSS",
+    "en": "juniper",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Teekräuter",
+    "eppo": "NNNTK",
+    "en": "tea herbs",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Baldrian",
+    "eppo": "VALOF",
+    "en": "Baldrian, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beifuß-Arten",
+    "eppo": "ARTSS",
+    "en": "wormwood species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eberraute",
+    "eppo": "ARTAT",
+    "en": "Zitronenkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Beifuß",
+    "eppo": "ARTVU",
+    "en": "common mugwort",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wermut",
+    "eppo": "ARTAB",
+    "en": "Absinth",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bockshornklee",
+    "eppo": "TRKFG",
+    "en": "fenugreek, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brennnessel-Arten",
+    "eppo": "URTSS",
+    "en": "nettle species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Große Brennnessel",
+    "eppo": "URTDI",
+    "en": "common nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Brennnessel",
+    "eppo": "URTUR",
+    "en": "small nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Ringelblume",
+    "eppo": "CLDOF",
+    "en": "pot marigold",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Schafgarbe",
+    "eppo": "ACHMI",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johanniskraut",
+    "eppo": "HYPSS",
+    "en": "hypericum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tüpfel-Johanniskraut",
+    "eppo": "HYPPE",
+    "en": "Tüpfelhartheu",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kamille-Arten",
+    "eppo": "MATSS",
+    "en": "chamomille species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Färberkamille",
+    "eppo": "ANTTI",
+    "en": "Hundskamille",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Römische Kamille",
+    "eppo": "ANTNO",
+    "en": "noble chamomile",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kapuzinerkresse",
+    "eppo": "TOPMA",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Bibernelle",
+    "eppo": "PIMSA",
+    "en": "Bibernelle, Kleine; Pimpinelle, Kleine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Koriander",
+    "eppo": "CORSA",
+    "en": "coriander, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kornblume",
+    "eppo": "CENCY",
+    "en": "cornflower",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenkümmel",
+    "eppo": "MLSOF",
+    "en": "Melisse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Minze-Arten",
+    "eppo": "MENSS",
+    "en": "mint species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grüne Minze",
+    "eppo": "MENSP",
+    "en": "spearmint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krause Minze",
+    "eppo": "MENSC",
+    "en": "curled mint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfefferminze",
+    "eppo": "MENPI",
+    "en": "peppermint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Muskatsalbei",
+    "eppo": "SALSC",
+    "en": "clary sage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosen",
+    "eppo": "ROSSS",
+    "en": "roses",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sanddorn",
+    "eppo": "HIORH",
+    "en": "buckthorn, sea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schachtelhalm",
+    "eppo": "EQUSS",
+    "en": "horsetail",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Johannisbeere",
+    "eppo": "RIBNI",
+    "en": "blackcurrant",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzer Holunder",
+    "eppo": "SAMNI",
+    "en": "elder, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spitzwegerich",
+    "eppo": "PLALA",
+    "en": "narrow-leaved plantain",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Thymian, Gemeiner",
+    "eppo": "THYVU",
+    "en": "thyme, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wilde Malve",
+    "eppo": "MALSI",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wurzel- und Knollengemüse",
+    "eppo": "NNNVW",
+    "en": "root and tuber vegetables",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beten (Rote, Gelbe, Weiße Bete)",
+    "eppo": "BEAVX",
+    "en": "beta beets (red, yellow, white beet)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bocksbart",
+    "eppo": "TROPO",
+    "en": "Haferwurzel; Weiße Schwarzwurzel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Haferwurz",
+    "eppo": "TROPS",
+    "en": "common salsify",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Knollensellerie",
+    "eppo": "APUGR",
+    "en": "celeriac",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Knolliger Kälberkropf",
+    "eppo": "CHPBU",
+    "en": "bulbous chervil",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kohlrübe",
+    "eppo": "BRSNA",
+    "en": "Steckrübe; Unterkohlrabi; Wrucke",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Meerrettich",
+    "eppo": "ARWLA",
+    "en": "Kren; Meerrettich, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Möhre",
+    "eppo": "DAUCS",
+    "en": "Gelbe Rübe; Karotte; Wurzel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pastinak",
+    "eppo": "PAVSA",
+    "en": "wild parsnip",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Radieschen",
+    "eppo": "RAPSR",
+    "en": "small radish",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzwurzel",
+    "eppo": "SCVHI",
+    "en": "black salsify",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speiserüben (Stoppelrübe, Mairübe etc.)",
+    "eppo": "BRSRR",
+    "en": "Herbstrübe; Kleine Speiserübe; Mairübe;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Süßkartoffel",
+    "eppo": "IPOBA",
+    "en": "sweet potato",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Topinambur",
+    "eppo": "HELTU",
+    "en": "topinambur",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wurzelpetersilie",
+    "eppo": "PARCT",
+    "en": "turnip-rooted parsley",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zuchtpilze",
+    "eppo": "NNNFZ",
+    "en": "1",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Austernseitling",
+    "eppo": "PLEOS",
+    "en": "oyster mushroom",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Champignon",
+    "eppo": "AGCBI",
+    "en": "button mushroom",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Judasohr",
+    "eppo": "AURAU",
+    "en": "Jew's ear",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kulturträuschling",
+    "eppo": "STRRO",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Shii-Take",
+    "eppo": "LENED",
+    "en": "Pasaniapilz; Sägeblättling",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Südlicher Schüppling",
+    "eppo": "AGRAE",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hopfen",
+    "eppo": "HUMLU",
+    "en": "Hopfen, Gemeiner",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nichtkulturland",
+    "eppo": "YNKKX",
+    "en": "non-cultivated area",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gleisanlagen",
+    "eppo": "YGLES",
+    "en": "Gleise",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Landwirtschaftlich nicht genutzte Grasflächen",
+    "eppo": "YNIGF",
+    "en": "non-agricultural grassland",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "non-cultivated land without woody",
+    "eppo": "YNKOB",
+    "en": "Nichtkulturland ohne Holzgewächse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wege und Plätze",
+    "eppo": "YXBAM",
+    "en": "walks and places",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wege",
+    "eppo": "YWEGE",
+    "en": "walks",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wege und Plätze mit Holzgewächsen",
+    "eppo": "YMBAM",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wege und Plätze ohne Holzgewächse",
+    "eppo": "YOBAM",
+    "en": "developed areas without trees and",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Obstkulturen",
+    "eppo": "NNNOO",
+    "en": "fruit crops",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Annone-Arten",
+    "eppo": "ANUSS",
+    "en": "annona species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Cherimoya",
+    "eppo": "ANUCH",
+    "en": "cherimoya",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Avocado",
+    "eppo": "PEBAM",
+    "en": "avocado",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Erdbeere",
+    "eppo": "FRAAN",
+    "en": "strawberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Himbeerartiges Beerenobst",
+    "eppo": "NNNOH",
+    "en": "raspberry-like berries",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Himbeere",
+    "eppo": "RUBID",
+    "en": "raspberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Loganbeere",
+    "eppo": "RUBLO",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Maulbeere",
+    "eppo": "MORSS",
+    "en": "mulberry species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rote Maulbeere",
+    "eppo": "MORRU",
+    "en": "red mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Maulbeere",
+    "eppo": "MORNI",
+    "en": "black mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiße Maulbeere",
+    "eppo": "MORAL",
+    "en": "white mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johannisbeerartiges Beerenobst",
+    "eppo": "NNNOJ",
+    "en": "currant-like berries",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Crataegus monogyna",
+    "eppo": "CSCMO",
+    "en": "Eingriffeliger Weißdorn; Weißdorn,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Berberitze",
+    "eppo": "BEBVU",
+    "en": "common barberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Felsenbirne",
+    "eppo": "AMEOV",
+    "en": "garden serviceberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Heidelbeere",
+    "eppo": "VACCO",
+    "en": "blueberry, highbush",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Preiselbeere",
+    "eppo": "VACMA",
+    "en": "Großfrüchtige Moosbeere; Krannbeere",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "jostaberry",
+    "eppo": "RIBNG",
+    "en": "Josta",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Maibeere, Haskap",
+    "eppo": "LONCO",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosen",
+    "eppo": "ROSSS",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rote Johannisbeere",
+    "eppo": "RIBRU",
+    "en": "redcurrant",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sanddorn",
+    "eppo": "HIORH",
+    "en": "buckthorn, sea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Johannisbeere",
+    "eppo": "RIBNI",
+    "en": "Johannisbeere, Schwarze;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzer Holunder",
+    "eppo": "SAMNI",
+    "en": "Holunder, Schwarzer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiße Johannisbeere",
+    "eppo": "RIBRW",
+    "en": "Johannisbeere, Weiße;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zweigriffliger Weißdorn",
+    "eppo": "CSCOX",
+    "en": "Rotdorn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Granatapfel",
+    "eppo": "PUNGR",
+    "en": "pomegranate",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Japanische Wollmispel",
+    "eppo": "EIOJA",
+    "en": "Loquat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kumquat-Arten",
+    "eppo": "FOLSS",
+    "en": "Kumquat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Obstgehölze",
+    "eppo": "NNNOG",
+    "en": "fruit plants",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eberesche",
+    "eppo": "SOUAU",
+    "en": "Gemeine Vogelbeere",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Himbeerartiges Beerenobst",
+    "eppo": "NNNOH",
+    "en": "raspberry-like berries",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brombeere",
+    "eppo": "RUBFR",
+    "en": "Brombeere, Echte",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Himbeere",
+    "eppo": "RUBID",
+    "en": "raspberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Loganbeere",
+    "eppo": "RUBLO",
+    "en": "Boysenbeere; Tayberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Maulbeere",
+    "eppo": "MORSS",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rote Maulbeere",
+    "eppo": "MORRU",
+    "en": "red mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiße Maulbeere",
+    "eppo": "MORAL",
+    "en": "white mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johannisbeerartiges Beerenobst",
+    "eppo": "NNNOJ",
+    "en": "currant-like berries",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Crataegus monogyna",
+    "eppo": "CSCMO",
+    "en": "Eingriffeliger Weißdorn; Weißdorn,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Berberitze",
+    "eppo": "BEBVU",
+    "en": "common barberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Felsenbirne",
+    "eppo": "AMEOV",
+    "en": "garden serviceberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Heidelbeer-Arten",
+    "eppo": "VACSS",
+    "en": "blueberry species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Cranberry",
+    "eppo": "VACOX",
+    "en": "Gemeine Moosbeere",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Heidelbeere",
+    "eppo": "VACCO",
+    "en": "blueberry, highbush",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Preiselbeere",
+    "eppo": "VACMA",
+    "en": "Großfrüchtige Moosbeere; Krannbeere",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Josta",
+    "eppo": "RIBNG",
+    "en": "jostaberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosen",
+    "eppo": "ROSSS",
+    "en": "roses",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rote Johannisbeere",
+    "eppo": "RIBRU",
+    "en": "Johannisbeere, Rote;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sanddorn",
+    "eppo": "HIORH",
+    "en": "buckthorn, sea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Johannisbeere",
+    "eppo": "RIBNI",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzer Holunder",
+    "eppo": "SAMNI",
+    "en": "Holunder, Schwarzer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speierling",
+    "eppo": "SOUDO",
+    "en": "sorb",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stachelbeere",
+    "eppo": "RIBUC",
+    "en": "Stachelbeerstrauch",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zweigriffliger Weißdorn",
+    "eppo": "CSCOX",
+    "en": "Rotdorn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kernobst",
+    "eppo": "NNNOK",
+    "en": "pome fruit",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Apfel",
+    "eppo": "MABSD",
+    "en": "Apfelbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Apfelbeere",
+    "eppo": "ABOME",
+    "en": "Schwarze Aronie",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Birne",
+    "eppo": "PYUCO",
+    "en": "Birnbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Holzapfel",
+    "eppo": "MABSY",
+    "en": "crab apple",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nashi-Birne",
+    "eppo": "PYUPY",
+    "en": "oriental pear",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Quitte",
+    "eppo": "CYDOB",
+    "en": "Quittenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kiwi-Arten",
+    "eppo": "ATISS",
+    "en": "kiwi species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Arguta-Kiwi",
+    "eppo": "ATIAR",
+    "en": "bower actinida",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "cornel cherry",
+    "eppo": "CRWMS",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mispel",
+    "eppo": "MSPGE",
+    "en": "common medlar",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schalenobst",
+    "eppo": "NNNON",
+    "en": "Nüsse; Schalenfrüchte",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bittermandel",
+    "eppo": "PRNDA",
+    "en": "bitter almond",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Esskastanien-Arten",
+    "eppo": "CSNSS",
+    "en": "sweet chestnut species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Haselnuss",
+    "eppo": "CYLAV",
+    "en": "Hasel(Nuss), Gewöhnliche;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lambertsnuss",
+    "eppo": "CYLMA",
+    "en": "filbert",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Steinobst",
+    "eppo": "NNNOS",
+    "en": "stone fruits",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Aprikose",
+    "eppo": "PRNAR",
+    "en": "Aprikosenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfirsich",
+    "eppo": "PRNPS",
+    "en": "Pfirsichbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nektarine",
+    "eppo": "PRNPN",
+    "en": "nectarine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pflaume",
+    "eppo": "PRNDO",
+    "en": "Pflaumenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mirabelle",
+    "eppo": "PRNDS",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zwetschge",
+    "eppo": "PRNDD",
+    "en": "Zwetschgenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sauerkirsche",
+    "eppo": "PRNCE",
+    "en": "Sauerkirschenbaum; Weichselbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schlehe",
+    "eppo": "PRNSN",
+    "en": "Schlehdorn; Schwarzdorn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Süßkirsche",
+    "eppo": "PRNAV",
+    "en": "Süßkirschenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Olive",
+    "eppo": "OLVSS",
+    "en": "olive",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Passionsfrucht",
+    "eppo": "PAQED",
+    "en": "1",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Vorratsschutz",
+    "eppo": "NNVVV",
+    "en": "storage protection",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Objekte (sonstige schadorganismenbefallstragende",
+    "eppo": "YOBXX",
+    "en": "objects",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Räume",
+    "eppo": "YRAUM",
+    "en": "rooms",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Vorratsgüter",
+    "eppo": "NNVGR",
+    "en": "products for storage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Arzneipflanzen",
+    "eppo": "NNNAP",
+    "en": "medicinal plants",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Anis",
+    "eppo": "PIMAN",
+    "en": "anise",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Arnika",
+    "eppo": "ARXMO",
+    "en": "arnica",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Artischocke",
+    "eppo": "CYUSC",
+    "en": "artichoke",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Baldrian",
+    "eppo": "VALOF",
+    "en": "Baldrian, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beifuß-Arten",
+    "eppo": "ARTSS",
+    "en": "wormwood species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eberraute",
+    "eppo": "ARTAT",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Estragon",
+    "eppo": "ARTDR",
+    "en": "estragon",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Beifuß",
+    "eppo": "ARTVU",
+    "en": "common mugwort",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wermut",
+    "eppo": "ARTAB",
+    "en": "Absinth",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brennnessel-Arten",
+    "eppo": "URTSS",
+    "en": "nettle species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Große Brennnessel",
+    "eppo": "URTDI",
+    "en": "common nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Brennnessel",
+    "eppo": "URTUR",
+    "en": "small nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dorniger Hauhechel",
+    "eppo": "ONOSP",
+    "en": "spiny restharrow",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echte Engelwurz",
+    "eppo": "ANKAR",
+    "en": "Angelika",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echte Goldrute",
+    "eppo": "SOOVI",
+    "en": "common golden rod",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echter Alant",
+    "eppo": "INUHE",
+    "en": "elecampane",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echter Eibisch",
+    "eppo": "ALGOF",
+    "en": "Samtpappel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echtes Herzgespann",
+    "eppo": "LECCA",
+    "en": "Löwenschwanz",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Efeu",
+    "eppo": "HEEHE",
+    "en": "Ivy",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Fingerhut-Arten",
+    "eppo": "DIKSS",
+    "en": "foxglove species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Roter Fingerhut",
+    "eppo": "DIKPU",
+    "en": "purple foxglove",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wolliger Fingerhut",
+    "eppo": "DIKLA",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gelber Enzian",
+    "eppo": "GETLU",
+    "en": "yellow gentian",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gelber Steinklee",
+    "eppo": "MEUOF",
+    "en": "Echter Seinklee",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Mariendistel",
+    "eppo": "SLYMA",
+    "en": "holy thistle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Nachtkerze",
+    "eppo": "OEOBI",
+    "en": "common evening primrose",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Pestwurz",
+    "eppo": "PEDHY",
+    "en": "butterbur",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Quecke",
+    "eppo": "AGRRE",
+    "en": "Ackerquecke",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Frauenmantel",
+    "eppo": "ALCVU",
+    "en": "common alchemilla",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Huflattich",
+    "eppo": "TUSFA",
+    "en": "coltsfoot",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewöhnlicher Odermenning",
+    "eppo": "AGIEU",
+    "en": "Ackerkraut; Fünffingerkraut; Kleiner",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Odermenning",
+    "eppo": "FOEVD",
+    "en": "Körnerfenchel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ginkgo",
+    "eppo": "GIKBI",
+    "en": "ginkgo",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ginseng",
+    "eppo": "PNXSS",
+    "en": "Kraftwurz",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Amerikanischer Ginseng",
+    "eppo": "PNXQU",
+    "en": "American ginseng",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Große Klette",
+    "eppo": "ARFLA",
+    "en": "greater burdock",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Großes Schöllkraut",
+    "eppo": "CHQMA",
+    "en": "tetterwort",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hanf",
+    "eppo": "CNISA",
+    "en": "Hanf, Gewöhnlicher",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Himbeere",
+    "eppo": "RUBID",
+    "en": "raspberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hopfen",
+    "eppo": "HUMLU",
+    "en": "Hopfen, Gemeiner",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johanniskraut",
+    "eppo": "HYPSS",
+    "en": "hypericum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tüpfel-Johanniskraut",
+    "eppo": "HYPPE",
+    "en": "Tüpfelhartheu",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kalmus",
+    "eppo": "ACSCA",
+    "en": "calamus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Färberkamille",
+    "eppo": "ANTTI",
+    "en": "Hundskamille",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kapuzinerkresse",
+    "eppo": "TOPMA",
+    "en": "nasturtium, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kardobenediktenkraut",
+    "eppo": "CXDBE",
+    "en": "Benediktendistel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Bibernelle",
+    "eppo": "PIMSA",
+    "en": "Bibernelle, Kleine; Pimpinelle, Kleine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Königskerze",
+    "eppo": "VESSS",
+    "en": "mullein",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Koriander",
+    "eppo": "CORSA",
+    "en": "coriander, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kornblume",
+    "eppo": "CENCY",
+    "en": "cornflower",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krappwurzel",
+    "eppo": "RBITI",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lein",
+    "eppo": "LIUUT",
+    "en": "Flachs; Lein, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Löwenzahn",
+    "eppo": "TARSS",
+    "en": "dandelion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Löwenzahn, Gemeiner",
+    "eppo": "TAROF",
+    "en": "Kuhblume, Gemeine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Medizinal-Rhabarber",
+    "eppo": "RHEPA",
+    "en": "Turkey rhubarb",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melisse",
+    "eppo": "MLSOF",
+    "en": "Zitronenmelisse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Minze-Arten",
+    "eppo": "MENSS",
+    "en": "mint species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grüne Minze",
+    "eppo": "MENSP",
+    "en": "spearmint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krause Minze",
+    "eppo": "MENSC",
+    "en": "curled mint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfefferminze",
+    "eppo": "MENPI",
+    "en": "peppermint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mohn",
+    "eppo": "PAPSO",
+    "en": "opium poppy",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mönchspfeffer",
+    "eppo": "VIXAC",
+    "en": "Keuschbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Muskatsalbei",
+    "eppo": "SALSC",
+    "en": "clary sage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mutterkraut",
+    "eppo": "CHYPA",
+    "en": "Fieberkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ölkürbis",
+    "eppo": "CUUPO",
+    "en": "oil pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Indian hemp",
+    "eppo": "CNISI",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosenwurz",
+    "eppo": "RDORO",
+    "en": "rose-root",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosmarin",
+    "eppo": "RMSOF",
+    "en": "rosemary, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sanddorn",
+    "eppo": "HIORH",
+    "en": "buckthorn, sea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schachtelhalm",
+    "eppo": "EQUSS",
+    "en": "horsetail",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schnittpetersilie",
+    "eppo": "PARCR",
+    "en": "garden parsley",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Johannisbeere",
+    "eppo": "RIBNI",
+    "en": "Johannisbeere, Schwarze;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johannisbeerstrauch, Schwarzer",
+    "eppo": "SAMNI",
+    "en": "Holunder, Schwarzer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sonnenhut-Arten",
+    "eppo": "ECESS",
+    "en": "echinacea species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blasser Sonnenhut",
+    "eppo": "ECEPA",
+    "en": "pale echinacea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Roter Sonnenhut",
+    "eppo": "RUDPU",
+    "en": "purple coneflower",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spitzwegerich",
+    "eppo": "PLALA",
+    "en": "narrow-leaved plantain",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Süßholz",
+    "eppo": "GYCGL",
+    "en": "Lakritz",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Topinambur",
+    "eppo": "HELTU",
+    "en": "topinambur",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Traubensilberkerze",
+    "eppo": "CIMRA",
+    "en": "black snakeroot",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Walnuss",
+    "eppo": "IUGRE",
+    "en": "Walnussbaum, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiden-Arten",
+    "eppo": "SAXSS",
+    "en": "willow species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weidenröschen-Arten",
+    "eppo": "EPISS",
+    "en": "willow-herb species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wilde Malve",
+    "eppo": "MALSI",
+    "en": "Rosspappel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wurzelpetersilie",
+    "eppo": "PARCT",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ysop",
+    "eppo": "HYSOF",
+    "en": "hyssop",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zweigriffliger Weißdorn",
+    "eppo": "CSCOX",
+    "en": "Rotdorn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Expeller",
+    "eppo": "NNEXP",
+    "en": "expeller",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Fetthaltige Samen",
+    "eppo": "NNFHS",
+    "en": "Samen, Fetthaltige",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kakao",
+    "eppo": "THOCA",
+    "en": "cocoa",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kaschunuss",
+    "eppo": "ANAOC",
+    "en": "cashew",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kokosnuss",
+    "eppo": "CCNNU",
+    "en": "coconut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Macadamianuss-Arten",
+    "eppo": "MCDSS",
+    "en": "macadamia nut species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ölsaat",
+    "eppo": "NNNOL",
+    "en": "oilseed",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Baumwolle",
+    "eppo": "GOSSS",
+    "en": "cotton",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Erdnuss",
+    "eppo": "ARHHY",
+    "en": "peanut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Nachtkerze",
+    "eppo": "OEOBI",
+    "en": "common evening primrose",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "kapok tree",
+    "eppo": "CEIPE",
+    "en": "Kapok",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mohn",
+    "eppo": "PAPSO",
+    "en": "opium poppy",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ölkürbis",
+    "eppo": "CUUPO",
+    "en": "oil pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ölpalme",
+    "eppo": "EAIGU",
+    "en": "oil palm",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Raps",
+    "eppo": "BRSNN",
+    "en": "oilseed rape",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerraps",
+    "eppo": "BRSNS",
+    "en": "spring oilseed rape",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterraps",
+    "eppo": "BRSNW",
+    "en": "winter oilseed rape",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterrübsen",
+    "eppo": "BRSSA",
+    "en": "winter turnip rape",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Saflor",
+    "eppo": "CAUTI",
+    "en": "Färberdistel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzkümmel",
+    "eppo": "NIGSA",
+    "en": "Echter Schwarzkümmel; Nigella",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sesam",
+    "eppo": "SEGIN",
+    "en": "Gemeiner Sesam",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sojabohne",
+    "eppo": "GLXMA",
+    "en": "soya bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sonnenblume",
+    "eppo": "HELAN",
+    "en": "Sonnenblume, Gemeine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Paranuss",
+    "eppo": "BTHEX",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pekannuss-Arten",
+    "eppo": "CYASS",
+    "en": "Hickory-Nuss-Arten",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pinie",
+    "eppo": "PIUPN",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pistazie",
+    "eppo": "PIAVE",
+    "en": "Echte Pistazie",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schalenobst",
+    "eppo": "NNNON",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bittermandel",
+    "eppo": "PRNDA",
+    "en": "bitter almond",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Esskastanien-Arten",
+    "eppo": "CSNSS",
+    "en": "sweet chestnut species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Haselnuss",
+    "eppo": "CYLAV",
+    "en": "Hasel(Nuss), Gewöhnliche;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lambertsnuss",
+    "eppo": "CYLMA",
+    "en": "filbert",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Süße Mandel",
+    "eppo": "PRNDU",
+    "en": "sweet almond",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Walnuss",
+    "eppo": "IUGRE",
+    "en": "Walnussbaum, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Getreideerzeugnisse",
+    "eppo": "NNGEZ",
+    "en": "cereal products",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Haferflocken",
+    "eppo": "NNNHF",
+    "en": "oat flakes",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Getreideerzeugnisse (Mehle)",
+    "eppo": "NNGEM",
+    "en": "cereal products (flours)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Graupen",
+    "eppo": "NNGRA",
+    "en": "pearl barley",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grieß",
+    "eppo": "NNGRI",
+    "en": "semolina",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleie",
+    "eppo": "NNGKL",
+    "en": "bran",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schrot",
+    "eppo": "NNGSC",
+    "en": "coarse meal",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürze",
+    "eppo": "NNNAA",
+    "en": "spices",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bibernelle",
+    "eppo": "PIMSS",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Anis",
+    "eppo": "PIMAN",
+    "en": "anise",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Bibernelle",
+    "eppo": "PIMSA",
+    "en": "Bibernelle, Kleine; Pimpinelle, Kleine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bockshornklee",
+    "eppo": "TRKFG",
+    "en": "fenugreek, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dill",
+    "eppo": "AFEGR",
+    "en": "dill",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gelbwurzel",
+    "eppo": "CURLO",
+    "en": "Kurkuma",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemüsepaprika (inkl. Peperoni und Chili)",
+    "eppo": "CPSAN",
+    "en": "sweet pepper (incl. peperoni and",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürzfenchel",
+    "eppo": "FOEVD",
+    "en": "Körnerfenchel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürznelke",
+    "eppo": "SYZAR",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ingwer",
+    "eppo": "ZINOF",
+    "en": "ginger",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kardamom",
+    "eppo": "ETACA",
+    "en": "cardamom",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Koriander",
+    "eppo": "CORSA",
+    "en": "coriander, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lorbeer",
+    "eppo": "LURNO",
+    "en": "sweet bay",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Muskatnuss",
+    "eppo": "MYIFR",
+    "en": "nutmeg",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Piment",
+    "eppo": "PMTDI",
+    "en": "allspice",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Süßholz",
+    "eppo": "GYCGL",
+    "en": "Lakritz",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Thymian, Gemeiner",
+    "eppo": "THYVU",
+    "en": "thyme, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Vanille",
+    "eppo": "VANPL",
+    "en": "vanilla, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wacholder",
+    "eppo": "IUPSS",
+    "en": "juniper",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ceylon cinnamon tree",
+    "eppo": "CINZE",
+    "en": "Zimt",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Ringelblume",
+    "eppo": "CLDOF",
+    "en": "pot marigold",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Schafgarbe",
+    "eppo": "ACHMI",
+    "en": "Schafgarbe, Gemeine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürzfenchel",
+    "eppo": "FOEVD",
+    "en": "Körnerfenchel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johanniskraut",
+    "eppo": "HYPSS",
+    "en": "hypericum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tüpfel-Johanniskraut",
+    "eppo": "HYPPE",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melisse",
+    "eppo": "MLSOF",
+    "en": "Zitronenmelisse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfefferminze",
+    "eppo": "MENPI",
+    "en": "peppermint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sonnenhut",
+    "eppo": "RUDSS",
+    "en": "Rudbeckie",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Thymian, Gemeiner",
+    "eppo": "THYVU",
+    "en": "thyme, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Heu",
+    "eppo": "HEUXX",
+    "en": "2",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hopfen",
+    "eppo": "HUMLU",
+    "en": "Hopfen, Gemeiner",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dicke Bohne",
+    "eppo": "VICFJ",
+    "en": "Puffbohne; Saubohne",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Palerbse",
+    "eppo": "PIBSV",
+    "en": "Schalerbse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zuckererbse",
+    "eppo": "PIBSZ",
+    "en": "edible-podded pea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Feuer- bzw. Käferbohne",
+    "eppo": "PHSCO",
+    "en": "Käferbohne; Prunkbohne; Türkische Bohne",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Futterleguminosen",
+    "eppo": "NNNLF",
+    "en": "fodder legumes",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "annual yellow vetchling",
+    "eppo": "LTHAN",
+    "en": "Einjährige Platterbse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Esparsette",
+    "eppo": "ONBVI",
+    "en": "esparcet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Klee-Arten",
+    "eppo": "NNNLK",
+    "en": "clover species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Alexandrinerklee",
+    "eppo": "TRFAL",
+    "en": "berseem clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hornklee-Arten",
+    "eppo": "LOTSS",
+    "en": "bird's-foot trefoil species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Inkarnatklee",
+    "eppo": "TRFIN",
+    "en": "carnation clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Persischer Klee",
+    "eppo": "TRFRS",
+    "en": "Persian clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weißklee",
+    "eppo": "TRFRE",
+    "en": "white clover",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lupine-Arten",
+    "eppo": "LUPSS",
+    "en": "lupin species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blaue Lupine",
+    "eppo": "LUPAN",
+    "en": "Schmalblättrige Lupine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiße Lupine",
+    "eppo": "LUPAL",
+    "en": "white lupin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Luzerne-Arten",
+    "eppo": "MEDSS",
+    "en": "alfalfa species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Luzerne",
+    "eppo": "MEDSA",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Serradella",
+    "eppo": "OROSA",
+    "en": "Vogelfuß, Großer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weißer Steinklee",
+    "eppo": "MEUAL",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerwicke",
+    "eppo": "VICSA",
+    "en": "common vetch",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zottelwicke",
+    "eppo": "VICVI",
+    "en": "Wicke, Zottige",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleegras",
+    "eppo": "NNKGS",
+    "en": "clover-grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sojabohne",
+    "eppo": "GLXMA",
+    "en": "soya bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speiselinse",
+    "eppo": "LENCU",
+    "en": "lentil",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stangenbohne",
+    "eppo": "PHSVV",
+    "en": "climbing French bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kaffee",
+    "eppo": "COFAR",
+    "en": "coffee",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Körnermischungen",
+    "eppo": "NNNMK",
+    "en": "grain mixtures",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Markerbse",
+    "eppo": "PIBSM",
+    "en": "wrinkled pea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Palerbse",
+    "eppo": "PIBSV",
+    "en": "Schalerbse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zuckererbse",
+    "eppo": "PIBSZ",
+    "en": "edible-podded pea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Getreide (Gerste, Hafer, Roggen, Triticale, Weizen)",
+    "eppo": "NNNGE",
+    "en": "cereals (barley, oats, rye, triticale,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gerste",
+    "eppo": "HORVX",
+    "en": "Gerste, Mehrzeilige",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hafer",
+    "eppo": "AVESS",
+    "en": "oats",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Roggen",
+    "eppo": "SECCE",
+    "en": "rye",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Triticale",
+    "eppo": "TTLSS",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "spelt (winter)",
+    "eppo": "3SPWC",
+    "en": "6",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Einkorn",
+    "eppo": "TRZMO",
+    "en": "one-grained wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hartweizen",
+    "eppo": "TRZDU",
+    "en": "Durum-Weizen",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerhartweizen",
+    "eppo": "TRZDS",
+    "en": "spring durum wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterhartweizen",
+    "eppo": "TRZDW",
+    "en": "winter durum wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Khorasan-Weizen",
+    "eppo": "TRZTN",
+    "en": "Khorasan wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gräser",
+    "eppo": "GGGGG",
+    "en": "grasses",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bastardschwingel",
+    "eppo": "FETAS",
+    "en": "Festulolium",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Echtes Glanzgras",
+    "eppo": "PHACA",
+    "en": "Canary grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Glatthafer",
+    "eppo": "ARREL",
+    "en": "Glatthafer, Hoher",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Lieschgras-Arten",
+    "eppo": "PHLSS",
+    "en": "cat's tail",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenlieschgras",
+    "eppo": "PHLPR",
+    "en": "Timotheusgras",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Poa-Arten",
+    "eppo": "POASS",
+    "en": "Rispengras",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeines Rispengras",
+    "eppo": "POATR",
+    "en": "rough meadow grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesen-Rispengras",
+    "eppo": "POAPR",
+    "en": "smooth-stalked meadow grass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwingel-Arten",
+    "eppo": "FESSS",
+    "en": "fescue species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rohrschwingel",
+    "eppo": "FESAR",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rot-Schwingel",
+    "eppo": "FESRU",
+    "en": "Schwingel, Roter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schaf-Schwingel",
+    "eppo": "FESOV",
+    "en": "sheep's fescue",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenschwingel",
+    "eppo": "FESPR",
+    "en": "meadow fescue",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Straussgras-Arten",
+    "eppo": "AGSSS",
+    "en": "bent grass species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rotes Straussgras",
+    "eppo": "AGSTE",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weidelgras-Arten",
+    "eppo": "LOLSS",
+    "en": "ryegrass species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bastard-Weidelgras",
+    "eppo": "LOLBO",
+    "en": "hybrid ryegrass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Deutsches Weidelgras",
+    "eppo": "LOLPE",
+    "en": "perennial ryegrass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Einjähriges Weidelgras",
+    "eppo": "LOLMG",
+    "en": "annual ryegrass",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Welsches Weidelgras",
+    "eppo": "LOLMU",
+    "en": "Vielblütiger Lolch",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesenfuchsschwanz",
+    "eppo": "ALOPR",
+    "en": "meadow foxtail",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hanf",
+    "eppo": "CNISA",
+    "en": "Hanf, Gewöhnlicher",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kolbenhirse",
+    "eppo": "SETIT",
+    "en": "foxtail millet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Perlhirse",
+    "eppo": "PESGL",
+    "en": "pearl millet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sorghum-Hirse",
+    "eppo": "SORSS",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sesam",
+    "eppo": "SEGIN",
+    "en": "Gemeiner Sesam",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sonnenblume",
+    "eppo": "HELAN",
+    "en": "Sonnenblume, Gemeine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tabak",
+    "eppo": "NIOTA",
+    "en": "Tabak, Virginischer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tee",
+    "eppo": "NNNTE",
+    "en": "tea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Teeähnliche Erzeugnisse",
+    "eppo": "NNNTZ",
+    "en": "tea-like products",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Anis",
+    "eppo": "PIMAN",
+    "en": "anise",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Baldrian",
+    "eppo": "VALOF",
+    "en": "Baldrian, Echter",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beifuß-Arten",
+    "eppo": "ARTSS",
+    "en": "wormwood species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eberraute",
+    "eppo": "ARTAT",
+    "en": "Zitronenkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Estragon",
+    "eppo": "ARTDR",
+    "en": "estragon",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wermut",
+    "eppo": "ARTAB",
+    "en": "Absinth",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bockshornklee",
+    "eppo": "TRKFG",
+    "en": "fenugreek, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "common nettle",
+    "eppo": "URTDI",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Brennnessel",
+    "eppo": "URTUR",
+    "en": "small nettle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Ringelblume",
+    "eppo": "CLDOF",
+    "en": "pot marigold",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Schafgarbe",
+    "eppo": "ACHMI",
+    "en": "Schafgarbe, Gemeine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gewürzfenchel",
+    "eppo": "FOEVD",
+    "en": "Körnerfenchel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hibiscus",
+    "eppo": "HIBSA",
+    "en": "Jamaica sorrel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johanniskraut",
+    "eppo": "HYPSS",
+    "en": "hypericum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tüpfel-Johanniskraut",
+    "eppo": "HYPPE",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kamille-Arten",
+    "eppo": "MATSS",
+    "en": "chamomille species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Färberkamille",
+    "eppo": "ANTTI",
+    "en": "Hundskamille",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Römische Kamille",
+    "eppo": "ANTNO",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Bibernelle",
+    "eppo": "PIMSA",
+    "en": "Bibernelle, Kleine; Pimpinelle, Kleine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Königskerze",
+    "eppo": "VESSS",
+    "en": "mullein",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Koriander",
+    "eppo": "CORSA",
+    "en": "coriander, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Linden-Arten",
+    "eppo": "TILSS",
+    "en": "lime species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mate",
+    "eppo": "ILEPA",
+    "en": "Mate-Teestrauch",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melisse",
+    "eppo": "MLSOF",
+    "en": "Zitronenmelisse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Minze-Arten",
+    "eppo": "MENSS",
+    "en": "mint species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grüne Minze",
+    "eppo": "MENSP",
+    "en": "spearmint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Krause Minze",
+    "eppo": "MENSC",
+    "en": "curled mint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfefferminze",
+    "eppo": "MENPI",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Muskatsalbei",
+    "eppo": "SALSC",
+    "en": "clary sage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosen",
+    "eppo": "ROSSS",
+    "en": "roses",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "horsetail",
+    "eppo": "EQUSS",
+    "en": "3",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Johannisbeere",
+    "eppo": "RIBNI",
+    "en": "Johannisbeere, Schwarze;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzer Holunder",
+    "eppo": "SAMNI",
+    "en": "Holunder, Schwarzer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Thymian, Gemeiner",
+    "eppo": "THYVU",
+    "en": "thyme, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wilde Malve",
+    "eppo": "MALSI",
+    "en": "Rosspappel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Trockengemüse",
+    "eppo": "NNTRG",
+    "en": "dried vegetables",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "fruit vegetables",
+    "eppo": "NNNVF",
+    "en": "Fruchtgemüse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Flaschenkürbis",
+    "eppo": "LGNSI",
+    "en": "Kalebassenkürbis",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Garten-Kürbis",
+    "eppo": "CUUPE",
+    "en": "pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemüsepaprika (inkl. Peperoni und Chili)",
+    "eppo": "CPSAN",
+    "en": "sweet pepper (incl. peperoni and",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Goji-Beeren (Lycium-Arten)",
+    "eppo": "LYUSS",
+    "en": "matrimony vine (Lycium spec.)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dicke Bohne",
+    "eppo": "VICFJ",
+    "en": "Puffbohne; Saubohne",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Markerbse",
+    "eppo": "PIBSM",
+    "en": "wrinkled pea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Palerbse",
+    "eppo": "PIBSV",
+    "en": "Schalerbse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zuckererbse",
+    "eppo": "PIBSZ",
+    "en": "edible-podded pea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Feuer- bzw. Käferbohne",
+    "eppo": "PHSCO",
+    "en": "Käferbohne; Prunkbohne; Türkische Bohne",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Java Bohne",
+    "eppo": "PHSLU",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kichererbse",
+    "eppo": "CIEAR",
+    "en": "chickpea",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwertbohne",
+    "eppo": "CNAGL",
+    "en": "horse bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sojabohne",
+    "eppo": "GLXMA",
+    "en": "soya bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speiselinse",
+    "eppo": "LENCU",
+    "en": "lentil",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stangenbohne",
+    "eppo": "PHSVV",
+    "en": "climbing French bean",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melone",
+    "eppo": "CUMME",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Moschus-Kürbis",
+    "eppo": "CUUMO",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Okra",
+    "eppo": "ABMES",
+    "en": "Okra",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Patisson",
+    "eppo": "CUUPM",
+    "en": "Bischofsmütze; Melonenkürbis",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pepino",
+    "eppo": "SOLMU",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Physalis-Arten",
+    "eppo": "PHYSS",
+    "en": "Blasenkirsche; Judenkirsche;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Riesenkürbis",
+    "eppo": "CUUMX",
+    "en": "giant pumpkin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tomate",
+    "eppo": "LYPES",
+    "en": "tomato",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wassermelone",
+    "eppo": "CITLA",
+    "en": "cantaloupe",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zier/Wildkürbis (Cucurbita texana)",
+    "eppo": "CUUTX",
+    "en": "texanischer Wildkürbis",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Choy Sum",
+    "eppo": "BRSPA",
+    "en": "Chinesischer Blütenkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Frühes Barbarakraut",
+    "eppo": "BARVE",
+    "en": "land cress",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grünkohl",
+    "eppo": "BRSOC",
+    "en": "curly kale",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mizuna",
+    "eppo": "BRSNO",
+    "en": "Japan-Kohl; Kyona",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pak Choi",
+    "eppo": "BRSCH",
+    "en": "Chinesischer Senfkohl; Paksoi; Tatsoi",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Palmkohl",
+    "eppo": "BRSOI",
+    "en": "lacinato kale",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sareptasenf",
+    "eppo": "BRSJU",
+    "en": "Amchoi; Blattsenf",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Staudenkohl",
+    "eppo": "BRSOA",
+    "en": "collard",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stielmus",
+    "eppo": "BRSRE",
+    "en": "Rübstiel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blumenkohle",
+    "eppo": "NNNKL",
+    "en": "flowering brassicas",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Blumenkohl",
+    "eppo": "BRSOB",
+    "en": "Romanesco",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brokkoli",
+    "eppo": "BRSOK",
+    "en": "Spargelkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Chinesischer Broccoli",
+    "eppo": "BRSAG",
+    "en": "Chinesischer Broccoli; Kailaan",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kohlrabi",
+    "eppo": "BRSOG",
+    "en": "kohlrabi",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kopfkohl (Rot-, Weiß-, Spitz- und Wirsingkohl)",
+    "eppo": "NNNKO",
+    "en": "headed cabbage (white, red,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rotkohl",
+    "eppo": "BRSOR",
+    "en": "Blaukraut; Rotkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spitzkohl",
+    "eppo": "BRSON",
+    "en": "oxheart cabbage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weißkohl",
+    "eppo": "BRSOL",
+    "en": "white cabbage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wirsing",
+    "eppo": "BRSOS",
+    "en": "Welschkohl; Wirsingkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brussels sprouts",
+    "eppo": "BRSOF",
+    "en": "Rosenkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kalettes",
+    "eppo": "BRSSG",
+    "en": "flower sprout",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kräuter (trocken)",
+    "eppo": "NNNKR",
+    "en": "herbs (dried)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Basilikum",
+    "eppo": "OCIBA",
+    "en": "basil, sweet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beifuß-Arten",
+    "eppo": "ARTSS",
+    "en": "wormwood species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eberraute",
+    "eppo": "ARTAT",
+    "en": "Zitronenkraut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Estragon",
+    "eppo": "ARTDR",
+    "en": "estragon",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeiner Beifuß",
+    "eppo": "ARTVU",
+    "en": "common mugwort",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wermut",
+    "eppo": "ARTAB",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bohnenkraut",
+    "eppo": "STIHO",
+    "en": "summer savory",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Borretsch",
+    "eppo": "BOROF",
+    "en": "common borage",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dill",
+    "eppo": "AFEGR",
+    "en": "dill",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Großer Wiesenknopf",
+    "eppo": "SANOF",
+    "en": "Große Bibernelle",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kleine Bibernelle",
+    "eppo": "PIMSA",
+    "en": "Bibernelle, Kleine; Pimpinelle, Kleine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Koriander",
+    "eppo": "CORSA",
+    "en": "coriander, common",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Liebstöckel",
+    "eppo": "LEWOF",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Majoran",
+    "eppo": "MAJHO",
+    "en": "marjoram",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Melisse",
+    "eppo": "MLSOF",
+    "en": "Zitronenmelisse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfefferminze",
+    "eppo": "MENPI",
+    "en": "peppermint",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schnittlauch",
+    "eppo": "ALLSC",
+    "en": "chives",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schnittpetersilie",
+    "eppo": "PARCR",
+    "en": "garden parsley",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Thymian, Gemeiner",
+    "eppo": "THYVU",
+    "en": "thyme, garden",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Waldmeister",
+    "eppo": "GALOD",
+    "en": "woodruff",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spinat und verwandte Arten",
+    "eppo": "NNNSA",
+    "en": "spinach and related species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beten (Rote, Gelbe, Weiße Bete)",
+    "eppo": "BEAVX",
+    "en": "beta beets (red, yellow, white beet)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Queller, Gemeiner",
+    "eppo": "SAAEU",
+    "en": "marsh samphire",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schnittmangold",
+    "eppo": "BEAVV",
+    "en": "Beißkohl",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerportulak",
+    "eppo": "POROS",
+    "en": "Bürzelkohl; Bürzelkraut; Gemüseportulak;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spinat",
+    "eppo": "SPQOL",
+    "en": "Gemüsespinat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stielmangold",
+    "eppo": "BEAVF",
+    "en": "spinach beet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sprossgemüse",
+    "eppo": "NNNVS",
+    "en": "shoot vegetables",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Porree",
+    "eppo": "ALLPO",
+    "en": "leek",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rhabarber",
+    "eppo": "RHERH",
+    "en": "Rhabarber, Krauser",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Spargel",
+    "eppo": "ASPOF",
+    "en": "asparagus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bleichspargel",
+    "eppo": "ASPOB",
+    "en": "white asparagus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grünspargel",
+    "eppo": "ASPOG",
+    "en": "green asparagus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weißer Meerkohl",
+    "eppo": "CRMMA",
+    "en": "Seakale",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wildwachsende Pilze",
+    "eppo": "NNWFU",
+    "en": "wild mushrooms",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beten (Rote, Gelbe, Weiße Bete)",
+    "eppo": "BEAVX",
+    "en": "beta beets (red, yellow, white beet)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bocksbart",
+    "eppo": "TROPO",
+    "en": "Haferwurzel; Weiße Schwarzwurzel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "celeriac",
+    "eppo": "APUGR",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Knolliger Kälberkropf",
+    "eppo": "CHPBU",
+    "en": "bulbous chervil",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kohlrübe",
+    "eppo": "BRSNA",
+    "en": "Steckrübe; Unterkohlrabi; Wrucke",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Meerrettich",
+    "eppo": "ARWLA",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Möhre",
+    "eppo": "DAUCS",
+    "en": "Gelbe Rübe; Karotte; Wurzel",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pastinak",
+    "eppo": "PAVSA",
+    "en": "wild parsnip",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Radieschen",
+    "eppo": "RAPSR",
+    "en": "small radish",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzwurzel",
+    "eppo": "SCVHI",
+    "en": "black salsify",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speiserüben (Stoppelrübe, Mairübe etc.)",
+    "eppo": "BRSRR",
+    "en": "Saatrübe; Stoppelrübe; Teltower Rübchen;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Süßkartoffel",
+    "eppo": "IPOBA",
+    "en": "sweet potato",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Topinambur",
+    "eppo": "HELTU",
+    "en": "topinambur",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wurzelpetersilie",
+    "eppo": "PARCT",
+    "en": "turnip-rooted parsley",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zuchtpilze",
+    "eppo": "NNNFZ",
+    "en": "Kulturpilze",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Champignon",
+    "eppo": "AGCBI",
+    "en": "button mushroom",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Judasohr",
+    "eppo": "AURAU",
+    "en": "Jew's ear",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Kulturträuschling",
+    "eppo": "STRRO",
+    "en": "sweet chestnut",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Shii-Take",
+    "eppo": "LENED",
+    "en": "Pasaniapilz; Sägeblättling",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Südlicher Schüppling",
+    "eppo": "AGRAE",
+    "en": "Pappelschüppling",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zuckermais",
+    "eppo": "ZEAMS",
+    "en": "Gemüsemais",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zwiebelgemüse",
+    "eppo": "NNNSZ",
+    "en": "bulb crops",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Perlzwiebel",
+    "eppo": "ALLAH",
+    "en": "pearl onion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schalotte",
+    "eppo": "ALLAS",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speisezwiebel",
+    "eppo": "ALLCE",
+    "en": "onion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterheckenzwiebel",
+    "eppo": "ALLFI",
+    "en": "Welsh onion",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Ananas",
+    "eppo": "ANHCO",
+    "en": "pineapple",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Banane",
+    "eppo": "MUBSS",
+    "en": "banana",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Beerenobst",
+    "eppo": "NNNOB",
+    "en": "berries",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Erdbeere",
+    "eppo": "FRAAN",
+    "en": "strawberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Brombeere",
+    "eppo": "RUBFR",
+    "en": "Brombeere, Echte",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Himbeere",
+    "eppo": "RUBID",
+    "en": "raspberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Loganbeere",
+    "eppo": "RUBLO",
+    "en": "Boysenbeere; Tayberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rote Maulbeere",
+    "eppo": "MORRU",
+    "en": "red mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarze Maulbeere",
+    "eppo": "MORNI",
+    "en": "black mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weiße Maulbeere",
+    "eppo": "MORAL",
+    "en": "white mulberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johannisbeerartiges Beerenobst",
+    "eppo": "NNNOJ",
+    "en": "currant-like berries",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Crataegus monogyna",
+    "eppo": "CSCMO",
+    "en": "Eingriffeliger Weißdorn; Weißdorn,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Eingriffeliger",
+    "eppo": "BEBVU",
+    "en": "common barberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gemeine Felsenbirne",
+    "eppo": "AMEOV",
+    "en": "garden serviceberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Heidelbeer-Arten",
+    "eppo": "VACSS",
+    "en": "blueberry species",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Cranberry",
+    "eppo": "VACOX",
+    "en": "Gemeine Moosbeere",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Heidelbeere",
+    "eppo": "VACCO",
+    "en": "blueberry, highbush",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Preiselbeere",
+    "eppo": "VACMA",
+    "en": "Großfrüchtige Moosbeere; Krannbeere",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Josta",
+    "eppo": "RIBNG",
+    "en": "jostaberry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Maibeere, Haskap",
+    "eppo": "LONCO",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosen",
+    "eppo": "ROSSS",
+    "en": "roses",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rote Johannisbeere",
+    "eppo": "RIBRU",
+    "en": "Johannisbeere, Rote;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Johannisbeerstrauch, Roter",
+    "eppo": "HIORH",
+    "en": "Sanddorn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schwarzer Holunder",
+    "eppo": "SAMNI",
+    "en": "Holunder, Schwarzer",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Speierling",
+    "eppo": "SOUDO",
+    "en": "5",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Stachelbeere",
+    "eppo": "RIBUC",
+    "en": "Stachelbeerstrauch",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zweigriffliger Weißdorn",
+    "eppo": "CSCOX",
+    "en": "Rotdorn",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bitterorange",
+    "eppo": "CIDAU",
+    "en": "Orangeat; Pomeranze",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Dattel",
+    "eppo": "PHXDA",
+    "en": "date",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Feige",
+    "eppo": "FIUCA",
+    "en": "fig",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "pome fruit",
+    "eppo": "NNNOK",
+    "en": "Kernobst",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Apfelbeere",
+    "eppo": "ABOME",
+    "en": "Schwarze Aronie",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Birne",
+    "eppo": "PYUCO",
+    "en": "Birnbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Holzapfel",
+    "eppo": "MABSY",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nashi-Birne",
+    "eppo": "PYUPY",
+    "en": "oriental pear",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Quitte",
+    "eppo": "CYDOB",
+    "en": "Quittenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Papaya",
+    "eppo": "CIAPA",
+    "en": "papaya",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rosine",
+    "eppo": "VITVR",
+    "en": "raisin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Steinobst",
+    "eppo": "NNNOS",
+    "en": "stone fruits",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Aprikose",
+    "eppo": "PRNAR",
+    "en": "Aprikosenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pfirsich",
+    "eppo": "PRNPS",
+    "en": "Pfirsichbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Nektarine",
+    "eppo": "PRNPN",
+    "en": "nectarine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Pflaume",
+    "eppo": "PRNDO",
+    "en": "Pflaumenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mirabelle",
+    "eppo": "PRNDS",
+    "en": "Mirabellenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Reineclaude",
+    "eppo": "PRNDI",
+    "en": "Edelpflaume; Eierpflaume;",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zwetschge",
+    "eppo": "PRNDD",
+    "en": "Zwetschgenbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sauerkirsche",
+    "eppo": "PRNCE",
+    "en": "Sauerkirschenbaum; Weichselbaum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Schlehe",
+    "eppo": "PRNSN",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Süßkirschenbaum",
+    "eppo": "PRNAV",
+    "en": "sweet cherry",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zitronat",
+    "eppo": "CIDME",
+    "en": "citron",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zitrusfrüchte",
+    "eppo": "NNNCI",
+    "en": "citrus",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Bitterorange",
+    "eppo": "CIDAU",
+    "en": "Orangeat; Pomeranze",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Grapefruit",
+    "eppo": "CIDPA",
+    "en": "grapefruit",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Limone",
+    "eppo": "CIDAF",
+    "en": "lime",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Mandarine",
+    "eppo": "CIDRE",
+    "en": "mandarin",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zitronat",
+    "eppo": "CIDME",
+    "en": "citron",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Zitrone",
+    "eppo": "CIDLI",
+    "en": "lemon",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Vorratslagerndes Getreide",
+    "eppo": "YCEST",
+    "en": "stored cereals",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Getreide (Gerste, Hafer, Roggen, Triticale, Weizen)",
+    "eppo": "NNNGE",
+    "en": "cereals (barley, oats, rye, triticale,",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Gerste",
+    "eppo": "HORVX",
+    "en": "Gerste, Mehrzeilige",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hafer",
+    "eppo": "AVESS",
+    "en": "oats",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Roggen",
+    "eppo": "SECCE",
+    "en": "rye",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Triticale",
+    "eppo": "TTLSS",
+    "en": "4",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerdinkel",
+    "eppo": "3SPSC",
+    "en": "6",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterdinkel",
+    "eppo": "3SPWC",
+    "en": "spelt (winter)",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Hartweizen",
+    "eppo": "TRZDU",
+    "en": "Durum-Weizen",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sommerhartweizen",
+    "eppo": "TRZDS",
+    "en": "spring durum wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Winterhartweizen",
+    "eppo": "TRZDW",
+    "en": "winter durum wheat",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Tritordeum",
+    "eppo": "TTOSS",
+    "en": "Tritordeum",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weichweizen",
+    "eppo": "TRZAX",
+    "en": "Brotweizen; Nacktweizen",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Perlhirse",
+    "eppo": "PESGL",
+    "en": "pearl millet",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Sorghum-Hirse",
+    "eppo": "SORSS",
+    "en": "Mohrenhirse",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Reis",
+    "eppo": "ORYSA",
+    "en": "rice",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Teff",
+    "eppo": "ERATF",
+    "en": "teff",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Weinrebe",
+    "eppo": "VITVI",
+    "en": "grape vine",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Wiesen, Weiden",
+    "eppo": "NNNFW",
+    "en": "Grünland; Wiese",
+    "synonyms": []
+  },
+  {
+    "nc": "",
+    "name": "Rasen",
+    "eppo": "NNNZW",
+    "en": "lawn",
+    "synonyms": []
+  }
+]

@@ -446,25 +446,7 @@ function onBBCHManualChange() {
     }
 }
 
-function handleCropNCAutoMatch(input) {
-    const val = input.value.trim();
-    if (val.length === 3 && /^\d{3}$/.test(val)) {
-        if (typeof cropList === 'undefined' || cropList.length === 0) return;
-        const matched = cropList.find(c => String(c.nc) === val);
-        if (matched) {
-            const lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
-            const displayName = lang === 'de' ? matched.name : matched.en;
-            input.value = `${displayName} (${matched.eppo})`;
-            updateBBCHEstimation();
-        }
-    }
-}
-
 document.getElementById('field-crop').addEventListener('change', updateBBCHEstimation);
-document.getElementById('field-crop').addEventListener('input', (e) => {
-    handleCropNCAutoMatch(e.target);
-    updateBBCHEstimation();
-});
 
 let fertSearchResults = [];
 let selectedFert = null;

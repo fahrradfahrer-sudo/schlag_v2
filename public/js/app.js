@@ -1527,6 +1527,8 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
             const props = item.properties || {};
 
             let finalCrop = props.KULTUR || props.Nutzung || '';
+            const matched = (typeof getMatchedCrop === 'function') ? getMatchedCrop(finalCrop) : null;
+            if (matched) finalCrop = matched;
 
             await fetch('api/fields.php', {
                 method: 'POST',
@@ -1543,17 +1545,6 @@ async function saveGeoJSONFeatures(geojson, defaultName) {
     }
 }
 
-function handleCropNCAutoMatch(input) {
-    const val = input.value.trim();
-    if (val.length === 3 && /^\d{3}$/.test(val)) {
-        const matched = cropList.find(c => String(c.nc) === val);
-        if (matched) {
-            const lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
-            const displayName = lang === 'de' ? matched.name : matched.en;
-            input.value = `${displayName} (${matched.eppo})`;
-        }
-    }
-}
 
 // Resizer Logic
 function initResizer() {
@@ -1597,10 +1588,6 @@ function initResizer() {
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
     initResizer();
-    const cropInput = document.getElementById('field-crop');
-    if (cropInput) {
-        cropInput.addEventListener('input', (e) => handleCropNCAutoMatch(e.target));
-    }
 
     const yearSelect = document.getElementById('mgmt-year-select');
     if (yearSelect) {
